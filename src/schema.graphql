@@ -1,0 +1,112 @@
+directive @isAdmin on FIELD_DEFINITION
+type Query {
+  hello: String
+  me: User
+  user(id:ID!): User
+  users(where: UserWhereInput, orderBy:UserOrderByInput, page: Int, limit: Int): UserConnection!
+  car(id:ID!): Car
+  cars(where: CarWhereInput, orderBy:CarOrderByInput, page: Int, limit: Int): CarConnection!
+
+}
+
+type Mutation {
+	login(email: String!, password: String!): LoginResponse!
+	signup(nom:String!, prenom:String, email: String!, password: String!): LoginResponse!
+  forgotPassword(email: String!): Response!
+  recoverPassword(id: ID!, recover_code:String!, new_password:String!): Response!
+  createUser(data:UserInput!): User!
+  updateUser(data:UserInput!, id:ID!): User!
+}
+type Response{
+  statut_code: Int
+  message: String
+}
+type LoginResponse{
+	user: User
+	token: String
+	statut_code: Int
+	message: String
+}
+type User {
+  id: ID!
+  nom: String!
+  prenom: String
+  email: String
+  telephone: String
+}
+input UserInput{
+  nom: String!
+  prenom: String
+  email: String
+  telephone: String
+  password: String
+}
+input UserWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+}
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+}
+type UserConnection {
+  edges: [User!]
+  pageInfo: PageInfo!
+}
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+type AggregateUser {
+  count: Int!
+}
+
+type Car {
+  id: ID!
+  immatriculation: String!
+}
+
+input CarInput{
+  immatriculation: String!
+}
+input CarWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [CarWhereInput!]
+  OR: [CarWhereInput!]
+  NOT: [CarWhereInput!]
+}
+enum CarOrderByInput {
+  id_ASC
+  id_DESC
+}
+type CarConnection {
+  edges: [Car!]
+  pageInfo: PageInfo!
+}
+type CarEdge {
+  node: Car!
+  cursor: String!
+}
+type AggregateCar {
+  count: Int!
+}
+type PageInfo {
+  count: Int
+  currentPage: Int
+}
