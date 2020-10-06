@@ -7,6 +7,9 @@ const prisma = new PrismaClient()
 const Query = require('./resolvers/Query')
 const Mutation = require('./resolvers/Mutation')
 const User = require('./resolvers/User')
+const Car = require('./resolvers/Car')
+
+const CarConnection = require('./resolvers/CarConnection')
 const UserConnection = require('./resolvers/UserConnection')
 const IsAdminDirective = require("./directives/isAdminDirective");
 const LoginResponse = require('./resolvers/LoginResponse')
@@ -18,7 +21,9 @@ const resolvers = {
   Mutation,
   User,
   UserConnection,
-  LoginResponse
+  LoginResponse,
+  Car,
+  CarConnection
 }
 
 const authenticate = async (resolve, root, args, context, info) => {

@@ -7,11 +7,11 @@ function user(parent, {id}, ctx, info){
 }
 async function users(parent, args, ctx, info){
 	const page = args.page || 1 ;
-	const limit = args.limit || 10 ;
+	const limit =  args.limit|| 10 ;
 	const where = args.where ? args.where: {}
 	let results =  await ctx.prisma.user.findMany({
 	    where,
-	    skip: page * limit ,
+	    skip: (page-1) * limit ,
 	   	first: limit,
 	    orderBy: args.orderBy,
 	  })
@@ -38,12 +38,13 @@ async function cars(parent, args, ctx, info){
 	const where = args.where ? args.where: {}
 	let results =  await ctx.prisma.car.findMany({
 	    where,
-	    skip: page * limit ,
+	    skip: (page - 1) * limit ,
 	   	first: limit,
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
 	let count = await ctx.prisma.car.count()
+	console.log("hello")
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 async function hello(parent, args, ctx, info){

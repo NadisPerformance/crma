@@ -29,10 +29,10 @@ type LoginResponse{
 }
 type User {
   id: ID!
-  nom: String!
-  prenom: String
+  firstname: String
+  lastname: String
   email: String
-  telephone: String
+  phone: String
 }
 input UserInput{
   nom: String!
@@ -59,7 +59,7 @@ enum UserOrderByInput {
   id_DESC
 }
 type UserConnection {
-  edges: [User!]
+  edges: [UserEdge!]
   pageInfo: PageInfo!
 }
 type UserEdge {
@@ -96,7 +96,7 @@ enum CarOrderByInput {
   id_DESC
 }
 type CarConnection {
-  edges: [Car!]
+  edges: [CarEdge!]
   pageInfo: PageInfo!
 }
 type CarEdge {
