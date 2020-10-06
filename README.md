@@ -4,18 +4,18 @@ car rental management application
 
 Graphql Server using prisma
 
-# install application and node modules
+## install application and node modules
 
 npm install
 
-# install nodemon
+## install nodemon
 
 npm install -g nodemon
 
-# run application
+## run application
 
 npm start
 
-# generate prisma from schema
+## generate prisma from schema
 
 npx prisma generate
