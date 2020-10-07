@@ -70,7 +70,7 @@ async function recoverPassword (parent, args, ctx , info) {
 }
 async function createUser(parent, {data}, context, info) {
   const hashedPassword = await encryptPassword(data.password)
-  return context.prisma.createUser({ ...data, password: hashedPassword })
+  return context.prisma.user.create({ ...data, password: hashedPassword })
 }
 async function updateUser(parent, {data,id}, context, info) {
   let user = data
@@ -83,6 +83,8 @@ async function updateUser(parent, {data,id}, context, info) {
                 id: id *1
               }})
 }
+
+
 module.exports = {
   login,
   signup,

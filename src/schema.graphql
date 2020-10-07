@@ -35,10 +35,14 @@ type User {
   phone: String
 }
 input UserInput{
-  nom: String!
-  prenom: String
-  email: String
-  telephone: String
+  firstname: String!
+  lastname: String
+  gender: String
+  cni: String
+  address: String
+  email: String!
+  phone: String
+  roleId: String
   password: String
 }
 input UserWhereInput{
@@ -72,7 +76,15 @@ type AggregateUser {
 
 type Car {
   id: ID!
-  immatriculation: String!
+  plate_number: String!
+  brandId: Int
+  model: String
+  model_date: String
+  categoryId: Int
+  price: Int
+  colorId: Int
+  chassis_number: String
+  statusId: Int
 }
 
 input CarInput{

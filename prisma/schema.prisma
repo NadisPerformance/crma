@@ -8,18 +8,33 @@ datasource db {
 }
 
 
-model User {
-  id         Int       @default(autoincrement()) @id
-  email      String
-  firstname        String?
-  lastname     String?
-  password   String
-  phone  String?
-  @@map("users")
-}
-
 model Car {
   id         Int       @default(autoincrement()) @id
-  immatriculation      String
+  brandId Int
+  model String
+  model_date DateTime
+  categoryId Int
+  price Int
+  colorId Int
+  plate_number String
+  chassis_number String
+  availability Boolean
+  statusId      Int
+  deleted Boolean
   @@map("cars")
+}
+
+model User {
+  id         Int       @default(autoincrement()) @id
+  firstname        String?
+  lastname         String?
+  gender           String
+  cni              String
+  address          String
+  email            String
+  phone            String
+  roleId           
+  Int
+  password         String
+  @@map("users")
 }
