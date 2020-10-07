@@ -85,6 +85,7 @@ type Car {
   colorId: Int
   chassis_number: String
   statusId: Int
+  brand: Brand 
 }
 
 input CarInput{
@@ -117,6 +118,10 @@ type CarEdge {
 }
 type AggregateCar {
   count: Int!
+}
+type Brand {
+  id: ID!
+  name: String!
 }
 type PageInfo {
   count: Int

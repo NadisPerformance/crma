@@ -37,3 +37,9 @@ model User {
   password         String
   @@map("users")
 }
+
+model Brand {
+  id         Int       @default(autoincrement()) @id
+  name        String
+  @@map("brands")
+}
