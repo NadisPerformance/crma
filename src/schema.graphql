@@ -42,8 +42,8 @@ input UserInput{
   address: String
   email: String!
   phone: String
-  roleId: String
-  password: String
+  roleId: Int
+  password: String!
 }
 input UserWhereInput{
   id: Int

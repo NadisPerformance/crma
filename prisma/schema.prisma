@@ -28,13 +28,12 @@ model User {
   id         Int       @default(autoincrement()) @id
   firstname        String?
   lastname         String?
-  gender           String
-  cni              String
-  address          String
+  gender           String?
+  cni              String?
+  address          String?
   email            String
-  phone            String
-  roleId           
-  Int
+  phone            String?
+  roleId           Int?
   password         String
   @@map("users")
 }
