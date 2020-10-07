@@ -78,7 +78,17 @@ async function updateUser(parent, {data,id}, context, info) {
     const hashedPassword = await encryptPassword(data.password)
     user = { ...data, password: hashedPassword }
   }
-  return context.prisma.updateUser({data:user,
+  return context.prisma.user.update({data:user,
+              where: {
+                id: id *1
+              }})
+}
+async function createCustomer(parent, {data}, context, info) {
+  return context.prisma.customer.create({data:data})
+}
+async function updateCustomer(parent, {data,id}, context, info) {
+
+  return context.prisma.customer.update({data:data,
               where: {
                 id: id *1
               }})
@@ -91,5 +101,7 @@ module.exports = {
   forgotPassword,
   recoverPassword,
   createUser,
-  updateUser
+  updateUser,
+  createCustomer,
+  updateCustomer
 }

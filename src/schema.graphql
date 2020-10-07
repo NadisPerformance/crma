@@ -1,4 +1,7 @@
 directive @isAdmin on FIELD_DEFINITION
+
+scalar DateTime
+
 type Query {
   hello: String
   me: User
@@ -6,8 +9,11 @@ type Query {
   users(where: UserWhereInput, orderBy:UserOrderByInput, page: Int, limit: Int): UserConnection!
   car(id:ID!): Car
   cars(where: CarWhereInput, orderBy:CarOrderByInput, page: Int, limit: Int): CarConnection!
-
+  customer(id:ID!): Customer
+  customers(where: CustomerWhereInput, orderBy:CustomerOrderByInput, page: Int, limit: Int): CustomerConnection!
 }
+
+
 
 type Mutation {
 	login(email: String!, password: String!): LoginResponse!
@@ -16,6 +22,9 @@ type Mutation {
   recoverPassword(id: ID!, recover_code:String!, new_password:String!): Response!
   createUser(data:UserInput!): User!
   updateUser(data:UserInput!, id:ID!): User!
+  createCustomer(data:CustomerInput!): Customer!
+  updateCustomer(data:CustomerInput!, id:ID!): Customer!
+
 }
 type Response{
   statut_code: Int
@@ -31,8 +40,13 @@ type User {
   id: ID!
   firstname: String
   lastname: String
+  gender: String
+  cni: String
+  address: String
   email: String
   phone: String
+  roleId: Int
+  password: String
 }
 input UserInput{
   firstname: String!
@@ -42,8 +56,8 @@ input UserInput{
   address: String
   email: String!
   phone: String
-  roleId: Int
-  password: String!
+  roleId: String
+  password: String
 }
 input UserWhereInput{
   id: Int
@@ -79,7 +93,7 @@ type Car {
   plate_number: String!
   brandId: Int
   model: String
-  model_date: String
+  model_date: DateTime
   categoryId: Int
   price: Int
   colorId: Int
@@ -118,6 +132,66 @@ type CarEdge {
 type AggregateCar {
   count: Int!
 }
+type Customer {
+  id: ID!
+  firstname: String
+  lastname: String
+  birthday: DateTime
+  gender: String
+  cni: String
+  type: Boolean
+  driver_license: String
+  city: String
+  address: String
+  email: String
+  phone: String
+  company_name: String
+}
+
+input CustomerInput{
+  firstname: String
+  lastname: String
+  birthday: DateTime
+  gender: String
+  cni: String
+  type: Boolean
+  driver_license: String
+  city: String
+  address: String
+  email: String
+  phone: String
+  company_name: String
+}
+
+input CustomerWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [CustomerWhereInput!]
+  OR: [CustomerWhereInput!]
+  NOT: [CustomerWhereInput!]
+}
+
+enum CustomerOrderByInput{
+  id_ASC
+  id_DESC
+}
+
+type CustomerConnection{
+  edges: [CustomerEdge!]
+  pageInfo: PageInfo!
+}
+
+type CustomerEdge{
+  node: Customer!
+  cursor: String!
+}
+
 type PageInfo {
   count: Int
   currentPage: Int
