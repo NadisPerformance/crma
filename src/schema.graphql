@@ -208,6 +208,8 @@ type Booking {
   date_end: DateTime
   hour_begin: DateTime
   hour_end: DateTime
+  car: Car
+  customer: Customer
 }
 
 input BookingInput{
@@ -245,6 +247,44 @@ type BookingConnection{
 
 type BookingEdge{
   node: Booking!
+  cursor: String!
+}
+
+type Brand {
+  id: ID!
+  name: String
+}
+
+input BrandInput{
+  name: String
+}
+
+input BrandWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [BrandWhereInput!]
+  OR: [BrandWhereInput!]
+  NOT: [BrandWhereInput!]
+}
+
+enum BrandOrderByInput{
+  id_ASC
+  id_DESC
+}
+
+type BrandConnection{
+  edges: [BrandEdge!]
+  pageInfo: PageInfo!
+}
+
+type BrandEdge{
+  node: Brand!
   cursor: String!
 }
 

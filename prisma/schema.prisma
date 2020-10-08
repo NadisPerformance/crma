@@ -57,11 +57,18 @@ model Customer {
 
 model Booking {
   id                 Int       @default(autoincrement()) @id
-  carId              String?
-  customerId         String?
+  carId              Int?
+  customerId         Int?
   date_begin         DateTime?
   date_end           DateTime?
   hour_begin         DateTime?
   hour_end           DateTime?
   @@map("bookings")
+}
+
+
+model Brand {
+  id                 Int       @default(autoincrement()) @id
+  name              String?
+  @@map("brands")
 }

@@ -8,6 +8,7 @@ const Query = require('./resolvers/Query')
 const Mutation = require('./resolvers/Mutation')
 const User = require('./resolvers/User')
 const Car = require('./resolvers/Car')
+const Booking = require('./resolvers/Booking')
 
 const CarConnection = require('./resolvers/CarConnection')
 const UserConnection = require('./resolvers/UserConnection')
@@ -23,7 +24,8 @@ const resolvers = {
   UserConnection,
   LoginResponse,
   Car,
-  CarConnection
+  CarConnection,
+  Booking
 }
 
 const authenticate = async (resolve, root, args, context, info) => {
