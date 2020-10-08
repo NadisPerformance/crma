@@ -106,6 +106,7 @@ type Car {
   colorId: Int
   chassis_number: String
   statusId: Int
+  brand: Brand 
 }
 
 input CarInput{
