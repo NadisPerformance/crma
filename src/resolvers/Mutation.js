@@ -94,6 +94,16 @@ async function updateCustomer(parent, {data,id}, context, info) {
               }})
 }
 
+async function createBooking(parent, {data}, context, info) {
+  return context.prisma.booking.create({data:data})
+}
+async function updateBooking(parent, {data,id}, context, info) {
+
+  return context.prisma.booking.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
 
 module.exports = {
   login,
@@ -103,5 +113,7 @@ module.exports = {
   createUser,
   updateUser,
   createCustomer,
-  updateCustomer
+  updateCustomer,
+  createBooking,
+  updateBooking
 }

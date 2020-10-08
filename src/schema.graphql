@@ -7,10 +7,15 @@ type Query {
   me: User
   user(id:ID!): User
   users(where: UserWhereInput, orderBy:UserOrderByInput, page: Int, limit: Int): UserConnection!
+  
   car(id:ID!): Car
   cars(where: CarWhereInput, orderBy:CarOrderByInput, page: Int, limit: Int): CarConnection!
+  
   customer(id:ID!): Customer
   customers(where: CustomerWhereInput, orderBy:CustomerOrderByInput, page: Int, limit: Int): CustomerConnection!
+  
+  booking(id:ID!): Booking
+  bookings(where: BookingWhereInput, orderBy:BookingOrderByInput, page: Int, limit: Int): BookingConnection!
 }
 
 
@@ -24,6 +29,8 @@ type Mutation {
   updateUser(data:UserInput!, id:ID!): User!
   createCustomer(data:CustomerInput!): Customer!
   updateCustomer(data:CustomerInput!, id:ID!): Customer!
+  createBooking(data:BookingInput!): Booking!
+  updateBooking(data:BookingInput!, id:ID!): Booking!
 
 }
 type Response{
@@ -189,6 +196,54 @@ type CustomerConnection{
 
 type CustomerEdge{
   node: Customer!
+  cursor: String!
+}
+
+type Booking {
+  id: ID!
+  carId: Int
+  customerId: Int
+  date_begin: DateTime
+  date_end: DateTime
+  hour_begin: DateTime
+  hour_end: DateTime
+}
+
+input BookingInput{
+  carId: Int
+  customerId: Int
+  date_begin: DateTime
+  date_end: DateTime
+  hour_begin: DateTime
+  hour_end: DateTime
+}
+
+input BookingWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [BookingWhereInput!]
+  OR: [BookingWhereInput!]
+  NOT: [BookingWhereInput!]
+}
+
+enum BookingOrderByInput{
+  id_ASC
+  id_DESC
+}
+
+type BookingConnection{
+  edges: [BookingEdge!]
+  pageInfo: PageInfo!
+}
+
+type BookingEdge{
+  node: Booking!
   cursor: String!
 }
 

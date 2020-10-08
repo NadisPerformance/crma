@@ -68,6 +68,26 @@ async function customers(parent, args, ctx, info){
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
+function booking(parent, {id}, ctx, info){
+	return ctx.prisma.booking.findOne({
+		 where:{id: parseInt(id) }
+		})
+}
+async function bookings(parent, args, ctx, info){
+	const page = args.page || 1 ;
+	const limit =  args.limit|| 10 ;
+	const where = args.where ? args.where: {}
+	let results =  await ctx.prisma.booking.findMany({
+	    where,
+	    skip: (page-1) * limit ,
+	   	first: limit,
+	    orderBy: args.orderBy,
+	  })
+	let edges = results.map(result=>({node:result}))
+	let count = await ctx.prisma.booking.count()
+	return {edges:edges, pageInfo:{count:count, currentPage:page}}
+}
+
 async function hello(parent, args, ctx, info){
   return "Hello world"
 }
@@ -79,5 +99,7 @@ module.exports = {
   car,
   cars,
   customer,
-  customers
+  customers,
+  booking,
+  bookings
 }
