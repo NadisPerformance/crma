@@ -19,7 +19,7 @@ async function signup(parent, args, context, info) {
 }
 async function login (parent, args, ctx , info) {
     //console.log("connected")
-    let user = await ctx.prisma.users({
+    let user = await ctx.prisma.user.findMany({
               where:  {
                   email: args.email
                 }
@@ -40,7 +40,7 @@ async function login (parent, args, ctx , info) {
 }
 async function forgotPassword (parent, args, ctx , info) {
     //console.log("connected")
-    let user = await ctx.prisma.users({
+    let user = await ctx.prisma.user.findMany({
               where:  {
                   email: args.email
                 }
@@ -105,6 +105,18 @@ async function updateBooking(parent, {data,id}, context, info) {
               }})
 }
 
+async function createBrand(parent, {data}, context, info) {
+  return context.prisma.brand.create({data:data})
+}
+async function updateBrand(parent, {data,id}, context, info) {
+
+  return context.prisma.brand.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+
+
 module.exports = {
   login,
   signup,
@@ -115,5 +127,8 @@ module.exports = {
   createCustomer,
   updateCustomer,
   createBooking,
-  updateBooking
+  updateBooking,
+  createBrand,
+  updateBrand
+
 }

@@ -31,42 +31,36 @@ type Mutation {
   updateCustomer(data:CustomerInput!, id:ID!): Customer!
   createBooking(data:BookingInput!): Booking!
   updateBooking(data:BookingInput!, id:ID!): Booking!
+  createBrand(data:BrandInput!): Brand!
+  updateBrand(data:BrandInput!, id:ID!): Brand!
 
 }
 type Response{
   statut_code: Int
   message: String
 }
-type LoginResponse{
-	user: User
-	token: String
-	statut_code: Int
-	message: String
-}
-type User {
+
+type After_rental {
   id: ID!
-  firstname: String
-  lastname: String
-  gender: String
-  cni: String
-  address: String
-  email: String
-  phone: String
-  roleId: Int
-  password: String
+  rentalId: Int
+  albumId: Int
+  kilometrage: Int
+  niveau_carburant: Int
+  createdAt: String
+  comment: String
+
 }
-input UserInput{
-  firstname: String!
-  lastname: String
-  gender: String
-  cni: String
-  address: String
-  email: String!
-  phone: String
-  roleId: String
-  password: String
+
+input After_rentalInput{
+  rentalId: Int
+  albumId: Int
+  kilometrage: Int
+  niveau_carburant: Int
+  createdAt: String
+  comment: String
 }
-input UserWhereInput{
+
+input After_rentalWhereInput{
   id: Int
   id_not: Int
   id_in: [Int!]
@@ -75,44 +69,36 @@ input UserWhereInput{
   id_lte: Int
   id_gt: Int
   id_gte: Int
-  AND: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  NOT: [UserWhereInput!]
+  AND: [After_rentalWhereInput!]
+  OR: [After_rentalWhereInput!]
+  NOT: [After_rentalWhereInput!]
 }
-enum UserOrderByInput {
+
+enum After_rentalOrderByInput{
   id_ASC
   id_DESC
 }
-type UserConnection {
-  edges: [UserEdge!]
+
+type After_rentalConnection{
+  edges: [After_rentalEdge!]
   pageInfo: PageInfo!
 }
-type UserEdge {
-  node: User!
+
+type After_rentalEdge{
+  node: After_rental!
   cursor: String!
 }
-type AggregateUser {
-  count: Int!
-}
 
-type Car {
+type Album {
   id: ID!
-  plate_number: String!
-  brandId: Int
-  model: String
-  model_date: DateTime
-  categoryId: Int
-  price: Int
-  colorId: Int
-  chassis_number: String
-  statusId: Int
-  brand: Brand 
+  title: String
 }
 
-input CarInput{
-  immatriculation: String!
+input AlbumInput{
+  title: String
 }
-input CarWhereInput{
+
+input AlbumWhereInput{
   id: Int
   id_not: Int
   id_in: [Int!]
@@ -121,57 +107,47 @@ input CarWhereInput{
   id_lte: Int
   id_gt: Int
   id_gte: Int
-  AND: [CarWhereInput!]
-  OR: [CarWhereInput!]
-  NOT: [CarWhereInput!]
+  AND: [AlbumWhereInput!]
+  OR: [AlbumWhereInput!]
+  NOT: [AlbumWhereInput!]
 }
-enum CarOrderByInput {
+
+enum AlbumOrderByInput{
   id_ASC
   id_DESC
 }
-type CarConnection {
-  edges: [CarEdge!]
+
+type AlbumConnection{
+  edges: [AlbumEdge!]
   pageInfo: PageInfo!
 }
-type CarEdge {
-  node: Car!
+
+type AlbumEdge{
+  node: Album!
   cursor: String!
 }
-type AggregateCar {
-  count: Int!
-}
-type Customer {
+
+type Before_rental {
   id: ID!
-  firstname: String
-  lastname: String
-  birthday: DateTime
-  gender: String
-  cni: String
-  type: Boolean
-  driver_license: String
-  city: String
-  address: String
-  email: String
-  phone: String
-  company_name: String
+  rentalId: Int
+  albumId: Int
+  kilometrage: Int
+  niveau_carburant: Int
+  createdAt: String
+  comment: String
+
 }
 
-input CustomerInput{
-  firstname: String
-  lastname: String
-  birthday: DateTime
-  gender: String
-  cni: String
-  type: Boolean
-  driver_license: String
-  city: String
-  address: String
-  email: String
-  phone: String
-  company_name: String
+input Before_rentalInput{
+  rentalId: Int
+  albumId: Int
+  kilometrage: Int
+  niveau_carburant: Int
+  createdAt: String
+  comment: String
 }
 
-input CustomerWhereInput{
+input Before_rentalWhereInput{
   id: Int
   id_not: Int
   id_in: [Int!]
@@ -180,23 +156,72 @@ input CustomerWhereInput{
   id_lte: Int
   id_gt: Int
   id_gte: Int
-  AND: [CustomerWhereInput!]
-  OR: [CustomerWhereInput!]
-  NOT: [CustomerWhereInput!]
+  AND: [Before_rentalWhereInput!]
+  OR: [Before_rentalWhereInput!]
+  NOT: [Before_rentalWhereInput!]
 }
 
-enum CustomerOrderByInput{
+enum Before_rentalOrderByInput{
   id_ASC
   id_DESC
 }
 
-type CustomerConnection{
-  edges: [CustomerEdge!]
+type Before_rentalConnection{
+  edges: [Before_rentalEdge!]
   pageInfo: PageInfo!
 }
 
-type CustomerEdge{
-  node: Customer!
+type Before_rentalEdge{
+  node: Before_rental!
+  cursor: String!
+}
+
+type Bill {
+  id: ID!
+  rentalId: Int
+  albumId: Int
+  kilometrage: Int
+  niveau_carburant: Int
+  createdAt: String
+  comment: String
+
+}
+
+input BillInput{
+  rentalId: Int
+  albumId: Int
+  kilometrage: Int
+  niveau_carburant: Int
+  createdAt: String
+  comment: String
+}
+
+input BillWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [BillWhereInput!]
+  OR: [BillWhereInput!]
+  NOT: [BillWhereInput!]
+}
+
+enum BillOrderByInput{
+  id_ASC
+  id_DESC
+}
+
+type BillConnection{
+  edges: [BillEdge!]
+  pageInfo: PageInfo!
+}
+
+type BillEdge{
+  node: Bill!
   cursor: String!
 }
 
@@ -287,6 +312,460 @@ type BrandEdge{
   node: Brand!
   cursor: String!
 }
+
+type LoginResponse{
+	user: User
+	token: String
+	statut_code: Int
+	message: String
+}
+
+type Car {
+  id: ID!
+  plate_number: String!
+  brandId: Int
+  model: String
+  model_date: DateTime
+  categoryId: Int
+  price: Int
+  colorId: Int
+  chassis_number: String
+  statusId: Int
+  brand: Brand 
+}
+
+input CarInput{
+  plate_number: String!
+  brandId: Int
+  model: String
+  model_date: DateTime
+  categoryId: Int
+  price: Int
+  colorId: Int
+  chassis_number: String
+  statusId: Int
+  brand: Brand 
+}
+input CarWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [CarWhereInput!]
+  OR: [CarWhereInput!]
+  NOT: [CarWhereInput!]
+}
+enum CarOrderByInput {
+  id_ASC
+  id_DESC
+}
+type CarConnection {
+  edges: [CarEdge!]
+  pageInfo: PageInfo!
+}
+type CarEdge {
+  node: Car!
+  cursor: String!
+}
+type AggregateCar {
+  count: Int!
+}
+
+type Car_insurance {
+  id: ID!
+  carId: Int
+  insuranceId: Int
+  date_begin: DateTime
+  date_end: DateTime
+}
+
+input Car_insuranceInput{
+  carId: Int
+  insuranceId: Int
+  date_begin: DateTime
+  date_end: DateTime
+}
+input Car_insuranceWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [Car_insuranceWhereInput!]
+  OR: [Car_insuranceWhereInput!]
+  NOT: [Car_insuranceWhereInput!]
+}
+enum Car_insuranceOrderByInput {
+  id_ASC
+  id_DESC
+}
+type Car_insuranceConnection {
+  edges: [Car_insuranceEdge!]
+  pageInfo: PageInfo!
+}
+type Car_insuranceEdge {
+  node: Car_insurance!
+  cursor: String!
+}
+
+type Contract {
+  id: ID!
+  rentalId: Int
+  contract_typeId: Int
+  date_begin: DateTime
+  date_end: DateTime
+
+}
+
+input ContractInput{
+  rentalId: Int
+  contract_typeId: Int
+  date_begin: DateTime
+  date_end: DateTime
+}
+
+input ContractWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [ContractWhereInput!]
+  OR: [ContractWhereInput!]
+  NOT: [ContractWhereInput!]
+}
+
+enum ContractOrderByInput{
+  id_ASC
+  id_DESC
+}
+
+type ContractConnection{
+  edges: [ContractEdge!]
+  pageInfo: PageInfo!
+}
+
+type ContractEdge{
+  node: Contract!
+  cursor: String!
+}
+
+type Contract_type {
+  id: ID!
+  name: String
+
+}
+
+input Contract_typeInput{
+  name: String
+}
+
+input Contract_typeWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [Contract_typeWhereInput!]
+  OR: [Contract_typeWhereInput!]
+  NOT: [Contract_typeWhereInput!]
+}
+
+enum Contract_typeOrderByInput{
+  id_ASC
+  id_DESC
+}
+
+type Contract_typeConnection{
+  edges: [Contract_typeEdge!]
+  pageInfo: PageInfo!
+}
+
+type Contract_typeEdge{
+  node: Contract_type!
+  cursor: String!
+}
+
+type Customer {
+  id: ID!
+  firstname: String
+  lastname: String
+  birthday: DateTime
+  gender: String
+  cni: String
+  type: Boolean
+  driver_license: String
+  city: String
+  address: String
+  email: String
+  phone: String
+  company_name: String
+}
+
+input CustomerInput{
+  firstname: String
+  lastname: String
+  birthday: DateTime
+  gender: String
+  cni: String
+  type: Boolean
+  driver_license: String
+  city: String
+  address: String
+  email: String
+  phone: String
+  company_name: String
+}
+
+input CustomerWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [CustomerWhereInput!]
+  OR: [CustomerWhereInput!]
+  NOT: [CustomerWhereInput!]
+}
+
+enum CustomerOrderByInput{
+  id_ASC
+  id_DESC
+}
+
+type CustomerConnection{
+  edges: [CustomerEdge!]
+  pageInfo: PageInfo!
+}
+
+type CustomerEdge{
+  node: Customer!
+  cursor: String!
+}
+
+type Image {
+  id: ID!
+  albumId: Int
+  path: String
+}
+
+input ImageInput{
+  albumId: Int
+  path: String
+}
+
+input ImageWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [ImageWhereInput!]
+  OR: [ImageWhereInput!]
+  NOT: [ImageWhereInput!]
+}
+
+enum ImageOrderByInput{
+  id_ASC
+  id_DESC
+}
+
+type ImageConnection{
+  edges: [ImageEdge!]
+  pageInfo: PageInfo!
+}
+
+type ImageEdge{
+  node: Image!
+  cursor: String!
+}
+
+type Insurance {
+  id: ID!
+  name String
+}
+
+input InsuranceInput{
+  name String
+}
+
+input InsuranceWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [InsuranceWhereInput!]
+  OR: [InsuranceWhereInput!]
+  NOT: [InsuranceWhereInput!]
+}
+
+enum InsuranceOrderByInput{
+  id_ASC
+  id_DESC
+}
+
+type InsuranceConnection{
+  edges: [InsuranceEdge!]
+  pageInfo: PageInfo!
+}
+
+type InsuranceEdge{
+  node: Insurance!
+  cursor: String!
+}
+
+type Rental {
+  id: ID!
+  name String
+}
+
+input RentalInput{
+  name String
+}
+
+input RentalWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [RentalWhereInput!]
+  OR: [RentalWhereInput!]
+  NOT: [RentalWhereInput!]
+}
+
+enum RentalOrderByInput{
+  id_ASC
+  id_DESC
+}
+
+type RentalConnection{
+  edges: [RentalEdge!]
+  pageInfo: PageInfo!
+}
+
+type RentalEdge{
+  node: Rental!
+  cursor: String!
+}
+
+type Role {
+  id: ID!
+  name String
+}
+
+input RoleInput{
+  name String
+}
+
+input RoleWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [RoleWhereInput!]
+  OR: [RoleWhereInput!]
+  NOT: [RoleWhereInput!]
+}
+
+enum RoleOrderByInput{
+  id_ASC
+  id_DESC
+}
+
+type RoleConnection{
+  edges: [RoleEdge!]
+  pageInfo: PageInfo!
+}
+
+typeRoleEdge{
+  node: Role!
+  cursor: String!
+}
+
+type User {
+  id: ID!
+  firstname: String
+  lastname: String
+  gender: String
+  cni: String
+  address: String
+  email: String
+  phone: String
+  roleId: Int
+  password: String
+}
+input UserInput{
+  firstname: String!
+  lastname: String
+  gender: String
+  cni: String
+  address: String
+  email: String!
+  phone: String
+  roleId: String
+  password: String
+}
+input UserWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+}
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+}
+type UserConnection {
+  edges: [UserEdge!]
+  pageInfo: PageInfo!
+}
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+type AggregateUser {
+  count: Int!
+}
+
+
 
 type PageInfo {
   count: Int

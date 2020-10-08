@@ -7,6 +7,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model After_rental{
+  id    Int       @default(autoincrement()) @id
+  rentalId Int?
+  albumId Int?
+  kilometrage Int?
+  niveau_carburant Int?
+  createdAt String?
+  comment String?
+  @@map("after_rental")
+}
+
+model Album{
+  id    Int       @default(autoincrement()) @id
+  title String?
+  @@map("Albums")
+}
+
+model Before_rental{
+  id    Int       @default(autoincrement()) @id
+  rentalId Int?
+  albumId Int?
+  kilometrage Int?
+  niveau_carburant Int?
+  createdAt String?
+  comment String?
+  @@map("before_rental")
+}
+
+model Bill {
+  id              Int       @default(autoincrement()) @id
+  bill_number     String?
+  bill_date       DateTime?
+
+  @@map("bills")
+}
+
+model Booking {
+  id                 Int       @default(autoincrement()) @id
+  carId              Int?
+  customerId         Int?
+  date_begin         DateTime?
+  date_end           DateTime?
+  hour_begin         DateTime?
+  hour_end           DateTime?
+  @@map("bookings")
+}
+
+model Brand {
+  id                 Int       @default(autoincrement()) @id
+  name              String?
+  @@map("brands")
+}
 
 model Car {
   id         Int       @default(autoincrement()) @id
@@ -24,18 +76,31 @@ model Car {
   @@map("cars")
 }
 
-model User {
-  id         Int       @default(autoincrement()) @id
-  firstname        String
-  lastname         String?
-  gender           String?
-  cni              String?
-  address          String?
-  email            String
-  phone            String?
-  roleId           Int?
-  password         String?
-  @@map("users")
+model Car_insurance {
+  id                    Int       @default(autoincrement()) @id
+  carId              Int?
+  insuranceId       Int?
+  date_begin            DateTime?
+  date_end              DateTime?
+
+  @@map("car_insurances")
+}
+
+model Contract {
+  id                    Int       @default(autoincrement()) @id
+  rentalId              Int?
+  contract_typeId       Int?
+  date_begin            DateTime?
+  date_end              DateTime?
+
+  @@map("contracts")
+}
+
+model Contract_type {
+  id                Int       @default(autoincrement()) @id
+  name              String?
+
+  @@map("contracts_type")
 }
 
 model Customer {
@@ -55,20 +120,59 @@ model Customer {
   @@map("customers")
 }
 
-model Booking {
+model Image {
+  id                    Int       @default(autoincrement()) @id
+  albumId              Int?
+  path       String?
+
+  @@map("images")
+}
+
+model insurance {
+  id                    Int       @default(autoincrement()) @id
+  name              String?
+
+  @@map("Insurances")
+}
+
+model Rental {
   id                 Int       @default(autoincrement()) @id
+  bookingId          Int?
   carId              Int?
   customerId         Int?
+  second_driverId    Int?
   date_begin         DateTime?
   date_end           DateTime?
   hour_begin         DateTime?
   hour_end           DateTime?
-  @@map("bookings")
+  @@map("rentals")
 }
 
+model Role{
+  id    Int       @default(autoincrement()) @id
+  title String?
+  @@map("roles")
+}
 
-model Brand {
-  id                 Int       @default(autoincrement()) @id
-  name              String?
-  @@map("brands")
+model Technical_control {
+  id                    Int       @default(autoincrement()) @id
+  carId              String?
+  date_begin DateTime?
+  date_end DateTime?
+
+  @@map("technical_controls")
+}
+
+model User {
+  id         Int       @default(autoincrement()) @id
+  firstname        String
+  lastname         String?
+  gender           String?
+  cni              String?
+  address          String?
+  email            String
+  phone            String?
+  roleId           Int?
+  password         String?
+  @@map("users")
 }
