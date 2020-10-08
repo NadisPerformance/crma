@@ -7,13 +7,13 @@ type Query {
   me: User
   user(id:ID!): User
   users(where: UserWhereInput, orderBy:UserOrderByInput, page: Int, limit: Int): UserConnection!
-  
+
   car(id:ID!): Car
   cars(where: CarWhereInput, orderBy:CarOrderByInput, page: Int, limit: Int): CarConnection!
-  
+
   customer(id:ID!): Customer
   customers(where: CustomerWhereInput, orderBy:CustomerOrderByInput, page: Int, limit: Int): CustomerConnection!
-  
+
   booking(id:ID!): Booking
   bookings(where: BookingWhereInput, orderBy:BookingOrderByInput, page: Int, limit: Int): BookingConnection!
 }
@@ -331,7 +331,7 @@ type Car {
   colorId: Int
   chassis_number: String
   statusId: Int
-  brand: Brand 
+  brand: Brand
 }
 
 input CarInput{
@@ -344,7 +344,6 @@ input CarInput{
   colorId: Int
   chassis_number: String
   statusId: Int
-  brand: Brand 
 }
 input CarWhereInput{
   id: Int
@@ -601,11 +600,11 @@ type ImageEdge{
 
 type Insurance {
   id: ID!
-  name String
+  name: String
 }
 
 input InsuranceInput{
-  name String
+  name: String
 }
 
 input InsuranceWhereInput{
@@ -639,11 +638,11 @@ type InsuranceEdge{
 
 type Rental {
   id: ID!
-  name String
+  name: String
 }
 
 input RentalInput{
-  name String
+  name: String
 }
 
 input RentalWhereInput{
@@ -677,11 +676,11 @@ type RentalEdge{
 
 type Role {
   id: ID!
-  name String
+  name: String
 }
 
 input RoleInput{
-  name String
+  name: String
 }
 
 input RoleWhereInput{
@@ -708,7 +707,7 @@ type RoleConnection{
   pageInfo: PageInfo!
 }
 
-typeRoleEdge{
+type RoleEdge{
   node: Role!
   cursor: String!
 }
