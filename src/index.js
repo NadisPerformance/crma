@@ -62,5 +62,5 @@ const server = new GraphQLServer({
   },
   //middlewares: [authenticate]
 })
-server.start({port: 4004})
-console.log(`Server is running on http://localhost:4004`)
+server.start({port: 4008})
+console.log(`Server is running on http://localhost:4008`)
