@@ -4,5 +4,5 @@ function brand(parent, args, ctx, info){
 		})
 }
 module.exports = {
-  brand: brand,
+  brand: brand
 }

@@ -16,6 +16,12 @@ type Query {
 
   booking(id:ID!): Booking
   bookings(where: BookingWhereInput, orderBy:BookingOrderByInput, page: Int, limit: Int): BookingConnection!
+
+  brand(id:ID!): Brand
+  brands(where: BrandWhereInput, orderBy:BrandOrderByInput, page: Int, limit: Int): BrandConnection!
+
+  role(id:ID!): Role
+  roles(where: RoleWhereInput, orderBy:RoleOrderByInput, page: Int, limit: Int): RoleConnection!
 }
 
 
@@ -33,6 +39,8 @@ type Mutation {
   updateBooking(data:BookingInput!, id:ID!): Booking!
   createBrand(data:BrandInput!): Brand!
   updateBrand(data:BrandInput!, id:ID!): Brand!
+  createRole(data:RoleInput!): Role!
+  updateRole(data:RoleInput!, id:ID!): Role!
 
 }
 type Response{
@@ -676,11 +684,11 @@ type RentalEdge{
 
 type Role {
   id: ID!
-  name: String
+  title: String
 }
 
 input RoleInput{
-  name: String
+  title: String
 }
 
 input RoleWhereInput{
@@ -723,6 +731,7 @@ type User {
   phone: String
   roleId: Int
   password: String
+  role: Role
 }
 input UserInput{
   firstname: String!

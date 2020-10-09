@@ -116,6 +116,17 @@ async function updateBrand(parent, {data,id}, context, info) {
               }})
 }
 
+async function createRole(parent, {data}, context, info) {
+  return context.prisma.role.create({data:data})
+}
+async function updateRole(parent, {data,id}, context, info) {
+
+  return context.prisma.role.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+
 
 module.exports = {
   login,
@@ -129,6 +140,8 @@ module.exports = {
   createBooking,
   updateBooking,
   createBrand,
-  updateBrand
+  updateBrand,
+  createRole,
+  updateRole
 
 }
