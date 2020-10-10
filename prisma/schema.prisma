@@ -64,7 +64,7 @@ model Car {
   id         Int       @default(autoincrement()) @id
   brandId Int?
   model String?
-  model_date DateTime?
+  model_date Int?
   categoryId Int?
   price Int?
   colorId Int?
