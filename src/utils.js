@@ -1,12 +1,14 @@
 const jwt = require("jsonwebtoken");
 const config = require('./config');
 const bcrypt = require("bcryptjs")
+const {  createWriteStream } =  require('fs')
+const shortid  = require('shortid')
 
 const encryptPassword = password => new Promise((resolve, reject) => {
 	bcrypt.genSalt(10, (err, salt) => {
 		if (err) {
 			reject(err)
-			return false 
+			return false
 		}
 		bcrypt.hash(password, salt, (err, hash) => {
 			if (err) {
@@ -47,9 +49,21 @@ const getPayload = token => {
     }
 }
 
+const storeUpload = async ({ stream, filename}, dir) => {
+  const id = shortid.generate()
+  const path = `public/${dir}/${id}-${filename}`
+
+  return new Promise((resolve, reject) =>
+    stream
+      .pipe(createWriteStream(path))
+      .on('finish', () => resolve({ id, path }))
+      .on('error', reject),
+  )
+}
 module.exports = {
     getToken,
     getPayload,
     encryptPassword,
-    comparePassword
+    comparePassword,
+		storeUpload
 }

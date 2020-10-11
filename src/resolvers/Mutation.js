@@ -1,5 +1,7 @@
-const {encryptPassword, getToken, comparePassword} = require('../utils')
-
+const {encryptPassword, getToken, comparePassword, storeUpload} = require('../utils')
+const mkdirp = require('mkdirp')
+const {imagesDir} = require('../config')
+mkdirp.sync('public/'+imagesDir)
 async function signup(parent, args, context, info) {
   // 1
   const hashedPassword = await encryptPassword(args.password)
@@ -83,6 +85,14 @@ async function updateUser(parent, {data,id}, context, info) {
                 id: id *1
               }})
 }
+async function deleteUser(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.user.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"User deleted"}
+}
 async function createCustomer(parent, {data}, context, info) {
   return context.prisma.customer.create({data:data})
 }
@@ -128,6 +138,26 @@ async function updateRole(parent, {data,id}, context, info) {
 }
 
 
+async function createImage(parent, {data}, context, info) {
+  console.log("hello")
+  console.log(data)
+  const { createReadStream, filename, mimetype, encoding } = await data.file
+  const stream = createReadStream()
+  const { id, path } = await storeUpload({ stream, filename},imagesDir)
+  delete data.file
+  data.path = path
+  console.log(data)
+  return context.prisma.image.create({data:data})
+}
+async function updateImage(parent, {data,id}, context, info) {
+
+  return context.prisma.image.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+
+
 module.exports = {
   login,
   signup,
@@ -135,6 +165,7 @@ module.exports = {
   recoverPassword,
   createUser,
   updateUser,
+  deleteUser,
   createCustomer,
   updateCustomer,
   createBooking,
@@ -142,6 +173,7 @@ module.exports = {
   createBrand,
   updateBrand,
   createRole,
-  updateRole
+  updateRole,
+  createImage
 
 }

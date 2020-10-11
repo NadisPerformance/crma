@@ -1,5 +1,7 @@
 const { GraphQLServer } = require('graphql-yoga')
 const { AuthenticationError } = require("apollo-server");
+const path = require('path');
+const express= require('express')
 //const { prisma } = require('./generated/prisma-client')
 const { PrismaClient }= require('@prisma/client') ;
 const prisma = new PrismaClient()
@@ -9,8 +11,10 @@ const Mutation = require('./resolvers/Mutation')
 const User = require('./resolvers/User')
 const Car = require('./resolvers/Car')
 const Booking = require('./resolvers/Booking')
+const Image = require('./resolvers/Image')
 
 const CarConnection = require('./resolvers/CarConnection')
+const ImageConnection = require('./resolvers/ImageConnection')
 const UserConnection = require('./resolvers/UserConnection')
 const IsAdminDirective = require("./directives/isAdminDirective");
 const LoginResponse = require('./resolvers/LoginResponse')
@@ -25,7 +29,9 @@ const resolvers = {
   LoginResponse,
   Car,
   CarConnection,
-  Booking
+  Booking,
+  Image,
+  ImageConnection
 }
 
 const authenticate = async (resolve, root, args, context, info) => {
@@ -62,5 +68,6 @@ const server = new GraphQLServer({
   },
   //middlewares: [authenticate]
 })
+server.express.use( '/static',express.static('public'))
 server.start({port: 4008})
 console.log(`Server is running on http://localhost:4008`)

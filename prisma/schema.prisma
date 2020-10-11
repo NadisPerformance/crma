@@ -21,7 +21,7 @@ model After_rental{
 model Album{
   id    Int       @default(autoincrement()) @id
   title String?
-  @@map("Albums")
+  @@map("albums")
 }
 
 model Before_rental{
@@ -174,5 +174,6 @@ model User {
   phone            String?
   roleId           Int?
   password         String?
+  deleted          Boolean?
   @@map("users")
 }

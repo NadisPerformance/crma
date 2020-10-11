@@ -9,6 +9,7 @@ async function users(parent, args, ctx, info){
 	const page = args.page || 1 ;
 	const limit =  args.limit|| 10 ;
 	const where = args.where ? args.where: {}
+	where.deleted = false
 	let results =  await ctx.prisma.user.findMany({
 	    where,
 	    skip: (page-1) * limit ,
@@ -128,6 +129,26 @@ async function roles(parent, args, ctx, info){
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
+function image(parent, {id}, ctx, info){
+	return ctx.prisma.image.findOne({
+		 where:{id: parseInt(id) }
+		})
+}
+async function images(parent, args, ctx, info){
+	const page = args.page || 1 ;
+	const limit =  args.limit|| 10 ;
+	const where = args.where ? args.where: {}
+	let results =  await ctx.prisma.image.findMany({
+	    where,
+	    skip: (page-1) * limit ,
+	   	first: limit,
+	    orderBy: args.orderBy,
+	  })
+	let edges = results.map(result=>({node:result}))
+	let count = await ctx.prisma.image.count()
+	return {edges:edges, pageInfo:{count:count, currentPage:page}}
+}
+
 async function hello(parent, args, ctx, info){
   return "Hello world"
 }
@@ -145,5 +166,7 @@ module.exports = {
 	brand,
 	brands,
 	role,
-	roles
+	roles,
+	image,
+	images
 }

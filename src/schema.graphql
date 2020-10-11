@@ -1,6 +1,7 @@
 directive @isAdmin on FIELD_DEFINITION
 
 scalar DateTime
+scalar Upload
 
 type Query {
   hello: String
@@ -22,6 +23,10 @@ type Query {
 
   role(id:ID!): Role
   roles(where: RoleWhereInput, orderBy:RoleOrderByInput, page: Int, limit: Int): RoleConnection!
+
+  image(id:ID!): Image
+  images(where: ImageWhereInput, orderBy:ImageOrderByInput, page: Int, limit: Int): ImageConnection!
+
 }
 
 
@@ -33,6 +38,7 @@ type Mutation {
   recoverPassword(id: ID!, recover_code:String!, new_password:String!): Response!
   createUser(data:UserInput!): User!
   updateUser(data:UserInput!, id:ID!): User!
+  deleteUser(id:ID!): Response
   createCustomer(data:CustomerInput!): Customer!
   updateCustomer(data:CustomerInput!, id:ID!): Customer!
   createBooking(data:BookingInput!): Booking!
@@ -41,7 +47,8 @@ type Mutation {
   updateBrand(data:BrandInput!, id:ID!): Brand!
   createRole(data:RoleInput!): Role!
   updateRole(data:RoleInput!, id:ID!): Role!
-
+  createImage(data:ImageInput!): Image!
+  updateImage(data:ImageInput!, id:ID!): Image!
 }
 type Response{
   statut_code: Int
@@ -570,10 +577,12 @@ type Image {
   id: ID!
   albumId: Int
   path: String
+  album: Album
 }
 
 input ImageInput{
   albumId: Int
+  file: Upload!
   path: String
 }
 
@@ -741,7 +750,7 @@ input UserInput{
   address: String
   email: String!
   phone: String
-  roleId: String
+  roleId: Int
   password: String
 }
 input UserWhereInput{
