@@ -25,6 +25,9 @@ type Query {
   booking(id:ID!): Booking
   bookings(where: BookingWhereInput, orderBy:BookingOrderByInput, page: Int, limit: Int): BookingConnection!
 
+  rental(id:ID!): Rental
+  rentals(where: RentalWhereInput, orderBy:RentalOrderByInput, page: Int, limit: Int): RentalConnection!
+
   brand(id:ID!): Brand
   brands(where: BrandWhereInput, orderBy:BrandOrderByInput, page: Int, limit: Int): BrandConnection!
 
