@@ -11,9 +11,12 @@ const Mutation = require('./resolvers/Mutation')
 const User = require('./resolvers/User')
 const Car = require('./resolvers/Car')
 const Booking = require('./resolvers/Booking')
+const Rental = require('./resolvers/Rental')
 const Image = require('./resolvers/Image')
 
 const CarConnection = require('./resolvers/CarConnection')
+const BookingConnection = require('./resolvers/BookingConnection')
+const RentalConnection = require('./resolvers/RentalConnection')
 const ImageConnection = require('./resolvers/ImageConnection')
 const UserConnection = require('./resolvers/UserConnection')
 const IsAdminDirective = require("./directives/isAdminDirective");
@@ -30,8 +33,11 @@ const resolvers = {
   Car,
   CarConnection,
   Booking,
+  Rental,
   Image,
-  ImageConnection
+  ImageConnection,
+  BookingConnection,
+  RentalConnection
 }
 
 const authenticate = async (resolve, root, args, context, info) => {

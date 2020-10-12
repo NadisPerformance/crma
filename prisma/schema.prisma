@@ -13,7 +13,7 @@ model After_rental{
   albumId Int?
   kilometrage Int?
   niveau_carburant Int?
-  createdAt String?
+  createdAt DateTime?
   comment String?
   @@map("after_rental")
 }
@@ -30,7 +30,7 @@ model Before_rental{
   albumId Int?
   kilometrage Int?
   niveau_carburant Int?
-  createdAt String?
+  createdAt DateTime?
   comment String?
   @@map("before_rental")
 }

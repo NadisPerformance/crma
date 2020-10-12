@@ -209,6 +209,25 @@ async function statuss(parent, args, ctx, info){
 	let count = await ctx.prisma.status.count()
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
+function rental(parent, {id}, ctx, info){
+	return ctx.prisma.rental.findOne({
+		 where:{id: parseInt(id) }
+		})
+}
+async function rentals(parent, args, ctx, info){
+	const page = args.page || 1 ;
+	const limit =  args.limit|| 10 ;
+	const where = args.where ? args.where: {}
+	let results =  await ctx.prisma.rental.findMany({
+	    where,
+	    skip: (page-1) * limit ,
+	   	first: limit,
+	    orderBy: args.orderBy,
+	  })
+	let edges = results.map(result=>({node:result}))
+	let count = await ctx.prisma.rental.count()
+	return {edges:edges, pageInfo:{count:count, currentPage:page}}
+}
 module.exports = {
   users,
   user,
@@ -231,5 +250,7 @@ module.exports = {
 	role,
 	roles,
 	image,
-	images
+	images,
+	rental,
+	rentals
 }

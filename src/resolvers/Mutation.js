@@ -202,6 +202,25 @@ async function deleteImage(parent, {id}, context, info) {
               }})
    return {statut_code:1, message:"Image deleted"}
 }
+
+async function createCar(parent, {data}, context, info) {
+  return context.prisma.car.create({data:data})
+}
+async function updateCar(parent, {data,id}, context, info) {
+
+  return context.prisma.car.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+async function deleteCar(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.car.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Car deleted"}
+}
 async function createColor(parent, {data}, context, info) {
   return context.prisma.color.create({data:data})
 }
@@ -288,6 +307,9 @@ module.exports = {
   deleteCategory,
   createStatus,
   updateStatus,
-  deleteStatus
+  deleteStatus,
+  createCar,
+  updateCar,
+  deleteCar
 
 }

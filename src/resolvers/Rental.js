@@ -13,15 +13,19 @@ function booking(parent, args, ctx, info){
 		 where:{id: parseInt(parent.bookingId)}
 		})
 }
-function before_rental(parent, args, ctx, info){
-  return ctx.prisma.before_rental.findOne({
+async function before_rental(parent, args, ctx, info){
+  var rentals =  await ctx.prisma.before_rental.findMany({
 		 where:{rentalId: parseInt(parent.id)}
 		})
+  if(rentals )
+    return rentals[0]
 }
-function after_rental(parent, args, ctx, info){
-  return ctx.prisma.after_rental.findOne({
+async function after_rental(parent, args, ctx, info){
+  var rentals =  await ctx.prisma.after_rental.findMany({
 		 where:{rentalId: parseInt(parent.id)}
 		})
+  if(rentals )
+    return rentals[0]
 }
 module.exports = {
   customer: customer,

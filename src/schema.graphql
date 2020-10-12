@@ -26,7 +26,7 @@ type Query {
   bookings(where: BookingWhereInput, orderBy:BookingOrderByInput, page: Int, limit: Int): BookingConnection!
 
   rental(id:ID!): Rental
-  rentals(where: RentalWhereInput, orderBy:RentalOrderByInput, page: Int, limit: Int): RentalConnection!
+  rentals(where: RentalWhereInput, orderBy:RentalOrderByInput, page: Int, limit: Int): RentalConnection
 
   brand(id:ID!): Brand
   brands(where: BrandWhereInput, orderBy:BrandOrderByInput, page: Int, limit: Int): BrandConnection!
@@ -73,6 +73,9 @@ type Mutation {
   createCategory(data:CategoryInput!): Category!
   updateCategory(data:CategoryInput!, id:ID!): Category!
   deleteCategory(id:ID!): Response
+  createCar(data:CarInput!): Car!
+  updateCar(data:CarInput!, id:ID!): Car!
+  deleteCar(id:ID!): Response
   createStatus(data:StatusInput!): Status!
   updateStatus(data:StatusInput!, id:ID!): Status!
   deleteStatus(id:ID!): Response
@@ -88,7 +91,7 @@ type After_rental {
   albumId: Int
   kilometrage: Int
   niveau_carburant: Int
-  createdAt: String
+  createdAt: DateTime
   comment: String
 
 }
@@ -98,7 +101,7 @@ input After_rentalInput{
   albumId: Int
   kilometrage: Int
   niveau_carburant: Int
-  createdAt: String
+  createdAt: DateTime
   comment: String
 }
 
@@ -175,7 +178,7 @@ type Before_rental {
   albumId: Int
   kilometrage: Int
   niveau_carburant: Int
-  createdAt: String
+  createdAt: DateTime
   comment: String
 
 }
@@ -185,7 +188,7 @@ input Before_rentalInput{
   albumId: Int
   kilometrage: Int
   niveau_carburant: Int
-  createdAt: String
+  createdAt: DateTime
   comment: String
 }
 
