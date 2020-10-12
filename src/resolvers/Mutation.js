@@ -103,6 +103,14 @@ async function updateCustomer(parent, {data,id}, context, info) {
                 id: id *1
               }})
 }
+async function deleteCustomer(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.customer.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Customer deleted"}
+}
 
 async function createBooking(parent, {data}, context, info) {
   return context.prisma.booking.create({data:data})
@@ -113,6 +121,15 @@ async function updateBooking(parent, {data,id}, context, info) {
               where: {
                 id: id *1
               }})
+}
+
+async function deleteBooking(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.booking.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Booking deleted"}
 }
 
 async function createBrand(parent, {data}, context, info) {
@@ -126,6 +143,15 @@ async function updateBrand(parent, {data,id}, context, info) {
               }})
 }
 
+async function deleteBrand(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.brand.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Brand deleted"}
+}
+
 async function createRole(parent, {data}, context, info) {
   return context.prisma.role.create({data:data})
 }
@@ -137,6 +163,14 @@ async function updateRole(parent, {data,id}, context, info) {
               }})
 }
 
+async function deleteRole(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.role.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Role deleted"}
+}
 
 async function createImage(parent, {data}, context, info) {
   console.log("hello")
@@ -150,14 +184,79 @@ async function createImage(parent, {data}, context, info) {
   return context.prisma.image.create({data:data})
 }
 async function updateImage(parent, {data,id}, context, info) {
-
+  const { createReadStream, filename, mimetype, encoding } = await data.file
+  const stream = createReadStream()
+  const { path } = await storeUpload({ stream, filename},imagesDir)
+  delete data.file
+  data.path = path
   return context.prisma.image.update({data:data,
               where: {
                 id: id *1
               }})
 }
+async function deleteImage(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.image.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Image deleted"}
+}
+async function createColor(parent, {data}, context, info) {
+  return context.prisma.color.create({data:data})
+}
+async function updateColor(parent, {data,id}, context, info) {
 
+  return context.prisma.color.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+async function deleteColor(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.color.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Color deleted"}
+}
+async function createCategory(parent, {data}, context, info) {
+  return context.prisma.category.create({data:data})
+}
+async function updateCategory(parent, {data,id}, context, info) {
 
+  return context.prisma.category.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+async function deleteCategory(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.category.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Category deleted"}
+}
+
+async function createStatus(parent, {data}, context, info) {
+  return context.prisma.color.create({data:data})
+}
+async function updateStatus(parent, {data,id}, context, info) {
+
+  return context.prisma.status.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+async function deleteStatus(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.status.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Status deleted"}
+}
 module.exports = {
   login,
   signup,
@@ -168,12 +267,27 @@ module.exports = {
   deleteUser,
   createCustomer,
   updateCustomer,
+  deleteCustomer,
   createBooking,
   updateBooking,
+  deleteBooking,
   createBrand,
   updateBrand,
+  deleteBrand,
   createRole,
   updateRole,
-  createImage
+  deleteRole,
+  createImage,
+  updateImage,
+  deleteImage,
+  createColor,
+  updateColor,
+  deleteColor,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+  createStatus,
+  updateStatus,
+  deleteStatus
 
 }

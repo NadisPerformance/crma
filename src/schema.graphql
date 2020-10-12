@@ -12,6 +12,13 @@ type Query {
   car(id:ID!): Car
   cars(where: CarWhereInput, orderBy:CarOrderByInput, page: Int, limit: Int): CarConnection!
 
+  category(id:ID!): Category
+  categories(where: CategoryWhereInput, orderBy:CategoryOrderByInput, page: Int, limit: Int): CategoryConnection!
+
+  color(id:ID!): Color
+  colors(where: ColorWhereInput, orderBy:ColorOrderByInput, page: Int, limit: Int): ColorConnection!
+
+
   customer(id:ID!): Customer
   customers(where: CustomerWhereInput, orderBy:CustomerOrderByInput, page: Int, limit: Int): CustomerConnection!
 
@@ -27,6 +34,9 @@ type Query {
   image(id:ID!): Image
   images(where: ImageWhereInput, orderBy:ImageOrderByInput, page: Int, limit: Int): ImageConnection!
 
+  status(id:ID!): Status
+  statuss(where: StatusWhereInput, orderBy:StatusOrderByInput, page: Int, limit: Int): StatusConnection!
+
 }
 
 
@@ -41,14 +51,28 @@ type Mutation {
   deleteUser(id:ID!): Response
   createCustomer(data:CustomerInput!): Customer!
   updateCustomer(data:CustomerInput!, id:ID!): Customer!
+  deleteCustomer(id:ID!): Response
   createBooking(data:BookingInput!): Booking!
   updateBooking(data:BookingInput!, id:ID!): Booking!
+  deleteBooking(id:ID!): Response
   createBrand(data:BrandInput!): Brand!
   updateBrand(data:BrandInput!, id:ID!): Brand!
+  deleteBrand(id:ID!): Response
   createRole(data:RoleInput!): Role!
   updateRole(data:RoleInput!, id:ID!): Role!
+  deleteRole(id:ID!): Response
   createImage(data:ImageInput!): Image!
   updateImage(data:ImageInput!, id:ID!): Image!
+  deleteImage(id:ID!): Response
+  createColor(data:ColorInput!): Color!
+  updateColor(data:ColorInput!, id:ID!): Color!
+  deleteColor(id:ID!): Response
+  createCategory(data:CategoryInput!): Category!
+  updateCategory(data:CategoryInput!, id:ID!): Category!
+  deleteCategory(id:ID!): Response
+  createStatus(data:StatusInput!): Status!
+  updateStatus(data:StatusInput!, id:ID!): Status!
+  deleteStatus(id:ID!): Response
 }
 type Response{
   statut_code: Int
@@ -347,6 +371,9 @@ type Car {
   chassis_number: String
   statusId: Int
   brand: Brand
+  category: Category
+  color: Color
+  status: Status
 }
 
 input CarInput{
@@ -389,6 +416,78 @@ type AggregateCar {
   count: Int!
 }
 
+type Category {
+  id: ID!
+  title: String!
+}
+
+input CategoryInput{
+  title: String!
+}
+input CategoryWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
+}
+enum CategoryOrderByInput {
+  id_ASC
+  id_DESC
+}
+type CategoryConnection {
+  edges: [CategoryEdge!]
+  pageInfo: PageInfo!
+}
+type CategoryEdge {
+  node: Category!
+  cursor: String!
+}
+type AggregateCategory {
+  count: Int!
+}
+type Color {
+  id: ID!
+  name: String!
+}
+
+input ColorInput{
+  name: String!
+}
+input ColorWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [ColorWhereInput!]
+  OR: [ColorWhereInput!]
+  NOT: [ColorWhereInput!]
+}
+enum ColorOrderByInput {
+  id_ASC
+  id_DESC
+}
+type ColorConnection {
+  edges: [ColorEdge!]
+  pageInfo: PageInfo!
+}
+type ColorEdge {
+  node: Color!
+  cursor: String!
+}
+type AggregateColor {
+  count: Int!
+}
 type Car_insurance {
   id: ID!
   carId: Int
@@ -655,11 +754,27 @@ type InsuranceEdge{
 
 type Rental {
   id: ID!
-  name: String
+  bookingId: Int
+  carId: Int
+  customerId: Int
+  second_driverId: Int
+  date_begin: DateTime
+  date_end: DateTime
+  booking: Booking
+  car: Car
+  customer: Customer
+  before_rental: Before_rental
+  after_rental: After_rental
 }
 
 input RentalInput{
-  name: String
+  bookingId: Int
+  carId: Int
+  customerId: Int
+  second_driverId: Int
+  date_begin: DateTime
+  date_end: DateTime
+
 }
 
 input RentalWhereInput{
@@ -728,7 +843,42 @@ type RoleEdge{
   node: Role!
   cursor: String!
 }
+type Status {
+  id: ID!
+  title: String!
+}
 
+input StatusInput{
+  title: String!
+}
+input StatusWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [StatusWhereInput!]
+  OR: [StatusWhereInput!]
+  NOT: [StatusWhereInput!]
+}
+enum StatusOrderByInput {
+  id_ASC
+  id_DESC
+}
+type StatusConnection {
+  edges: [StatusEdge!]
+  pageInfo: PageInfo!
+}
+type StatusEdge {
+  node: Status!
+  cursor: String!
+}
+type AggregateStatus {
+  count: Int!
+}
 type User {
   id: ID!
   firstname: String

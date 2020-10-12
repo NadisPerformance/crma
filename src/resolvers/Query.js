@@ -152,6 +152,63 @@ async function images(parent, args, ctx, info){
 async function hello(parent, args, ctx, info){
   return "Hello world"
 }
+function color(parent, {id}, ctx, info){
+	return ctx.prisma.color.findOne({
+		 where:{id: parseInt(id) }
+		})
+}
+async function colors(parent, args, ctx, info){
+	const page = args.page || 1 ;
+	const limit =  args.limit|| 10 ;
+	const where = args.where ? args.where: {}
+	let results =  await ctx.prisma.color.findMany({
+	    where,
+	    skip: (page-1) * limit ,
+	   	first: limit,
+	    orderBy: args.orderBy,
+	  })
+	let edges = results.map(result=>({node:result}))
+	let count = await ctx.prisma.color.count()
+	return {edges:edges, pageInfo:{count:count, currentPage:page}}
+}
+function category(parent, {id}, ctx, info){
+	return ctx.prisma.category.findOne({
+		 where:{id: parseInt(id) }
+		})
+}
+async function categories(parent, args, ctx, info){
+	const page = args.page || 1 ;
+	const limit =  args.limit|| 10 ;
+	const where = args.where ? args.where: {}
+	let results =  await ctx.prisma.category.findMany({
+	    where,
+	    skip: (page-1) * limit ,
+	   	first: limit,
+	    orderBy: args.orderBy,
+	  })
+	let edges = results.map(result=>({node:result}))
+	let count = await ctx.prisma.category.count()
+	return {edges:edges, pageInfo:{count:count, currentPage:page}}
+}
+function status(parent, {id}, ctx, info){
+	return ctx.prisma.status.findOne({
+		 where:{id: parseInt(id) }
+		})
+}
+async function statuss(parent, args, ctx, info){
+	const page = args.page || 1 ;
+	const limit =  args.limit|| 10 ;
+	const where = args.where ? args.where: {}
+	let results =  await ctx.prisma.status.findMany({
+	    where,
+	    skip: (page-1) * limit ,
+	   	first: limit,
+	    orderBy: args.orderBy,
+	  })
+	let edges = results.map(result=>({node:result}))
+	let count = await ctx.prisma.status.count()
+	return {edges:edges, pageInfo:{count:count, currentPage:page}}
+}
 module.exports = {
   users,
   user,
@@ -159,12 +216,18 @@ module.exports = {
   hello,
   car,
   cars,
+	color,
+	colors,
+	category,
+	categories,
   customer,
   customers,
   booking,
   bookings,
 	brand,
 	brands,
+	status,
+	statuss,
 	role,
 	roles,
 	image,

@@ -76,6 +76,18 @@ model Car {
   @@map("cars")
 }
 
+model Category {
+  id         Int       @default(autoincrement()) @id
+  title String?
+  @@map("categories")
+}
+
+model Color {
+  id         Int       @default(autoincrement()) @id
+  name String?
+  @@map("colors")
+}
+
 model Car_insurance {
   id                    Int       @default(autoincrement()) @id
   carId              Int?
@@ -152,6 +164,12 @@ model Role{
   id    Int       @default(autoincrement()) @id
   title String?
   @@map("roles")
+}
+
+model Status {
+  id         Int       @default(autoincrement()) @id
+  title String?
+  @@map("status")
 }
 
 model Technical_control {
