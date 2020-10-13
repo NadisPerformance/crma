@@ -295,6 +295,26 @@ async function deleteAlbum(parent, {id}, context, info) {
               }})
    return {statut_code:1, message:"Album deleted"}
 }
+
+async function createRental(parent, {data}, context, info) {
+  return context.prisma.rental.create({data:data})
+}
+async function updateRental(parent, {data,id}, context, info) {
+
+  return context.prisma.rental.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+async function deleteRental(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.rental.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Rental deleted"}
+}
+
 module.exports = {
   login,
   signup,
@@ -332,6 +352,9 @@ module.exports = {
   deleteCar,
   createAlbum,
   updateAlbum,
-  deleteAlbum
+  deleteAlbum,
+  createRental,
+  updateRental,
+  deleteRental
 
 }

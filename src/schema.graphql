@@ -97,6 +97,9 @@ type Mutation {
   createBefore_rental(data:Before_rentalInput!): Before_rental!
   updateBefore_rental(data:Before_rentalInput!, id:ID!): Before_rental!
   deleteBefore_rental(id:ID!): Response
+  createRental(data:RentalInput!): Rental!
+  updateRental(data:RentalInput!, id:ID!): Rental!
+  deleteRental(id:ID!): Response
 }
 type Response{
   statut_code: Int
