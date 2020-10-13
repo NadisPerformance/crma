@@ -15,12 +15,14 @@ model After_rental{
   niveau_carburant Int?
   createdAt DateTime?
   comment String?
+  deleted Boolean?
   @@map("after_rental")
 }
 
 model Album{
   id    Int       @default(autoincrement()) @id
   title String?
+  deleted Boolean?
   @@map("albums")
 }
 
@@ -32,6 +34,7 @@ model Before_rental{
   niveau_carburant Int?
   createdAt DateTime?
   comment String?
+  deleted Boolean?
   @@map("before_rental")
 }
 
@@ -39,7 +42,7 @@ model Bill {
   id              Int       @default(autoincrement()) @id
   bill_number     String?
   bill_date       DateTime?
-
+  deleted Boolean?
   @@map("bills")
 }
 
@@ -51,12 +54,14 @@ model Booking {
   date_end           DateTime?
   hour_begin         DateTime?
   hour_end           DateTime?
+  deleted Boolean?
   @@map("bookings")
 }
 
 model Brand {
   id                 Int       @default(autoincrement()) @id
   name              String?
+  deleted Boolean?
   @@map("brands")
 }
 
@@ -79,12 +84,14 @@ model Car {
 model Category {
   id         Int       @default(autoincrement()) @id
   title String?
+  deleted Boolean?
   @@map("categories")
 }
 
 model Color {
   id         Int       @default(autoincrement()) @id
   name String?
+  deleted Boolean?
   @@map("colors")
 }
 
@@ -94,7 +101,7 @@ model Car_insurance {
   insuranceId       Int?
   date_begin            DateTime?
   date_end              DateTime?
-
+  deleted Boolean?
   @@map("car_insurances")
 }
 
@@ -104,14 +111,14 @@ model Contract {
   contract_typeId       Int?
   date_begin            DateTime?
   date_end              DateTime?
-
+  deleted Boolean?
   @@map("contracts")
 }
 
 model Contract_type {
   id                Int       @default(autoincrement()) @id
   name              String?
-
+  deleted Boolean?
   @@map("contracts_type")
 }
 
@@ -129,6 +136,7 @@ model Customer {
   email            String
   phone            String?
   company_name     String?
+  deleted Boolean?
   @@map("customers")
 }
 
@@ -136,14 +144,14 @@ model Image {
   id                    Int       @default(autoincrement()) @id
   albumId              Int?
   path       String?
-
+  deleted Boolean?
   @@map("images")
 }
 
 model insurance {
   id                    Int       @default(autoincrement()) @id
   name              String?
-
+  deleted Boolean?
   @@map("Insurances")
 }
 
@@ -157,18 +165,21 @@ model Rental {
   date_end           DateTime?
   hour_begin         DateTime?
   hour_end           DateTime?
+  deleted Boolean?
   @@map("rentals")
 }
 
 model Role{
   id    Int       @default(autoincrement()) @id
   title String?
+  deleted Boolean?
   @@map("roles")
 }
 
 model Status {
   id         Int       @default(autoincrement()) @id
   title String?
+  deleted Boolean?
   @@map("status")
 }
 
@@ -177,7 +188,7 @@ model Technical_control {
   carId              String?
   date_begin DateTime?
   date_end DateTime?
-
+  deleted Boolean?
   @@map("technical_controls")
 }
 

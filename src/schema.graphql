@@ -9,6 +9,9 @@ type Query {
   user(id:ID!): User
   users(where: UserWhereInput, orderBy:UserOrderByInput, page: Int, limit: Int): UserConnection!
 
+  album(id:ID!): Album
+  albums(where: AlbumWhereInput, orderBy: AlbumOrderByInput, page: Int, limit: Int): AlbumConnection!
+
   car(id:ID!): Car
   cars(where: CarWhereInput, orderBy:CarOrderByInput, page: Int, limit: Int): CarConnection!
 
@@ -39,6 +42,12 @@ type Query {
 
   status(id:ID!): Status
   statuss(where: StatusWhereInput, orderBy:StatusOrderByInput, page: Int, limit: Int): StatusConnection!
+
+  after_rental(id:ID!): After_rental
+  after_rentals(where: After_rentalWhereInput, orderBy:After_rentalOrderByInput, page: Int, limit: Int): After_rentalConnection!
+
+  before_rental(id:ID!): Before_rental
+  before_rentals(where: Before_rentalWhereInput, orderBy: Before_rentalOrderByInput, page: Int, limit: Int): Before_rentalConnection!
 
 }
 
@@ -79,6 +88,15 @@ type Mutation {
   createStatus(data:StatusInput!): Status!
   updateStatus(data:StatusInput!, id:ID!): Status!
   deleteStatus(id:ID!): Response
+  createAlbum(data:AlbumInput!): Album!
+  updateAlbum(data:AlbumInput!, id:ID!): Album!
+  deleteAlbum(id:ID!): Response
+  createAfter_rental(data:After_rentalInput!): After_rental!
+  updateAfter_rental(data:After_rentalInput!, id:ID!): After_rental!
+  deleteAfter_rental(id:ID!): Response
+  createBefore_rental(data:Before_rentalInput!): Before_rental!
+  updateBefore_rental(data:Before_rentalInput!, id:ID!): Before_rental!
+  deleteBefore_rental(id:ID!): Response
 }
 type Response{
   statut_code: Int
@@ -93,7 +111,8 @@ type After_rental {
   niveau_carburant: Int
   createdAt: DateTime
   comment: String
-
+  rental: Rental
+  album: Album
 }
 
 input After_rentalInput{
@@ -137,6 +156,7 @@ type After_rentalEdge{
 type Album {
   id: ID!
   title: String
+  images: [Image!]
 }
 
 input AlbumInput{
@@ -180,7 +200,8 @@ type Before_rental {
   niveau_carburant: Int
   createdAt: DateTime
   comment: String
-
+  rental: Rental
+  album: Album
 }
 
 input Before_rentalInput{

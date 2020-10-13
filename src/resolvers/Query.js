@@ -28,6 +28,27 @@ function me(parent, args, ctx, info){
 		})
 }
 
+function album(parent, {id}, ctx, info){
+	return ctx.prisma.album.findOne({
+		 where:{id: parseInt(id) }
+		})
+}
+async function albums(parent, args, ctx, info){
+	const page = args.page || 1 ;
+	const limit =  args.limit|| 10 ;
+	const where = args.where ? args.where: {}
+	where.deleted = false
+	let results =  await ctx.prisma.album.findMany({
+	    where,
+	    skip: (page-1) * limit ,
+	   	first: limit,
+	    orderBy: args.orderBy,
+	  })
+	let edges = results.map(result=>({node:result}))
+	let count = await ctx.prisma.album.count()
+	return {edges:edges, pageInfo:{count:count, currentPage:page}}
+}
+
 function car(parent, {id}, ctx, info){
 	return ctx.prisma.car.findOne({
 		 where:{id: parseInt(id) }
@@ -228,11 +249,53 @@ async function rentals(parent, args, ctx, info){
 	let count = await ctx.prisma.rental.count()
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
+
+function after_rental(parent, {id}, ctx, info){
+	return ctx.prisma.after_rental.findOne({
+		 where:{id: parseInt(id) }
+		})
+}
+async function after_rentals(parent, args, ctx, info){
+	const page = args.page || 1 ;
+	const limit =  args.limit|| 10 ;
+	const where = args.where ? args.where: {}
+	let results =  await ctx.prisma.after_rental.findMany({
+	    where,
+	    skip: (page-1) * limit ,
+	   	first: limit,
+	    orderBy: args.orderBy,
+	  })
+	let edges = results.map(result=>({node:result}))
+	let count = await ctx.prisma.after_rental.count()
+	return {edges:edges, pageInfo:{count:count, currentPage:page}}
+}
+
+function before_rental(parent, {id}, ctx, info){
+	return ctx.prisma.before_rental.findOne({
+		 where:{id: parseInt(id) }
+		})
+}
+async function before_rentals(parent, args, ctx, info){
+	const page = args.page || 1 ;
+	const limit =  args.limit|| 10 ;
+	const where = args.where ? args.where: {}
+	let results =  await ctx.prisma.before_rental.findMany({
+	    where,
+	    skip: (page-1) * limit ,
+	   	first: limit,
+	    orderBy: args.orderBy,
+	  })
+	let edges = results.map(result=>({node:result}))
+	let count = await ctx.prisma.before_rental.count()
+	return {edges:edges, pageInfo:{count:count, currentPage:page}}
+}
 module.exports = {
   users,
   user,
   me,
   hello,
+	album,
+	albums,
   car,
   cars,
 	color,
@@ -252,5 +315,9 @@ module.exports = {
 	image,
 	images,
 	rental,
-	rentals
+	rentals,
+	after_rental,
+	after_rentals,
+	before_rental,
+	before_rentals,
 }

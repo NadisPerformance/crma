@@ -276,6 +276,25 @@ async function deleteStatus(parent, {id}, context, info) {
               }})
    return {statut_code:1, message:"Status deleted"}
 }
+
+async function createAlbum(parent, {data}, context, info) {
+  return context.prisma.album.create({data:data})
+}
+async function updateAlbum(parent, {data,id}, context, info) {
+
+  return context.prisma.album.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+async function deleteAlbum(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.album.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Album deleted"}
+}
 module.exports = {
   login,
   signup,
@@ -310,6 +329,9 @@ module.exports = {
   deleteStatus,
   createCar,
   updateCar,
-  deleteCar
+  deleteCar,
+  createAlbum,
+  updateAlbum,
+  deleteAlbum
 
 }

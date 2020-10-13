@@ -13,8 +13,14 @@ const Car = require('./resolvers/Car')
 const Booking = require('./resolvers/Booking')
 const Rental = require('./resolvers/Rental')
 const Image = require('./resolvers/Image')
+const Album = require('./resolvers/Album')
+const After_rental = require('./resolvers/After_rental')
+const Before_rental = require('./resolvers/Before_rental')
 
+const After_rentalConnection = require('./resolvers/After_rentalConnection')
+const Before_rentalConnection = require('./resolvers/Before_rentalConnection')
 const CarConnection = require('./resolvers/CarConnection')
+const AlbumConnection = require('./resolvers/AlbumConnection')
 const BookingConnection = require('./resolvers/BookingConnection')
 const RentalConnection = require('./resolvers/RentalConnection')
 const ImageConnection = require('./resolvers/ImageConnection')
@@ -35,9 +41,15 @@ const resolvers = {
   Booking,
   Rental,
   Image,
+  Album,
+  After_rental,
+  Before_rental,
+  AlbumConnection,
   ImageConnection,
   BookingConnection,
-  RentalConnection
+  RentalConnection,
+  After_rentalConnection,
+  Before_rentalConnection
 }
 
 const authenticate = async (resolve, root, args, context, info) => {
