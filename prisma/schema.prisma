@@ -162,9 +162,7 @@ model Rental {
   customerId         Int?
   second_driverId    Int?
   date_begin         DateTime?
-  date_end           DateTime?
-  hour_begin         DateTime?
-  hour_end           DateTime?
+  date_end           DateTime? 
   deleted Boolean?
   @@map("rentals")
 }
