@@ -300,12 +300,9 @@ type Booking {
   id: ID!
   carId: Int
   customerId: Int
+  montant_avance: Int
   date_begin: DateTime
   date_end: DateTime
-  montant_avance: Int
-  comment: String
-  createdAt: DateTime
-  updatedAt: DateTime
   car: Car
   customer: Customer
 }
@@ -313,10 +310,9 @@ type Booking {
 input BookingInput{
   carId: Int
   customerId: Int
+  montant_avance: Int
   date_begin: DateTime
   date_end: DateTime
-  montant_avance: Int
-  comment: String
 }
 
 input BookingWhereInput{
@@ -532,7 +528,7 @@ type Car_insurance {
   insuranceId: Int
   date_begin: DateTime
   date_end: DateTime
-  insurance: Insurance 
+  insurance: Insurance
 }
 
 input Car_insuranceInput{

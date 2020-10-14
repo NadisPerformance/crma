@@ -56,12 +56,9 @@ model Booking {
   id                 Int       @default(autoincrement()) @id
   carId              Int?
   customerId         Int?
+  montant_avance Int?
   date_begin         DateTime?
   date_end           DateTime?
-  montant_avance	 Int?
-  comment          String?
-  createdAt        DateTime?
-  updatedAt        DateTime?
   deleted Boolean?
   @@map("bookings")
 }
@@ -181,8 +178,6 @@ model Rental {
   second_driverId    Int?
   date_begin         DateTime?
   date_end           DateTime?
-  createdAt        DateTime?
-  updatedAt        DateTime?
   deleted Boolean?
   @@map("rentals")
 }

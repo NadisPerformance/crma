@@ -58,6 +58,7 @@ async function cars(parent, args, ctx, info){
 	const page = args.page || 1 ;
 	const limit = args.limit || 10 ;
 	const where = args.where ? args.where: {}
+	where.deleted = false
 	let results =  await ctx.prisma.car.findMany({
 	    where,
 	    skip: (page - 1) * limit ,
@@ -79,6 +80,7 @@ async function customers(parent, args, ctx, info){
 	const page = args.page || 1 ;
 	const limit =  args.limit|| 10 ;
 	const where = args.where ? args.where: {}
+	where.deleted = false
 	let results =  await ctx.prisma.customer.findMany({
 	    where,
 	    skip: (page-1) * limit ,
@@ -99,6 +101,7 @@ async function bookings(parent, args, ctx, info){
 	const page = args.page || 1 ;
 	const limit =  args.limit|| 10 ;
 	const where = args.where ? args.where: {}
+	where.deleted = false
 	let results =  await ctx.prisma.booking.findMany({
 	    where,
 	    skip: (page-1) * limit ,
@@ -239,6 +242,7 @@ async function rentals(parent, args, ctx, info){
 	const page = args.page || 1 ;
 	const limit =  args.limit|| 10 ;
 	const where = args.where ? args.where: {}
+	where.deleted = false
 	let results =  await ctx.prisma.rental.findMany({
 	    where,
 	    skip: (page-1) * limit ,
