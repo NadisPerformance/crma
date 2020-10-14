@@ -14,8 +14,10 @@ const Booking = require('./resolvers/Booking')
 const Rental = require('./resolvers/Rental')
 const Image = require('./resolvers/Image')
 const Album = require('./resolvers/Album')
+const Customer = require('./resolvers/Customer')
 const After_rental = require('./resolvers/After_rental')
 const Before_rental = require('./resolvers/Before_rental')
+const Car_insurance = require('./resolvers/Car_insurance')
 
 const After_rentalConnection = require('./resolvers/After_rentalConnection')
 const Before_rentalConnection = require('./resolvers/Before_rentalConnection')
@@ -42,6 +44,8 @@ const resolvers = {
   Rental,
   Image,
   Album,
+  Customer,
+  Car_insurance,
   After_rental,
   Before_rental,
   AlbumConnection,

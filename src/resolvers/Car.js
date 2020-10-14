@@ -18,9 +18,21 @@ function status(parent, args, ctx, info){
 		 where:{id: parseInt(parent.statusId)}
 		})
 }
+function technical_controls(parent, args, ctx, info){
+  return ctx.prisma.technical_control.findMany({
+		 where:{carId: parseInt(parent.id)}
+		})
+}
+function car_insurances(parent, args, ctx, info){
+  return ctx.prisma.car_insurance.findMany({
+		 where:{carId: parseInt(parent.id)}
+		})
+}
 module.exports = {
   brand: brand,
   category: category,
   color: color,
-  status:status
+  status:status,
+  technical_controls:technical_controls,
+  car_insurances: car_insurances
 }

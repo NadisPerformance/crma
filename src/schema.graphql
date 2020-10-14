@@ -113,6 +113,7 @@ type After_rental {
   kilometrage: Int
   niveau_carburant: Int
   createdAt: DateTime
+  updatedAt: DateTime
   comment: String
   rental: Rental
   album: Album
@@ -123,7 +124,6 @@ input After_rentalInput{
   albumId: Int
   kilometrage: Int
   niveau_carburant: Int
-  createdAt: DateTime
   comment: String
 }
 
@@ -159,6 +159,8 @@ type After_rentalEdge{
 type Album {
   id: ID!
   title: String
+  createdAt: DateTime
+  updatedAt: DateTime
   images: [Image!]
 }
 
@@ -202,6 +204,7 @@ type Before_rental {
   kilometrage: Int
   niveau_carburant: Int
   createdAt: DateTime
+  updatedAt: DateTime
   comment: String
   rental: Rental
   album: Album
@@ -212,7 +215,6 @@ input Before_rentalInput{
   albumId: Int
   kilometrage: Int
   niveau_carburant: Int
-  createdAt: DateTime
   comment: String
 }
 
@@ -252,6 +254,7 @@ type Bill {
   kilometrage: Int
   niveau_carburant: Int
   createdAt: String
+  updatedAt: DateTime
   comment: String
 
 }
@@ -261,7 +264,6 @@ input BillInput{
   albumId: Int
   kilometrage: Int
   niveau_carburant: Int
-  createdAt: String
   comment: String
 }
 
@@ -300,8 +302,10 @@ type Booking {
   customerId: Int
   date_begin: DateTime
   date_end: DateTime
-  hour_begin: DateTime
-  hour_end: DateTime
+  montant_avance: Int
+  comment: String
+  createdAt: DateTime
+  updatedAt: DateTime
   car: Car
   customer: Customer
 }
@@ -311,8 +315,8 @@ input BookingInput{
   customerId: Int
   date_begin: DateTime
   date_end: DateTime
-  hour_begin: DateTime
-  hour_end: DateTime
+  montant_avance: Int
+  comment: String
 }
 
 input BookingWhereInput{
@@ -400,10 +404,14 @@ type Car {
   colorId: Int
   chassis_number: String
   statusId: Int
+  createdAt: DateTime
+  updatedAt: DateTime
   brand: Brand
   category: Category
   color: Color
   status: Status
+  car_insurances: [Car_insurance!]
+  technical_controls: [Technical_control!]
 }
 
 input CarInput{
@@ -524,6 +532,7 @@ type Car_insurance {
   insuranceId: Int
   date_begin: DateTime
   date_end: DateTime
+  insurance: Insurance 
 }
 
 input Car_insuranceInput{
@@ -564,6 +573,8 @@ type Contract {
   contract_typeId: Int
   date_begin: DateTime
   date_end: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
 
 }
 
@@ -656,6 +667,11 @@ type Customer {
   email: String
   phone: String
   company_name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  rentals: [Rental!]
+  bills: [Bill!]
+  bookings: [Booking!]
 }
 
 input CustomerInput{
@@ -707,6 +723,8 @@ type Image {
   albumId: Int
   path: String
   album: Album
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 input ImageInput{
@@ -790,6 +808,8 @@ type Rental {
   second_driverId: Int
   date_begin: DateTime
   date_end: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
   booking: Booking
   car: Car
   customer: Customer
@@ -909,6 +929,50 @@ type StatusEdge {
 type AggregateStatus {
   count: Int!
 }
+
+type Technical_control {
+  id: ID!
+  carId: Int!
+  date_begin: DateTime
+  date_end: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input Technical_controlInput{
+  carId: Int!
+  date_begin: DateTime
+  date_end: DateTime
+}
+input Technical_controlWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [Technical_controlWhereInput!]
+  OR: [Technical_controlWhereInput!]
+  NOT: [Technical_controlWhereInput!]
+}
+enum Technical_controlOrderByInput {
+  id_ASC
+  id_DESC
+}
+type Technical_controlConnection {
+  edges: [Technical_controlEdge!]
+  pageInfo: PageInfo!
+}
+type Technical_controlEdge {
+  node: Technical_control!
+  cursor: String!
+}
+type AggregateTechnical_control {
+  count: Int!
+}
+
 type User {
   id: ID!
   firstname: String
@@ -920,6 +984,8 @@ type User {
   phone: String
   roleId: Int
   password: String
+  createdAt: DateTime
+  updatedAt: DateTime
   role: Role
 }
 input UserInput{
