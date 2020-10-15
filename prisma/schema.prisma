@@ -13,8 +13,8 @@ model After_rental{
   albumId Int?
   kilometrage Int?
   niveau_carburant Int?
-  createdAt        DateTime?
-  updatedAt        DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   comment String?
   deleted Boolean?
   @@map("after_rental")
@@ -23,8 +23,8 @@ model After_rental{
 model Album{
   id    Int       @default(autoincrement()) @id
   title String?
-  createdAt        DateTime?
-  updatedAt        DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   deleted Boolean?
   @@map("albums")
 }
@@ -35,8 +35,8 @@ model Before_rental{
   albumId Int?
   kilometrage Int?
   niveau_carburant Int?
-  createdAt        DateTime?
-  updatedAt        DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   comment String?
   deleted Boolean?
   @@map("before_rental")
@@ -46,8 +46,8 @@ model Bill {
   id              Int       @default(autoincrement()) @id
   bill_number     String?
   bill_date       DateTime?
-  createdAt        DateTime?
-  updatedAt        DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   deleted Boolean?
   @@map("bills")
 }
@@ -59,6 +59,8 @@ model Booking {
   montant_avance Int?
   date_begin         DateTime?
   date_end           DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   deleted Boolean?
   @@map("bookings")
 }
@@ -83,8 +85,8 @@ model Car {
   availability Boolean?
   statusId      Int?
   deleted Boolean?
-  createdAt DateTime?
-  updatedAt DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   @@map("cars")
 }
 
@@ -108,8 +110,8 @@ model Car_insurance {
   insuranceId       Int?
   date_begin            DateTime?
   date_end              DateTime?
-  createdAt        DateTime?
-  updatedAt        DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   deleted Boolean?
   @@map("car_insurances")
 }
@@ -120,8 +122,8 @@ model Contract {
   contract_typeId       Int?
   date_begin            DateTime?
   date_end              DateTime?
-  createdAt        DateTime?
-  updatedAt        DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   deleted Boolean?
   @@map("contracts")
 }
@@ -140,15 +142,15 @@ model Customer {
   birthday         DateTime?
   gender           String?
   cni              String?
-  type             Boolean?
+  type             Int?
   driver_license   String?
   city String?
   address          String?
   email            String
   phone            String?
   company_name     String?
-  createdAt        DateTime?
-  updatedAt        DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   deleted Boolean?
   @@map("customers")
 }
@@ -157,8 +159,8 @@ model Image {
   id                    Int       @default(autoincrement()) @id
   albumId              Int?
   path       String?
-  createdAt        DateTime?
-  updatedAt        DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   deleted Boolean?
   @@map("images")
 }
@@ -178,6 +180,8 @@ model Rental {
   second_driverId    Int?
   date_begin         DateTime?
   date_end           DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   deleted Boolean?
   @@map("rentals")
 }
@@ -201,8 +205,8 @@ model Technical_control {
   carId              Int
   date_begin DateTime?
   date_end DateTime?
-  createdAt        DateTime?
-  updatedAt        DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   deleted Boolean?
   @@map("technical_controls")
 }
@@ -218,8 +222,8 @@ model User {
   phone            String?
   roleId           Int?
   password         String?
-  createdAt        DateTime?
-  updatedAt        DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
   deleted          Boolean?
   @@map("users")
 }

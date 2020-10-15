@@ -656,7 +656,7 @@ type Customer {
   birthday: DateTime
   gender: String
   cni: String
-  type: Boolean
+  type: Int
   driver_license: String
   city: String
   address: String
@@ -676,7 +676,7 @@ input CustomerInput{
   birthday: DateTime
   gender: String
   cni: String
-  type: Boolean
+  type: Int
   driver_license: String
   city: String
   address: String
