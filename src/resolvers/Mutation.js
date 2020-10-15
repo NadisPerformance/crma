@@ -1,6 +1,6 @@
 const {encryptPassword, getToken, comparePassword, storeUpload} = require('../utils')
 const mkdirp = require('mkdirp')
-const {imagesDir} = require('../config')
+const {imagesDir, carsDir} = require('../config')
 mkdirp.sync('public/'+imagesDir)
 async function signup(parent, args, context, info) {
   // 1
@@ -177,9 +177,9 @@ async function createImage(parent, {data}, context, info) {
   console.log(data)
   const { createReadStream, filename, mimetype, encoding } = await data.file
   const stream = createReadStream()
-  const { id, path } = await storeUpload({ stream, filename},imagesDir)
+  const { pathname } = await storeUpload({ stream, filename},imagesDir)
   delete data.file
-  data.path = path
+  data.path = pathname
   console.log(data)
   return context.prisma.image.create({data:data})
 }
@@ -204,10 +204,23 @@ async function deleteImage(parent, {id}, context, info) {
 }
 
 async function createCar(parent, {data}, context, info) {
+  if(data.picture_file) {
+    const { createReadStream, filename, mimetype, encoding } = await data.picture_file
+    const stream = createReadStream()
+    const { pathname } = await storeUpload({ stream, filename},carsDir)
+    delete data.picture_file
+    data.picture = pathname
+  }
   return context.prisma.car.create({data:data})
 }
 async function updateCar(parent, {data,id}, context, info) {
-
+  if(data.picture_file) {
+    const { createReadStream, filename, mimetype, encoding } = await data.picture_file
+    const stream = createReadStream()
+    const { pathname } = await storeUpload({ stream, filename},carsDir)
+    delete data.picture_file
+    data.picture = pathname
+  }
   return context.prisma.car.update({data:data,
               where: {
                 id: id *1

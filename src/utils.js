@@ -52,11 +52,11 @@ const getPayload = token => {
 const storeUpload = async ({ stream, filename}, dir) => {
   const id = shortid.generate()
   const path = `public/${dir}/${id}-${filename}`
-
+  const pathname =  id + '-'+ filename
   return new Promise((resolve, reject) =>
     stream
       .pipe(createWriteStream(path))
-      .on('finish', () => resolve({ id, path }))
+      .on('finish', () => resolve({ id, path, pathname }))
       .on('error', reject),
   )
 }

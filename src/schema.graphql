@@ -392,6 +392,8 @@ type LoginResponse{
 type Car {
   id: ID!
   plate_number: String!
+  picture: String
+  picture_url: String
   brandId: Int
   model: String
   model_date: Int
@@ -420,6 +422,7 @@ input CarInput{
   colorId: Int
   chassis_number: String
   statusId: Int
+  picture_file: Upload
 }
 input CarWhereInput{
   id: Int

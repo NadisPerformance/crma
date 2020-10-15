@@ -1,3 +1,4 @@
+const {website_url, carsDir} = require('../config')
 function brand(parent, args, ctx, info){
   return ctx.prisma.brand.findOne({
 		 where:{id: parseInt(parent.brandId)}
@@ -28,11 +29,18 @@ function car_insurances(parent, args, ctx, info){
 		 where:{carId: parseInt(parent.id)}
 		})
 }
+
+function picture_url(parent, args, ctx, info){
+  if(!parent.picture)
+    return null
+  return  website_url+"static"+carsDir+'/'+parent.picture
+}
 module.exports = {
   brand: brand,
   category: category,
   color: color,
   status:status,
   technical_controls:technical_controls,
-  car_insurances: car_insurances
+  car_insurances: car_insurances,
+  picture_url: picture_url
 }

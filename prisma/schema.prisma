@@ -81,6 +81,7 @@ model Car {
   price Int?
   colorId Int?
   plate_number String
+  picture      String?
   chassis_number String?
   availability Boolean?
   statusId      Int?
