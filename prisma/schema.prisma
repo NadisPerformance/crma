@@ -83,7 +83,6 @@ model Car {
   plate_number String
   picture      String?
   chassis_number String?
-  availability Boolean?
   statusId      Int?
   deleted Boolean?
   createdAt        DateTime? @default(now())
