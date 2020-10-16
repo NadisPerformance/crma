@@ -303,6 +303,7 @@ type Booking {
   montant_avance: Int
   date_begin: DateTime
   date_end: DateTime
+  comment: String
   car: Car
   customer: Customer
 }
@@ -313,6 +314,7 @@ input BookingInput{
   montant_avance: Int
   date_begin: DateTime
   date_end: DateTime
+  comment: String
 }
 
 input BookingWhereInput{
