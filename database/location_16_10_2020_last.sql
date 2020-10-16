@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  ven. 16 oct. 2020 à 08:33
+-- Généré le :  ven. 16 oct. 2020 à 12:13
 -- Version du serveur :  5.5.65-MariaDB
 -- Version de PHP :  7.1.14
 
@@ -133,7 +133,9 @@ CREATE TABLE `bookings` (
 
 INSERT INTO `bookings` (`id`, `carId`, `customerId`, `montant_avance`, `date_begin`, `date_end`, `comment`, `createdAt`, `updatedAt`, `deleted`) VALUES
 (1, 2, 1, 0, '2020-10-09', '2020-10-12', '', '2020-10-15 09:00:00', '2020-10-15 06:00:00', 0),
-(2, 1, 2, 0, '2020-10-22', '2020-10-30', '', '2020-10-14 09:00:00', '2020-10-14 09:00:00', 0);
+(2, 1, 2, 0, '2020-10-22', '2020-10-30', '', '2020-10-14 09:00:00', '2020-10-16 09:09:03', 1),
+(3, 4, 2, 200, '2020-10-15', '2020-10-16', '', '2020-10-16 12:00:11', '2020-10-16 12:00:11', 0),
+(4, 4, 2, 100, '2020-10-16', '2020-10-22', '', '2020-10-16 12:01:07', '2020-10-16 12:05:48', 0);
 
 -- --------------------------------------------------------
 
@@ -153,7 +155,13 @@ CREATE TABLE `brands` (
 
 INSERT INTO `brands` (`id`, `name`, `deleted`) VALUES
 (1, 'MERCEDES', 0),
-(2, 'AUDI', 0);
+(2, 'AUDI', 0),
+(3, 'title', 0),
+(4, 'title', 0),
+(5, 'title', 0),
+(6, 'title', 0),
+(7, 'title', 0),
+(8, 'title', 0);
 
 -- --------------------------------------------------------
 
@@ -184,9 +192,15 @@ CREATE TABLE `cars` (
 --
 
 INSERT INTO `cars` (`id`, `plate_number`, `picture`, `brandId`, `model`, `model_date`, `categoryId`, `price`, `colorId`, `chassis_number`, `availability`, `statusId`, `createdAt`, `updatedAt`, `deleted`) VALUES
-(1, 'FB883930', '9oFzi3Ldw-CROPPED-DSC_0008.JPG', 1, 'benz', 2000, 1, 100, 1, 'VF45664', 0, 3, '2020-10-14 08:00:00', '2020-10-15 14:29:43', 0),
-(2, 'HG383893', 'xtGHvH0Fs-CROPPED-DSC_0008.JPG', 2, 'A3', 2013, 1, 350, 1, 'NY45664', 0, 1, '2020-10-15 13:00:00', '2020-10-15 14:15:10', 0),
-(3, 'JH399303', '', 1, 'corolla', 2010, 1, 384, 0, 'AZ45664', 0, 1, '2020-10-16 11:00:00', '2020-10-22 08:00:00', 0);
+(1, 'FB883930', '9oFzi3Ldw-CROPPED-DSC_0008.JPG', 1, 'benzzz', 2000, 1, 100, 3, 'VF45664', 0, 2, '2020-10-14 08:00:00', '2020-10-16 09:00:54', 1),
+(2, 'HG383893', 'xtGHvH0Fs-CROPPED-DSC_0008.JPG', 2, 'A3', 2013, 1, 350, 1, 'NY45664', 0, 1, '2020-10-15 13:00:00', '2020-10-16 09:58:33', 0),
+(3, 'JH399303', '', 1, 'corolla', 2010, 1, 384, 0, 'AZ45664', 0, 1, '2020-10-16 11:00:00', '2020-10-16 08:58:06', 1),
+(4, 'ezhhze', '', 1, '9393', 2002, 1, 200, 1, '399330', 0, 2, '2020-10-16 10:33:15', '2020-10-16 11:05:36', 0),
+(5, 'lkmasjdklzejkl', '', 2, '23903', 2010, 1, 2002, 0, 'zalklk', 0, 0, '2020-10-16 10:35:19', '2020-10-16 10:58:15', 1),
+(6, 'JE93030', '', 0, '200', 2020, 0, 200, 0, '22993399029390', 0, 0, '2020-10-16 10:48:47', '2020-10-16 10:58:09', 1),
+(7, '3IO3IO', '', 1, 'S49', 39390, 1, 3939009, 0, '3IO3IOIO', 0, 0, '2020-10-16 10:51:03', '2020-10-16 10:58:03', 1),
+(8, '2909209', '', 1, '2222', 2222, 1, 200, 2, '209902', 0, 2, '2020-10-16 10:54:46', '2020-10-16 10:54:46', 0),
+(9, '290290093NI3O2', 'NQeFretKW-CROPPED-DSC_0008.JPG', 1, '299', 2999, 1, 200, 1, '290902930903', 0, 1, '2020-10-16 11:13:07', '2020-10-16 11:13:56', 0);
 
 -- --------------------------------------------------------
 
@@ -304,8 +318,8 @@ CREATE TABLE `customers` (
   `company_name` varchar(30) NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL,
-  `is_second_driver` tinyint(1) NOT NULL
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `is_second_driver` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -314,7 +328,9 @@ CREATE TABLE `customers` (
 
 INSERT INTO `customers` (`id`, `firstname`, `lastname`, `birthday`, `gender`, `cni`, `type`, `driver_license`, `city`, `address`, `phone`, `email`, `company_name`, `createdAt`, `updatedAt`, `deleted`, `is_second_driver`) VALUES
 (1, 'zakia', 'momox', '1991-10-01', 'Mr', 'F33256', 1, 'erhehrzzzzzzzzzz', 'oujda', '81 rue EL-Amil quartier Takado', '0698765432', 'zaka@gmail.com', 'MABROKA MEDIA', '2020-10-15 00:00:00', '2020-10-15 09:14:19', 0, 0),
-(2, 'hamza', 'belkhadir', '1991-10-01', 'Mr', 'FB123456', 1, 'X234R432', 'berkan', 'eeeeeeeee', '0612345678', 'hamza@gmail.com', 'nadisperformance', '2020-10-14 09:00:00', '2020-10-14 08:00:00', 0, 0);
+(2, 'hamza', 'belkhadir', '1991-10-01', 'Mr', 'FB123456', 1, 'X234R432', 'berkan', 'eeeeeeeee', '0612345678', 'hamza@gmail.com', 'nadisperformance', '2020-10-14 09:00:00', '2020-10-14 08:00:00', 0, 0),
+(3, 'mohammed', 'belabed', '2020-10-27', 'M.', 'FB8893930', 1, '393kkf39', 'Taourirt', '3839 rue elamil', '06494049', 'belabed_90@hotmail.fr', 'NADIS', '2020-10-16 11:42:06', '2020-10-16 11:50:21', 0, 0),
+(4, 'Mohammed', 'BELABED', '2020-10-16', 'M.', 'belabed', 0, '393939', '2993', '30930909', '0393003939', 'belabed_90@hotmail.Fr', '', '2020-10-16 11:58:29', '2020-10-16 11:58:29', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -383,7 +399,8 @@ CREATE TABLE `rentals` (
 --
 
 INSERT INTO `rentals` (`id`, `bookingId`, `carId`, `customerId`, `second_driverId`, `date_begin`, `date_end`, `createdAt`, `updatedAt`, `deleted`) VALUES
-(1, 1, 1, 1, 1, '2020-10-13', '2020-10-08', '2020-10-15 08:00:00', '2020-10-21 04:00:00', 0);
+(1, 1, 1, 1, 1, '2020-10-13', '2020-10-08', '2020-10-15 08:00:00', '2020-10-16 09:00:24', 1),
+(2, NULL, 4, 1, 2, '2020-10-16', '2020-10-22', '2020-10-16 09:24:29', '2020-10-16 11:11:23', 0);
 
 -- --------------------------------------------------------
 
@@ -476,11 +493,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `gender`, `cni`, `address`, `email`, `phone`, `roleId`, `password`, `createdAt`, `updatedAt`, `deleted`) VALUES
-(1, 'Mohammed', 'ZBAIBI', 'Mr', 'FB120142', '07 LOT El Massira TAOURIRT', 'm.zbairi@gmail.fr', '0612345678', 2, '$2a$10$SCZNaUqeAi5VbvCJyo1IVu9aviVHYQwiACvwzC7tqx//v5gOKZ04.', '2020-10-15 00:00:00', '2020-10-14 06:00:00', 0),
+(1, 'Mohammed', 'ZBAIBI', 'Mr', 'FB120142', '07 LOT El Massira TAOURIRT', 'm.zbairi@gmail.fr', '0612345678', 1, '$2a$10$uoOhtKa2ejzKaPTWV2opwOS691bDaV7uCmYDZcXjofCBMGi6Thf9m', '2020-10-15 00:00:00', '2020-10-16 08:55:28', 1),
 (2, 'Ayoub', 'MAAMAR', 'Mr', 'HG292002', '', 'a.maamar@gmail.fr', '0698765432', 1, '$2a$10$U9qI770QiqkhWbLpukb2KeId4oJBEkUqXxwlwWpVRYvhpnCUZL0ni', '2020-10-14 06:00:00', '2020-10-14 05:00:00', 1),
-(3, 'zaia', 'belkhadir', 'Mr', 'FB123456', 'LOT massira', 'zaka@gmail.com', '0612345678', 2, '$2a$10$83Z/9/bP3yR0h4vwYq/RC.zkuv28VousQy36xS/CKeNnvuRWF5ak2', '2020-10-14 08:00:00', '2020-10-14 07:00:00', 0),
+(3, 'zaia', 'belkhadir', 'Mr', 'FB123456', 'LOT massira', 'zaka@gmail.com', '0612345678', 2, '$2a$10$83Z/9/bP3yR0h4vwYq/RC.zkuv28VousQy36xS/CKeNnvuRWF5ak2', '2020-10-14 08:00:00', '2020-10-16 08:52:45', 1),
 (4, 'mkee', 'belabed', 'kl', 'klkkjlkjl', 'kljklkl', 'elkjkl', 'zekljklrljk', 1, '$2a$10$BQ0ic9KyITArvaWvC5hI3OXKO/y3pwyd3cyxyODfY2Dckm1upMbpy', '2020-10-14 06:00:00', '2020-10-14 07:00:00', 1),
-(5, 'Ayoub', 'MAAMAR', 'M', 'FB99999', 'N87 lot ennakhil', 'ayoub.maamar@crma.com', '0661651482', 1, '$2a$10$b.CWt49BQ4FLQn84sXFYVemsWOqLJVDSd180gZ9DoIN6CCeROUxpy', '2020-10-14 10:00:00', '2020-10-14 07:00:00', 0);
+(5, 'Ayoub', 'MAAMAR', 'M', 'FB99999', 'N87 lot ennakhil', 'ayoub.maamar@crma.com', '0661651482', 1, '$2a$10$b.CWt49BQ4FLQn84sXFYVemsWOqLJVDSd180gZ9DoIN6CCeROUxpy', '2020-10-14 10:00:00', '2020-10-14 07:00:00', 0),
+(6, 'rzeq', 'smail', 'M', 'RQ1234', 'taourirt', 'rzeq@gmail.com', '064455533', 2, '$2a$10$KuJGRVSb3MO8jvkqqfO3oOlH8j7dsYr6MxzdoguylCW2waS5l.gTu', '2020-10-16 08:54:27', '2020-10-16 08:54:27', 0);
 
 --
 -- Index pour les tables déchargées
@@ -638,13 +656,19 @@ ALTER TABLE `bills`
 -- AUTO_INCREMENT pour la table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT pour la table `cars`
+--
+ALTER TABLE `cars`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `car_insurances`
@@ -680,7 +704,7 @@ ALTER TABLE `contracts_type`
 -- AUTO_INCREMENT pour la table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `images`
@@ -698,7 +722,7 @@ ALTER TABLE `insurances`
 -- AUTO_INCREMENT pour la table `rentals`
 --
 ALTER TABLE `rentals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `roles`
@@ -722,7 +746,7 @@ ALTER TABLE `technical_controls`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
