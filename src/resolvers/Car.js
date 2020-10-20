@@ -1,4 +1,4 @@
-const {website_url, carsDir} = require('../config')
+const {website_url, carsDir, gc_storage} = require('../config')
 function brand(parent, args, ctx, info){
   return ctx.prisma.brand.findOne({
 		 where:{id: parseInt(parent.brandId)}
@@ -33,6 +33,8 @@ function car_insurances(parent, args, ctx, info){
 function picture_url(parent, args, ctx, info){
   if(!parent.picture)
     return null
+  if(gc_storage)
+      return "https://storage.googleapis.com/crma/"+parent.picture
   return  website_url+"static"+carsDir+'/'+parent.picture
 }
 module.exports = {

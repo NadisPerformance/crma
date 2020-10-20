@@ -179,7 +179,7 @@ async function createImage(parent, {data}, context, info) {
 }
 async function updateImage(parent, {data,id}, context, info) {
   data.path = await storeUpload(data.file, imagesDir)
-  delete data.file  
+  delete data.file
   return context.prisma.image.update({data:data,
               where: {
                 id: id *1
@@ -196,21 +196,15 @@ async function deleteImage(parent, {id}, context, info) {
 
 async function createCar(parent, {data}, context, info) {
   if(data.picture_file) {
-    const { createReadStream, filename, mimetype, encoding } = await data.picture_file
-    const stream = createReadStream()
-    const { pathname } = await storeUpload({ stream, filename},carsDir)
+    data.picture = await storeUpload(data.picture_file, carsDir)
     delete data.picture_file
-    data.picture = pathname
   }
   return context.prisma.car.create({data:data})
 }
 async function updateCar(parent, {data,id}, context, info) {
   if(data.picture_file) {
-    const { createReadStream, filename, mimetype, encoding } = await data.picture_file
-    const stream = createReadStream()
-    const { pathname } = await storeUpload({ stream, filename},carsDir)
+    data.picture = await storeUpload(data.picture_file, carsDir)
     delete data.picture_file
-    data.picture = pathname
   }
   return context.prisma.car.update({data:data,
               where: {
