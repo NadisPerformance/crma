@@ -52,6 +52,9 @@ type Query {
   before_rental(id:ID!): Before_rental
   before_rentals(where: Before_rentalWhereInput, orderBy: Before_rentalOrderByInput, page: Int, limit: Int): Before_rentalConnection!
 
+  technical_control(id:ID!): Technical_control
+  technical_controls(where: Technical_controlWhereInput, orderBy: Technical_controlOrderByInput, page: Int, limit: Int): Technical_controlConnection!
+
 }
 
 
@@ -106,6 +109,9 @@ type Mutation {
   createRental(data:RentalInput!): Rental!
   updateRental(data:RentalInput!, id:ID!): Rental!
   deleteRental(id:ID!): Response
+  createTechnicalControl(data:Technical_controlInput!): Technical_control!
+  updateTechnicalControl(data:Technical_controlInput!, id:ID!): Technical_control!
+  deleteTechnicalControl(id:ID!): Technical_control
 }
 type Response{
   statut_code: Int
@@ -946,6 +952,7 @@ type Technical_control {
   date_end: DateTime
   createdAt: DateTime
   updatedAt: DateTime
+  Car: Car
 }
 
 input Technical_controlInput{

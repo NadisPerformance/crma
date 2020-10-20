@@ -371,6 +371,25 @@ async function deleteAfterRental(parent, {id}, context, info) {
    return {statut_code:1, message:"After rental deleted"}
 }
 
+async function createTechnicalControl(parent, {data}, context, info) {
+  return context.prisma.technical_control.create({data:data})
+}
+async function updateTechnicalControl(parent, {data,id}, context, info) {
+
+  return context.prisma.technical_control.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+async function deleteTechnicalControl(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.technical_control.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Technical Control deleted"}
+}
+
 module.exports = {
   login,
   signup,
@@ -420,5 +439,8 @@ module.exports = {
   deleteAfterRental,
   createInsurance,
   updateInsurance,
-  deleteInsurance
+  deleteInsurance,
+  createTechnicalControl,
+  updateTechnicalControl,
+  deleteTechnicalControl
 }

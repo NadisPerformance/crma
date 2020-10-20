@@ -313,6 +313,27 @@ async function before_rentals(parent, args, ctx, info){
 	let count = await ctx.prisma.before_rental.count()
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
+
+function technical_control(parent, {id}, ctx, info){
+	return ctx.prisma.technical_control.findOne({
+		 where:{id: parseInt(id) }
+		})
+}
+async function technical_controls(parent, args, ctx, info){
+	const page = args.page || 1 ;
+	const limit =  args.limit|| 10 ;
+	const where = args.where ? args.where: {}
+	where.deleted = false
+	let results =  await ctx.prisma.technical_control.findMany({
+	    where,
+	    skip: (page-1) * limit ,
+	   	first: limit,
+	    orderBy: args.orderBy,
+	  })
+	let edges = results.map(result=>({node:result}))
+	let count = await ctx.prisma.technical_control.count()
+	return {edges:edges, pageInfo:{count:count, currentPage:page}}
+}
 module.exports = {
   users,
   user,
@@ -345,5 +366,7 @@ module.exports = {
 	before_rental,
 	before_rentals,
 	insurance,
-	insurances
+	insurances,
+	technical_control,
+	technical_controls
 }
