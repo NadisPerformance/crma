@@ -40,6 +40,9 @@ type Query {
   image(id:ID!): Image
   images(where: ImageWhereInput, orderBy:ImageOrderByInput, page: Int, limit: Int): ImageConnection!
 
+  insurance(id:ID!): Insurance
+  insurances(where: InsuranceWhereInput, orderBy:InsuranceOrderByInput, page: Int, limit: Int): InsuranceConnection!
+
   status(id:ID!): Status
   statuss(where: StatusWhereInput, orderBy:StatusOrderByInput, page: Int, limit: Int): StatusConnection!
 
@@ -76,6 +79,9 @@ type Mutation {
   createImage(data:ImageInput!): Image!
   updateImage(data:ImageInput!, id:ID!): Image!
   deleteImage(id:ID!): Response
+  createInsurance(data:InsuranceInput!): Insurance!
+  updateInsurance(data:InsuranceInput!, id:ID!): Insurance!
+  deleteInsurance(id:ID!): Response
   createColor(data:ColorInput!): Color!
   updateColor(data:ColorInput!, id:ID!): Color!
   deleteColor(id:ID!): Response

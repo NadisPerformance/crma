@@ -194,6 +194,25 @@ async function deleteImage(parent, {id}, context, info) {
    return {statut_code:1, message:"Image deleted"}
 }
 
+async function createInsurance(parent, {data}, context, info) {
+  return context.prisma.insurance.create({data:data})
+}
+async function updateInsurance(parent, {data,id}, context, info) {
+
+  return context.prisma.insurance.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+async function deleteInsurance(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.insurance.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Insurance deleted"}
+}
+
 async function createCar(parent, {data}, context, info) {
   if(data.picture_file) {
     data.picture = await storeUpload(data.picture_file, carsDir)
@@ -399,4 +418,7 @@ module.exports = {
   createAfterRental,
   updateAfterRental,
   deleteAfterRental,
+  createInsurance,
+  updateInsurance,
+  deleteInsurance
 }

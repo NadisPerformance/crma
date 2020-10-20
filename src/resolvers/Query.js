@@ -173,6 +173,26 @@ async function images(parent, args, ctx, info){
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
+function insurance(parent, {id}, ctx, info){
+	return ctx.prisma.insurance.findOne({
+		 where:{id: parseInt(id) }
+		})
+}
+async function insurances(parent, args, ctx, info){
+	const page = args.page || 1 ;
+	const limit =  args.limit|| 10 ;
+	const where = args.where ? args.where: {}
+	let results =  await ctx.prisma.insurance.findMany({
+	    where,
+	    skip: (page-1) * limit ,
+	   	first: limit,
+	    orderBy: args.orderBy,
+	  })
+	let edges = results.map(result=>({node:result}))
+	let count = await ctx.prisma.insurance.count()
+	return {edges:edges, pageInfo:{count:count, currentPage:page}}
+}
+
 async function hello(parent, args, ctx, info){
   return "Hello world"
 }
@@ -324,4 +344,6 @@ module.exports = {
 	after_rentals,
 	before_rental,
 	before_rentals,
+	insurance,
+	insurances
 }
