@@ -59,6 +59,7 @@ model Booking {
   montant_avance Int?
   date_begin         DateTime?
   date_end           DateTime?
+  comment          String?
   createdAt        DateTime? @default(now())
   updatedAt        DateTime?  @updatedAt
   deleted Boolean?
@@ -180,6 +181,7 @@ model Rental {
   second_driverId    Int?
   date_begin         DateTime?
   date_end           DateTime?
+  comment          String?
   createdAt        DateTime? @default(now())
   updatedAt        DateTime?  @updatedAt
   deleted Boolean?

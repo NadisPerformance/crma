@@ -91,12 +91,12 @@ type Mutation {
   createAlbum(data:AlbumInput!): Album!
   updateAlbum(data:AlbumInput!, id:ID!): Album!
   deleteAlbum(id:ID!): Response
-  createAfter_rental(data:After_rentalInput!): After_rental!
-  updateAfter_rental(data:After_rentalInput!, id:ID!): After_rental!
-  deleteAfter_rental(id:ID!): Response
-  createBefore_rental(data:Before_rentalInput!): Before_rental!
-  updateBefore_rental(data:Before_rentalInput!, id:ID!): Before_rental!
-  deleteBefore_rental(id:ID!): Response
+  createAfterRental(data:After_rentalInput!): After_rental!
+  updateAfterRental(data:After_rentalInput!, id:ID!): After_rental!
+  deleteAfterRental(id:ID!): Response
+  createBeforeRental(data:Before_rentalInput!): Before_rental!
+  updateBeforeRental(data:Before_rentalInput!, id:ID!): Before_rental!
+  deleteBeforeRental(id:ID!): Response
   createRental(data:RentalInput!): Rental!
   updateRental(data:RentalInput!, id:ID!): Rental!
   deleteRental(id:ID!): Response
@@ -303,6 +303,7 @@ type Booking {
   montant_avance: Int
   date_begin: DateTime
   date_end: DateTime
+  comment: String
   car: Car
   customer: Customer
 }
@@ -313,6 +314,7 @@ input BookingInput{
   montant_avance: Int
   date_begin: DateTime
   date_end: DateTime
+  comment: String
 }
 
 input BookingWhereInput{
@@ -721,6 +723,7 @@ type Image {
   id: ID!
   albumId: Int
   path: String
+  image_url: String
   album: Album
   createdAt: DateTime
   updatedAt: DateTime
@@ -807,6 +810,7 @@ type Rental {
   second_driverId: Int
   date_begin: DateTime
   date_end: DateTime
+  comment: String
   createdAt: DateTime
   updatedAt: DateTime
   booking: Booking
@@ -823,7 +827,7 @@ input RentalInput{
   second_driverId: Int
   date_begin: DateTime
   date_end: DateTime
-
+  comment: String
 }
 
 input RentalWhereInput{

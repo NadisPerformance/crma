@@ -3,7 +3,8 @@ const config = require('./config');
 const bcrypt = require("bcryptjs")
 const {  createWriteStream } =  require('fs')
 const shortid  = require('shortid')
-
+const {Storage } = require("@google-cloud/storage");
+const path = require('path')
 const encryptPassword = password => new Promise((resolve, reject) => {
 	bcrypt.genSalt(10, (err, salt) => {
 		if (err) {
@@ -49,16 +50,46 @@ const getPayload = token => {
     }
 }
 
-const storeUpload = async ({ stream, filename}, dir) => {
+// Instantiate a storage client
+const gc = new Storage({
+  projectId:  config.gc_projectId, //process.env.GCLOUD_STORAGE_BUCKET,
+  keyFilename: path.join(__dirname, config.gc_key_file)// process.env.GCLOUD_KEY_FILE
+});
+//const bucket = googleCloudStorage.bucket('crma') ; //process.env.GCLOUD_STORAGE_BUCKET);
+//googleCloudStorage.getBuckets().then((buckets)=>console.log(buckets))
+
+const bucket = gc.bucket(config.gc_bucket)
+const storeToGoogleStorage = async ({ createReadStream, filename}, dir) => {
+	const id = shortid.generate()
+	const path =  id + '-'+ filename
+  await createReadStream()
+          .pipe(
+            bucket.file(path).createWriteStream({
+              resumable: false,
+              gzip: true
+            })
+          )
+          .on('finish', () => { console.log(path); } )
+					.on('error', console.log)
+	 return path
+}
+
+const storeToLocalStorage = async ({ createReadStream, filename}, dir) => {
   const id = shortid.generate()
-  const path = `public/${dir}/${id}-${filename}`
-  const pathname =  id + '-'+ filename
-  return new Promise((resolve, reject) =>
-    stream
+	const pathname =  id + '-'+ filename
+  const path = `public/${dir}/${pathname}`
+  await createReadStream
       .pipe(createWriteStream(path))
-      .on('finish', () => resolve({ id, path, pathname }))
-      .on('error', reject),
-  )
+      .on('finish', () => { console.log(path); } )
+      .on('error', console.log)
+	return pathname
+}
+
+const storeUpload = async (file, dir) => {
+	const { createReadStream, filename, mimetype, encoding } = await file
+	if(config.gc_storage )
+		return storeToGoogleStorage({ createReadStream, filename},dir)
+  return storeToLocalStorage({ createReadStream, filename},dir)
 }
 module.exports = {
     getToken,

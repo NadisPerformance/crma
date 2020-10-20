@@ -87,7 +87,7 @@ const server = new GraphQLServer({
   },
   schemaDirectives: {
     isAdmin: IsAdminDirective
-  },
+  }, 
   //middlewares: [authenticate]
 })
 server.express.use( '/static',express.static('public'))

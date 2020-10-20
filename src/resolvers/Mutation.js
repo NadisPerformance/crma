@@ -1,4 +1,4 @@
-const {encryptPassword, getToken, comparePassword, storeUpload} = require('../utils')
+const {encryptPassword, getToken, comparePassword, storeUpload, storeToGoogleStorage} = require('../utils')
 const mkdirp = require('mkdirp')
 const {imagesDir, carsDir} = require('../config')
 mkdirp.sync('public/'+imagesDir)
@@ -173,22 +173,13 @@ async function deleteRole(parent, {id}, context, info) {
 }
 
 async function createImage(parent, {data}, context, info) {
-  console.log("hello")
-  console.log(data)
-  const { createReadStream, filename, mimetype, encoding } = await data.file
-  const stream = createReadStream()
-  const { pathname } = await storeUpload({ stream, filename},imagesDir)
+  data.path = await storeUpload(data.file, imagesDir)
   delete data.file
-  data.path = pathname
-  console.log(data)
   return context.prisma.image.create({data:data})
 }
 async function updateImage(parent, {data,id}, context, info) {
-  const { createReadStream, filename, mimetype, encoding } = await data.file
-  const stream = createReadStream()
-  const { path } = await storeUpload({ stream, filename},imagesDir)
-  delete data.file
-  data.path = path
+  data.path = await storeUpload(data.file, imagesDir)
+  delete data.file  
   return context.prisma.image.update({data:data,
               where: {
                 id: id *1
@@ -328,6 +319,45 @@ async function deleteRental(parent, {id}, context, info) {
    return {statut_code:1, message:"Rental deleted"}
 }
 
+async function createBeforeRental(parent, {data}, context, info) {
+  return context.prisma.before_rental.create({data:data})
+}
+async function updateBeforeRental(parent, {data,id}, context, info) {
+
+  return context.prisma.before_rental.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+async function deleteBeforeRental(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.before_rental.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"Before rental deleted"}
+}
+
+
+async function createAfterRental(parent, {data}, context, info) {
+  return context.prisma.after_rental.create({data:data})
+}
+async function updateAfterRental(parent, {data,id}, context, info) {
+
+  return context.prisma.after_rental.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+async function deleteAfterRental(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.after_rental.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"After rental deleted"}
+}
+
 module.exports = {
   login,
   signup,
@@ -368,6 +398,11 @@ module.exports = {
   deleteAlbum,
   createRental,
   updateRental,
-  deleteRental
-
+  deleteRental,
+  createBeforeRental,
+  updateBeforeRental,
+  deleteBeforeRental,
+  createAfterRental,
+  updateAfterRental,
+  deleteAfterRental,
 }
