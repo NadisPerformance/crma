@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:3306
--- Généré le :  ven. 16 oct. 2020 à 12:13
--- Version du serveur :  5.5.65-MariaDB
--- Version de PHP :  7.1.14
+-- Hôte : 127.0.0.1:3306
+-- Généré le : ven. 16 oct. 2020 à 12:29
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `location`
+-- Base de données : `easybiom_crma_db`
 --
 
 -- --------------------------------------------------------
@@ -28,8 +27,9 @@ SET time_zone = "+00:00";
 -- Structure de la table `after_rental`
 --
 
-CREATE TABLE `after_rental` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `after_rental`;
+CREATE TABLE IF NOT EXISTS `after_rental` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `rentalId` int(11) NOT NULL,
   `albumId` int(11) NOT NULL,
   `kilometrage` int(11) NOT NULL,
@@ -37,8 +37,9 @@ CREATE TABLE `after_rental` (
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
   `comment` text NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `after_rental`
@@ -53,13 +54,15 @@ INSERT INTO `after_rental` (`id`, `rentalId`, `albumId`, `kilometrage`, `niveau_
 -- Structure de la table `albums`
 --
 
-CREATE TABLE `albums` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `albums`;
+CREATE TABLE IF NOT EXISTS `albums` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(30) NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `albums`
@@ -74,8 +77,9 @@ INSERT INTO `albums` (`id`, `title`, `createdAt`, `updatedAt`, `deleted`) VALUES
 -- Structure de la table `before_rental`
 --
 
-CREATE TABLE `before_rental` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `before_rental`;
+CREATE TABLE IF NOT EXISTS `before_rental` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `rentalId` int(11) NOT NULL,
   `albumId` int(11) NOT NULL,
   `kilometrage` int(11) NOT NULL,
@@ -83,8 +87,9 @@ CREATE TABLE `before_rental` (
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
   `comment` text NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `before_rental`
@@ -99,13 +104,15 @@ INSERT INTO `before_rental` (`id`, `rentalId`, `albumId`, `kilometrage`, `niveau
 -- Structure de la table `bills`
 --
 
-CREATE TABLE `bills` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `bills`;
+CREATE TABLE IF NOT EXISTS `bills` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `bill_number` varchar(30) NOT NULL,
   `bill_date` datetime NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -114,8 +121,9 @@ CREATE TABLE `bills` (
 -- Structure de la table `bookings`
 --
 
-CREATE TABLE `bookings` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `bookings`;
+CREATE TABLE IF NOT EXISTS `bookings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `carId` int(11) NOT NULL,
   `customerId` int(11) NOT NULL,
   `montant_avance` int(11) NOT NULL,
@@ -124,18 +132,18 @@ CREATE TABLE `bookings` (
   `comment` text NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `bookings`
 --
 
 INSERT INTO `bookings` (`id`, `carId`, `customerId`, `montant_avance`, `date_begin`, `date_end`, `comment`, `createdAt`, `updatedAt`, `deleted`) VALUES
-(1, 2, 1, 0, '2020-10-09', '2020-10-12', '', '2020-10-15 09:00:00', '2020-10-15 06:00:00', 0),
-(2, 1, 2, 0, '2020-10-22', '2020-10-30', '', '2020-10-14 09:00:00', '2020-10-16 09:09:03', 1),
-(3, 4, 2, 200, '2020-10-15', '2020-10-16', '', '2020-10-16 12:00:11', '2020-10-16 12:00:11', 0),
-(4, 4, 2, 100, '2020-10-16', '2020-10-22', '', '2020-10-16 12:01:07', '2020-10-16 12:05:48', 0);
+(1, 1, 1, 200, '2020-10-15', '2020-10-19', '', '2020-10-15 09:00:00', '2020-10-16 12:25:59', 1),
+(2, 1, 2, 0, '2020-10-22', '2020-10-30', '', '2020-10-14 09:00:00', '2020-10-14 09:00:00', 0),
+(3, 1, 3, 2222, '2020-09-28', '2020-09-30', 'EEEEEEEEEEEEEEEEEEEEEEEEEEEE', '2020-10-16 11:15:33', '2020-10-16 12:15:33', 0);
 
 -- --------------------------------------------------------
 
@@ -143,11 +151,13 @@ INSERT INTO `bookings` (`id`, `carId`, `customerId`, `montant_avance`, `date_beg
 -- Structure de la table `brands`
 --
 
-CREATE TABLE `brands` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `brands`;
+CREATE TABLE IF NOT EXISTS `brands` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `brands`
@@ -155,13 +165,7 @@ CREATE TABLE `brands` (
 
 INSERT INTO `brands` (`id`, `name`, `deleted`) VALUES
 (1, 'MERCEDES', 0),
-(2, 'AUDI', 0),
-(3, 'title', 0),
-(4, 'title', 0),
-(5, 'title', 0),
-(6, 'title', 0),
-(7, 'title', 0),
-(8, 'title', 0);
+(2, 'AUDI', 0);
 
 -- --------------------------------------------------------
 
@@ -169,8 +173,9 @@ INSERT INTO `brands` (`id`, `name`, `deleted`) VALUES
 -- Structure de la table `cars`
 --
 
-CREATE TABLE `cars` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `cars`;
+CREATE TABLE IF NOT EXISTS `cars` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `plate_number` varchar(15) NOT NULL,
   `picture` varchar(100) NOT NULL,
   `brandId` int(11) NOT NULL,
@@ -184,23 +189,18 @@ CREATE TABLE `cars` (
   `statusId` int(11) NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `cars`
 --
 
 INSERT INTO `cars` (`id`, `plate_number`, `picture`, `brandId`, `model`, `model_date`, `categoryId`, `price`, `colorId`, `chassis_number`, `availability`, `statusId`, `createdAt`, `updatedAt`, `deleted`) VALUES
-(1, 'FB883930', '9oFzi3Ldw-CROPPED-DSC_0008.JPG', 1, 'benzzz', 2000, 1, 100, 3, 'VF45664', 0, 2, '2020-10-14 08:00:00', '2020-10-16 09:00:54', 1),
-(2, 'HG383893', 'xtGHvH0Fs-CROPPED-DSC_0008.JPG', 2, 'A3', 2013, 1, 350, 1, 'NY45664', 0, 1, '2020-10-15 13:00:00', '2020-10-16 09:58:33', 0),
-(3, 'JH399303', '', 1, 'corolla', 2010, 1, 384, 0, 'AZ45664', 0, 1, '2020-10-16 11:00:00', '2020-10-16 08:58:06', 1),
-(4, 'ezhhze', '', 1, '9393', 2002, 1, 200, 1, '399330', 0, 2, '2020-10-16 10:33:15', '2020-10-16 11:05:36', 0),
-(5, 'lkmasjdklzejkl', '', 2, '23903', 2010, 1, 2002, 0, 'zalklk', 0, 0, '2020-10-16 10:35:19', '2020-10-16 10:58:15', 1),
-(6, 'JE93030', '', 0, '200', 2020, 0, 200, 0, '22993399029390', 0, 0, '2020-10-16 10:48:47', '2020-10-16 10:58:09', 1),
-(7, '3IO3IO', '', 1, 'S49', 39390, 1, 3939009, 0, '3IO3IOIO', 0, 0, '2020-10-16 10:51:03', '2020-10-16 10:58:03', 1),
-(8, '2909209', '', 1, '2222', 2222, 1, 200, 2, '209902', 0, 2, '2020-10-16 10:54:46', '2020-10-16 10:54:46', 0),
-(9, '290290093NI3O2', 'NQeFretKW-CROPPED-DSC_0008.JPG', 1, '299', 2999, 1, 200, 1, '290902930903', 0, 1, '2020-10-16 11:13:07', '2020-10-16 11:13:56', 0);
+(1, 'FB883930', '9oFzi3Ldw-CROPPED-DSC_0008.JPG', 1, 'benz', 2000, 1, 100, 1, 'VF45664', 0, 3, '2020-10-14 08:00:00', '2020-10-15 14:29:43', 0),
+(2, 'HG383893', 'xtGHvH0Fs-CROPPED-DSC_0008.JPG', 2, 'A3', 2013, 1, 350, 1, 'NY45664', 0, 1, '2020-10-15 13:00:00', '2020-10-16 09:15:22', 1),
+(3, 'JH399303', '', 1, 'corolla', 2010, 1, 384, 0, 'AZ45664', 0, 1, '2020-10-16 11:00:00', '2020-10-22 08:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -208,16 +208,18 @@ INSERT INTO `cars` (`id`, `plate_number`, `picture`, `brandId`, `model`, `model_
 -- Structure de la table `car_insurances`
 --
 
-CREATE TABLE `car_insurances` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `car_insurances`;
+CREATE TABLE IF NOT EXISTS `car_insurances` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `carId` int(11) NOT NULL,
   `insuranceId` int(11) NOT NULL,
   `date_begin` date NOT NULL,
   `date_end` date NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `car_insurances`
@@ -232,11 +234,13 @@ INSERT INTO `car_insurances` (`id`, `carId`, `insuranceId`, `date_begin`, `date_
 -- Structure de la table `categories`
 --
 
-CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(25) NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `categories`
@@ -251,11 +255,13 @@ INSERT INTO `categories` (`id`, `title`, `deleted`) VALUES
 -- Structure de la table `colors`
 --
 
-CREATE TABLE `colors` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `colors`;
+CREATE TABLE IF NOT EXISTS `colors` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(15) NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `colors`
@@ -273,15 +279,17 @@ INSERT INTO `colors` (`id`, `name`, `deleted`) VALUES
 -- Structure de la table `contracts`
 --
 
-CREATE TABLE `contracts` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `contracts`;
+CREATE TABLE IF NOT EXISTS `contracts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `rentalId` int(11) NOT NULL,
   `contract_typeId` int(11) NOT NULL,
   `date_begin` date NOT NULL,
   `date_end` date NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -290,10 +298,12 @@ CREATE TABLE `contracts` (
 -- Structure de la table `contracts_type`
 --
 
-CREATE TABLE `contracts_type` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `contracts_type`;
+CREATE TABLE IF NOT EXISTS `contracts_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  `deleted` tinyint(1) NOT NULL
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -302,8 +312,9 @@ CREATE TABLE `contracts_type` (
 -- Structure de la table `customers`
 --
 
-CREATE TABLE `customers` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `customers`;
+CREATE TABLE IF NOT EXISTS `customers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(30) NOT NULL,
   `lastname` varchar(30) NOT NULL,
   `birthday` date NOT NULL,
@@ -319,8 +330,9 @@ CREATE TABLE `customers` (
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `is_second_driver` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `is_second_driver` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `customers`
@@ -328,9 +340,9 @@ CREATE TABLE `customers` (
 
 INSERT INTO `customers` (`id`, `firstname`, `lastname`, `birthday`, `gender`, `cni`, `type`, `driver_license`, `city`, `address`, `phone`, `email`, `company_name`, `createdAt`, `updatedAt`, `deleted`, `is_second_driver`) VALUES
 (1, 'zakia', 'momox', '1991-10-01', 'Mr', 'F33256', 1, 'erhehrzzzzzzzzzz', 'oujda', '81 rue EL-Amil quartier Takado', '0698765432', 'zaka@gmail.com', 'MABROKA MEDIA', '2020-10-15 00:00:00', '2020-10-15 09:14:19', 0, 0),
-(2, 'hamza', 'belkhadir', '1991-10-01', 'Mr', 'FB123456', 1, 'X234R432', 'berkan', 'eeeeeeeee', '0612345678', 'hamza@gmail.com', 'nadisperformance', '2020-10-14 09:00:00', '2020-10-14 08:00:00', 0, 0),
-(3, 'mohammed', 'belabed', '2020-10-27', 'M.', 'FB8893930', 1, '393kkf39', 'Taourirt', '3839 rue elamil', '06494049', 'belabed_90@hotmail.fr', 'NADIS', '2020-10-16 11:42:06', '2020-10-16 11:50:21', 0, 0),
-(4, 'Mohammed', 'BELABED', '2020-10-16', 'M.', 'belabed', 0, '393939', '2993', '30930909', '0393003939', 'belabed_90@hotmail.Fr', '', '2020-10-16 11:58:29', '2020-10-16 11:58:29', 0, 0);
+(2, 'hamza', 'belkhadir', '1986-10-01', 'Mme', 'FB123456', 1, 'X234R432', 'berkane', 'e', '0612345678', 'hamza@gmail.com', 'nadisperformance', '2020-10-14 09:00:00', '2020-10-16 10:00:49', 1, 0),
+(3, 'mohamed', 'mohamedi', '2020-10-16', 'Mme', '433FEG', 1, 'VRETHR6J54T', 'Taourirt', 'Z53HY', '234565432123456', 'AZER@zbdngf', 'mediatech', '2020-10-16 10:48:26', '2020-10-16 11:48:26', 0, 0),
+(4, 'tenoitne', 'lthtpij', '2020-10-16', 'M.', 'oiehnohien', 0, 'lbtennhein', 'oiethoir', 'oeigjoerijg', '2222222222222222', 'oiergj@irgueu', '', '2020-10-16 10:59:12', '2020-10-16 11:59:12', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -338,14 +350,16 @@ INSERT INTO `customers` (`id`, `firstname`, `lastname`, `birthday`, `gender`, `c
 -- Structure de la table `images`
 --
 
-CREATE TABLE `images` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `images`;
+CREATE TABLE IF NOT EXISTS `images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `albumId` int(11) NOT NULL,
   `path` varchar(255) NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `images`
@@ -362,11 +376,13 @@ INSERT INTO `images` (`id`, `albumId`, `path`, `createdAt`, `updatedAt`, `delete
 -- Structure de la table `insurances`
 --
 
-CREATE TABLE `insurances` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `insurances`;
+CREATE TABLE IF NOT EXISTS `insurances` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `insurances`
@@ -381,8 +397,9 @@ INSERT INTO `insurances` (`id`, `name`, `deleted`) VALUES
 -- Structure de la table `rentals`
 --
 
-CREATE TABLE `rentals` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `rentals`;
+CREATE TABLE IF NOT EXISTS `rentals` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `bookingId` int(11) DEFAULT NULL,
   `carId` int(11) NOT NULL,
   `customerId` int(11) NOT NULL,
@@ -391,16 +408,18 @@ CREATE TABLE `rentals` (
   `date_end` date NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rentals`
 --
 
 INSERT INTO `rentals` (`id`, `bookingId`, `carId`, `customerId`, `second_driverId`, `date_begin`, `date_end`, `createdAt`, `updatedAt`, `deleted`) VALUES
-(1, 1, 1, 1, 1, '2020-10-13', '2020-10-08', '2020-10-15 08:00:00', '2020-10-16 09:00:24', 1),
-(2, NULL, 4, 1, 2, '2020-10-16', '2020-10-22', '2020-10-16 09:24:29', '2020-10-16 11:11:23', 0);
+(1, 1, 1, 1, 1, '2020-10-13', '2020-10-08', '2020-10-15 08:00:00', '2020-10-21 04:00:00', 0),
+(2, NULL, 3, 1, 1, '2020-10-15', '2020-10-18', '2020-10-16 09:01:23', '2020-10-16 10:01:23', 0),
+(3, NULL, 3, 1, 1, '2020-10-24', '2020-10-25', '2020-10-16 09:09:05', '2020-10-16 10:09:35', 0);
 
 -- --------------------------------------------------------
 
@@ -408,11 +427,13 @@ INSERT INTO `rentals` (`id`, `bookingId`, `carId`, `customerId`, `second_driverI
 -- Structure de la table `roles`
 --
 
-CREATE TABLE `roles` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `roles`
@@ -428,11 +449,13 @@ INSERT INTO `roles` (`id`, `title`, `deleted`) VALUES
 -- Structure de la table `status`
 --
 
-CREATE TABLE `status` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE IF NOT EXISTS `status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(35) NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `status`
@@ -449,15 +472,17 @@ INSERT INTO `status` (`id`, `title`, `deleted`) VALUES
 -- Structure de la table `technical_controls`
 --
 
-CREATE TABLE `technical_controls` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `technical_controls`;
+CREATE TABLE IF NOT EXISTS `technical_controls` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `carId` int(11) NOT NULL,
   `date_begin` date NOT NULL,
   `date_end` date NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `technical_controls`
@@ -472,8 +497,9 @@ INSERT INTO `technical_controls` (`id`, `carId`, `date_begin`, `date_end`, `crea
 -- Structure de la table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `gender` varchar(30) NOT NULL,
@@ -485,268 +511,20 @@ CREATE TABLE `users` (
   `password` varchar(80) NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `gender`, `cni`, `address`, `email`, `phone`, `roleId`, `password`, `createdAt`, `updatedAt`, `deleted`) VALUES
-(1, 'Mohammed', 'ZBAIBI', 'Mr', 'FB120142', '07 LOT El Massira TAOURIRT', 'm.zbairi@gmail.fr', '0612345678', 1, '$2a$10$uoOhtKa2ejzKaPTWV2opwOS691bDaV7uCmYDZcXjofCBMGi6Thf9m', '2020-10-15 00:00:00', '2020-10-16 08:55:28', 1),
+(1, 'Mohammed', 'ZBAIBI', 'Mr', 'FB120142', '07 LOT El Massira TAOURIRT', 'm.zbairi@gmail.fr', '0612345678', 2, '$2a$10$SCZNaUqeAi5VbvCJyo1IVu9aviVHYQwiACvwzC7tqx//v5gOKZ04.', '2020-10-15 00:00:00', '2020-10-14 06:00:00', 0),
 (2, 'Ayoub', 'MAAMAR', 'Mr', 'HG292002', '', 'a.maamar@gmail.fr', '0698765432', 1, '$2a$10$U9qI770QiqkhWbLpukb2KeId4oJBEkUqXxwlwWpVRYvhpnCUZL0ni', '2020-10-14 06:00:00', '2020-10-14 05:00:00', 1),
-(3, 'zaia', 'belkhadir', 'Mr', 'FB123456', 'LOT massira', 'zaka@gmail.com', '0612345678', 2, '$2a$10$83Z/9/bP3yR0h4vwYq/RC.zkuv28VousQy36xS/CKeNnvuRWF5ak2', '2020-10-14 08:00:00', '2020-10-16 08:52:45', 1),
+(3, 'zaia', 'belkhadir', 'Mr', 'FB123456', 'LOT massira', 'zaka@gmail.com', '0612345678', 2, '$2a$10$83Z/9/bP3yR0h4vwYq/RC.zkuv28VousQy36xS/CKeNnvuRWF5ak2', '2020-10-14 08:00:00', '2020-10-14 07:00:00', 0),
 (4, 'mkee', 'belabed', 'kl', 'klkkjlkjl', 'kljklkl', 'elkjkl', 'zekljklrljk', 1, '$2a$10$BQ0ic9KyITArvaWvC5hI3OXKO/y3pwyd3cyxyODfY2Dckm1upMbpy', '2020-10-14 06:00:00', '2020-10-14 07:00:00', 1),
-(5, 'Ayoub', 'MAAMAR', 'M', 'FB99999', 'N87 lot ennakhil', 'ayoub.maamar@crma.com', '0661651482', 1, '$2a$10$b.CWt49BQ4FLQn84sXFYVemsWOqLJVDSd180gZ9DoIN6CCeROUxpy', '2020-10-14 10:00:00', '2020-10-14 07:00:00', 0),
-(6, 'rzeq', 'smail', 'M', 'RQ1234', 'taourirt', 'rzeq@gmail.com', '064455533', 2, '$2a$10$KuJGRVSb3MO8jvkqqfO3oOlH8j7dsYr6MxzdoguylCW2waS5l.gTu', '2020-10-16 08:54:27', '2020-10-16 08:54:27', 0);
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `after_rental`
---
-ALTER TABLE `after_rental`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `albums`
---
-ALTER TABLE `albums`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `before_rental`
---
-ALTER TABLE `before_rental`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `bills`
---
-ALTER TABLE `bills`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `bookings`
---
-ALTER TABLE `bookings`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `brands`
---
-ALTER TABLE `brands`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `cars`
---
-ALTER TABLE `cars`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `car_insurances`
---
-ALTER TABLE `car_insurances`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `colors`
---
-ALTER TABLE `colors`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `contracts`
---
-ALTER TABLE `contracts`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `contracts_type`
---
-ALTER TABLE `contracts_type`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `customers`
---
-ALTER TABLE `customers`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `images`
---
-ALTER TABLE `images`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `insurances`
---
-ALTER TABLE `insurances`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `rentals`
---
-ALTER TABLE `rentals`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `status`
---
-ALTER TABLE `status`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `technical_controls`
---
-ALTER TABLE `technical_controls`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `after_rental`
---
-ALTER TABLE `after_rental`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT pour la table `albums`
---
-ALTER TABLE `albums`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT pour la table `before_rental`
---
-ALTER TABLE `before_rental`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT pour la table `bills`
---
-ALTER TABLE `bills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `bookings`
---
-ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT pour la table `brands`
---
-ALTER TABLE `brands`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT pour la table `cars`
---
-ALTER TABLE `cars`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT pour la table `car_insurances`
---
-ALTER TABLE `car_insurances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT pour la table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT pour la table `colors`
---
-ALTER TABLE `colors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT pour la table `contracts`
---
-ALTER TABLE `contracts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `contracts_type`
---
-ALTER TABLE `contracts_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `customers`
---
-ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT pour la table `images`
---
-ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT pour la table `insurances`
---
-ALTER TABLE `insurances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT pour la table `rentals`
---
-ALTER TABLE `rentals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT pour la table `roles`
---
-ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT pour la table `status`
---
-ALTER TABLE `status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT pour la table `technical_controls`
---
-ALTER TABLE `technical_controls`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT pour la table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+(5, 'Ayoub', 'MAAMAR', 'M', 'FB99999', 'N87 lot ennakhil', 'ayoub.maamar@crma.com', '0661651482', 1, '$2a$10$b.CWt49BQ4FLQn84sXFYVemsWOqLJVDSd180gZ9DoIN6CCeROUxpy', '2020-10-14 10:00:00', '2020-10-14 07:00:00', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
