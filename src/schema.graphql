@@ -111,7 +111,7 @@ type Mutation {
   deleteRental(id:ID!): Response
   createTechnicalControl(data:Technical_controlInput!): Technical_control!
   updateTechnicalControl(data:Technical_controlInput!, id:ID!): Technical_control!
-  deleteTechnicalControl(id:ID!): Technical_control
+  deleteTechnicalControl(id:ID!): Response
 }
 type Response{
   statut_code: Int
@@ -952,7 +952,7 @@ type Technical_control {
   date_end: DateTime
   createdAt: DateTime
   updatedAt: DateTime
-  Car: Car
+  car:  [Car!]
 }
 
 input Technical_controlInput{
