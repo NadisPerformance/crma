@@ -21,12 +21,17 @@ function status(parent, args, ctx, info){
 }
 function technical_controls(parent, args, ctx, info){
   return ctx.prisma.technical_control.findMany({
-		 where:{carId: parseInt(parent.id)}
+		 where:{carId: parseInt(parent.id),
+      deleted:false
+     }
+
 		})
 }
 function car_insurances(parent, args, ctx, info){
   return ctx.prisma.car_insurance.findMany({
-		 where:{carId: parseInt(parent.id)}
+		 where:{carId: parseInt(parent.id),
+       deleted:false
+      }
 		})
 }
 
