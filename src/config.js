@@ -5,6 +5,6 @@ module.exports = {
     gc_projectId: "crma-292718",
     gc_key_file: "crma-292718-f6f492608857.json",
     gc_bucket: "crma",
-    imagesDir:"/uploads/images",
-    carsDir:"/uploads/cars"
+    imagesDir:"uploads/images",
+    carsDir:"uploads/cars"
 }

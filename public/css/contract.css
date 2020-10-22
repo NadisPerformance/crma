@@ -1,0 +1,27 @@
+h5{
+  border: 1px solid black;
+  background-color: blue;
+  text-align: center;
+  color:white;
+}
+.title{
+  font-size: 18px;
+  display: block;
+  text-align: center;
+}
+span.lbl{
+  font-weight: bold;
+  font-size: 10px;
+}
+span.lbl_value{
+  font-size: 10px;
+}
+table{
+  width:100%;
+}
+td{
+  text-align:left;
+}
+p{
+  font-size:10px;
+}

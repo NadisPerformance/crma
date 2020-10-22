@@ -62,9 +62,10 @@ const bucket = gc.bucket(config.gc_bucket)
 const storeToGoogleStorage = async ({ createReadStream, filename}, dir) => {
 	const id = shortid.generate()
 	const path =  id + '-'+ filename
+	const path_dir = dir+'/' + path
   await createReadStream()
           .pipe(
-            bucket.file(path).createWriteStream({
+            bucket.file(path_dir).createWriteStream({
               resumable: false,
               gzip: true
             })

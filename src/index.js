@@ -2,8 +2,9 @@ const { GraphQLServer } = require('graphql-yoga')
 const { AuthenticationError } = require("apollo-server");
 const path = require('path');
 const express= require('express')
+const { generateContract } = require('./helpers/contractToPdf')
 //const { prisma } = require('./generated/prisma-client')
-const { PrismaClient }= require('@prisma/client') ;
+const { PrismaClient }= require('./prisma-client') ;
 const prisma = new PrismaClient()
 
 const Query = require('./resolvers/Query')
@@ -87,9 +88,31 @@ const server = new GraphQLServer({
   },
   schemaDirectives: {
     isAdmin: IsAdminDirective
-  }, 
+  },
   //middlewares: [authenticate]
 })
+server.express.get("/contracts/download", async function(req, res) {
+  //res.send("OKoo") ;
+  // end and display the document in the iframe to the right
+  if(!req.query.rentalId)
+    return res.send("Rental id not given")
+    let rentalId = req.query.rentalId
+    prisma.rental.findOne({
+  		 where:{id: parseInt(rentalId) },
+       include: {
+          car: true,
+          customer: true
+        },
+     }).then(async (rental)=>{
+      if(!rental)
+        return res.send("rental not found")
+      if(rental.car)
+        rental.car.brand = await prisma.brand.findOne({where:{id:rental.car.brandId}})
+      console.log(rental)
+      generateContract(res,rental) ;
+    })
+
+});
 server.express.use( '/static',express.static('public'))
 server.start({port: 4008})
 console.log(`Server is running on http://localhost:4008`)
