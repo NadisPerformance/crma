@@ -102,7 +102,7 @@
       %tr
         %td
           Au départ
-          %br
+          %hr 
           %span.lbl= "Niveau du carburant:"
           %span.lbl_value="......"
           %br
@@ -143,7 +143,7 @@
           %br
         %td
           Au retour
-          %br
+          %hr
           %span.lbl= "Niveau du carburant:"
           %span.lbl_value="......"
           %br
