@@ -4,7 +4,6 @@
     %meta{charset:"UTF-8"}
     %link{href: "http://localhost:4008/static/css/contract.css", media: "all", rel: "stylesheet", type: "text/css"}
   %body
-
     %div
       %img{src:"http://localhost:4008/static/logo.png",width:"100px"}
       %span.title= "Contrat de location N° "+id
@@ -102,7 +101,7 @@
       %tr
         %td
           Au départ
-          %hr 
+          %hr
           %span.lbl= "Niveau du carburant:"
           %span.lbl_value="......"
           %br
