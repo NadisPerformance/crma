@@ -2793,11 +2793,6 @@ export type CarSelect = {
   deleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  Rental?: boolean | FindManyRentalArgs
-}
-
-export type CarInclude = {
-  Rental?: boolean | FindManyRentalArgs
 }
 
 export type CarGetPayload<
@@ -2809,17 +2804,12 @@ export type CarGetPayload<
   ? never
   : S extends CarArgs | FindManyCarArgs
   ? 'include' extends U
-    ? Car  & {
-      [P in TrueKeys<S['include']>]:
-      P extends 'Rental'
-      ? Array<RentalGetPayload<S['include'][P]>> : never
-    }
+    ? Car 
   : 'select' extends U
     ? {
       [P in TrueKeys<S['select']>]:P extends keyof Car ? Car[P]
 : 
-      P extends 'Rental'
-      ? Array<RentalGetPayload<S['select'][P]>> : never
+ never
     }
   : Car
 : Car
@@ -2981,7 +2971,6 @@ export declare class CarClient<T> implements Promise<T> {
   constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
   readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
-  Rental<T extends FindManyRentalArgs = {}>(args?: Subset<T, FindManyRentalArgs>): CheckSelect<T, Promise<Array<Rental>>, Promise<Array<RentalGetPayload<T>>>>;
 
   private get _document();
   /**
@@ -3017,10 +3006,6 @@ export type FindOneCarArgs = {
   **/
   select?: CarSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CarInclude | null
-  /**
    * Filter, which Car to fetch.
   **/
   where: CarWhereUniqueInput
@@ -3035,10 +3020,6 @@ export type FindManyCarArgs = {
    * Select specific fields to fetch from the Car
   **/
   select?: CarSelect | null
-  /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CarInclude | null
   /**
    * Filter, which Cars to fetch.
   **/
@@ -3079,10 +3060,6 @@ export type CarCreateArgs = {
   **/
   select?: CarSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CarInclude | null
-  /**
    * The data needed to create a Car.
   **/
   data: CarCreateInput
@@ -3097,10 +3074,6 @@ export type CarUpdateArgs = {
    * Select specific fields to fetch from the Car
   **/
   select?: CarSelect | null
-  /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CarInclude | null
   /**
    * The data needed to update a Car.
   **/
@@ -3130,10 +3103,6 @@ export type CarUpsertArgs = {
   **/
   select?: CarSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CarInclude | null
-  /**
    * The filter to search for the Car to update in case it exists.
   **/
   where: CarWhereUniqueInput
@@ -3157,10 +3126,6 @@ export type CarDeleteArgs = {
   **/
   select?: CarSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CarInclude | null
-  /**
    * Filter which Car to delete.
   **/
   where: CarWhereUniqueInput
@@ -3183,10 +3148,6 @@ export type CarArgs = {
    * Select specific fields to fetch from the Car
   **/
   select?: CarSelect | null
-  /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CarInclude | null
 }
 
 
@@ -5116,11 +5077,6 @@ export type CustomerSelect = {
   createdAt?: boolean
   updatedAt?: boolean
   deleted?: boolean
-  Rental?: boolean | FindManyRentalArgs
-}
-
-export type CustomerInclude = {
-  Rental?: boolean | FindManyRentalArgs
 }
 
 export type CustomerGetPayload<
@@ -5132,17 +5088,12 @@ export type CustomerGetPayload<
   ? never
   : S extends CustomerArgs | FindManyCustomerArgs
   ? 'include' extends U
-    ? Customer  & {
-      [P in TrueKeys<S['include']>]:
-      P extends 'Rental'
-      ? Array<RentalGetPayload<S['include'][P]>> : never
-    }
+    ? Customer 
   : 'select' extends U
     ? {
       [P in TrueKeys<S['select']>]:P extends keyof Customer ? Customer[P]
 : 
-      P extends 'Rental'
-      ? Array<RentalGetPayload<S['select'][P]>> : never
+ never
     }
   : Customer
 : Customer
@@ -5304,7 +5255,6 @@ export declare class CustomerClient<T> implements Promise<T> {
   constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
   readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
-  Rental<T extends FindManyRentalArgs = {}>(args?: Subset<T, FindManyRentalArgs>): CheckSelect<T, Promise<Array<Rental>>, Promise<Array<RentalGetPayload<T>>>>;
 
   private get _document();
   /**
@@ -5340,10 +5290,6 @@ export type FindOneCustomerArgs = {
   **/
   select?: CustomerSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CustomerInclude | null
-  /**
    * Filter, which Customer to fetch.
   **/
   where: CustomerWhereUniqueInput
@@ -5358,10 +5304,6 @@ export type FindManyCustomerArgs = {
    * Select specific fields to fetch from the Customer
   **/
   select?: CustomerSelect | null
-  /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CustomerInclude | null
   /**
    * Filter, which Customers to fetch.
   **/
@@ -5402,10 +5344,6 @@ export type CustomerCreateArgs = {
   **/
   select?: CustomerSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CustomerInclude | null
-  /**
    * The data needed to create a Customer.
   **/
   data: CustomerCreateInput
@@ -5420,10 +5358,6 @@ export type CustomerUpdateArgs = {
    * Select specific fields to fetch from the Customer
   **/
   select?: CustomerSelect | null
-  /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CustomerInclude | null
   /**
    * The data needed to update a Customer.
   **/
@@ -5453,10 +5387,6 @@ export type CustomerUpsertArgs = {
   **/
   select?: CustomerSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CustomerInclude | null
-  /**
    * The filter to search for the Customer to update in case it exists.
   **/
   where: CustomerWhereUniqueInput
@@ -5480,10 +5410,6 @@ export type CustomerDeleteArgs = {
   **/
   select?: CustomerSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CustomerInclude | null
-  /**
    * Filter which Customer to delete.
   **/
   where: CustomerWhereUniqueInput
@@ -5506,10 +5432,6 @@ export type CustomerArgs = {
    * Select specific fields to fetch from the Customer
   **/
   select?: CustomerSelect | null
-  /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: CustomerInclude | null
 }
 
 
@@ -6296,13 +6218,6 @@ export type RentalSelect = {
   createdAt?: boolean
   updatedAt?: boolean
   deleted?: boolean
-  car?: boolean | CarArgs
-  customer?: boolean | CustomerArgs
-}
-
-export type RentalInclude = {
-  car?: boolean | CarArgs
-  customer?: boolean | CustomerArgs
 }
 
 export type RentalGetPayload<
@@ -6314,21 +6229,12 @@ export type RentalGetPayload<
   ? never
   : S extends RentalArgs | FindManyRentalArgs
   ? 'include' extends U
-    ? Rental  & {
-      [P in TrueKeys<S['include']>]:
-      P extends 'car'
-      ? CarGetPayload<S['include'][P]> | null :
-      P extends 'customer'
-      ? CustomerGetPayload<S['include'][P]> | null : never
-    }
+    ? Rental 
   : 'select' extends U
     ? {
       [P in TrueKeys<S['select']>]:P extends keyof Rental ? Rental[P]
 : 
-      P extends 'car'
-      ? CarGetPayload<S['select'][P]> | null :
-      P extends 'customer'
-      ? CustomerGetPayload<S['select'][P]> | null : never
+ never
     }
   : Rental
 : Rental
@@ -6490,9 +6396,6 @@ export declare class RentalClient<T> implements Promise<T> {
   constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
   readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
-  car<T extends CarArgs = {}>(args?: Subset<T, CarArgs>): CheckSelect<T, CarClient<Car | null>, CarClient<CarGetPayload<T> | null>>;
-
-  customer<T extends CustomerArgs = {}>(args?: Subset<T, CustomerArgs>): CheckSelect<T, CustomerClient<Customer | null>, CustomerClient<CustomerGetPayload<T> | null>>;
 
   private get _document();
   /**
@@ -6528,10 +6431,6 @@ export type FindOneRentalArgs = {
   **/
   select?: RentalSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: RentalInclude | null
-  /**
    * Filter, which Rental to fetch.
   **/
   where: RentalWhereUniqueInput
@@ -6546,10 +6445,6 @@ export type FindManyRentalArgs = {
    * Select specific fields to fetch from the Rental
   **/
   select?: RentalSelect | null
-  /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: RentalInclude | null
   /**
    * Filter, which Rentals to fetch.
   **/
@@ -6590,10 +6485,6 @@ export type RentalCreateArgs = {
   **/
   select?: RentalSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: RentalInclude | null
-  /**
    * The data needed to create a Rental.
   **/
   data: RentalCreateInput
@@ -6608,10 +6499,6 @@ export type RentalUpdateArgs = {
    * Select specific fields to fetch from the Rental
   **/
   select?: RentalSelect | null
-  /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: RentalInclude | null
   /**
    * The data needed to update a Rental.
   **/
@@ -6641,10 +6528,6 @@ export type RentalUpsertArgs = {
   **/
   select?: RentalSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: RentalInclude | null
-  /**
    * The filter to search for the Rental to update in case it exists.
   **/
   where: RentalWhereUniqueInput
@@ -6668,10 +6551,6 @@ export type RentalDeleteArgs = {
   **/
   select?: RentalSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: RentalInclude | null
-  /**
    * Filter which Rental to delete.
   **/
   where: RentalWhereUniqueInput
@@ -6694,10 +6573,6 @@ export type RentalArgs = {
    * Select specific fields to fetch from the Rental
   **/
   select?: RentalSelect | null
-  /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: RentalInclude | null
 }
 
 
@@ -8329,48 +8204,6 @@ export type BrandWhereUniqueInput = {
   id?: number | null
 }
 
-export type CustomerWhereInput = {
-  id?: number | IntFilter | null
-  firstname?: string | StringFilter | null
-  lastname?: string | NullableStringFilter | null
-  birthday?: Date | string | NullableDateTimeFilter | null
-  gender?: string | NullableStringFilter | null
-  cni?: string | NullableStringFilter | null
-  type?: number | NullableIntFilter | null
-  driver_license?: string | NullableStringFilter | null
-  city?: string | NullableStringFilter | null
-  address?: string | NullableStringFilter | null
-  email?: string | StringFilter | null
-  phone?: string | NullableStringFilter | null
-  company_name?: string | NullableStringFilter | null
-  createdAt?: Date | string | NullableDateTimeFilter | null
-  updatedAt?: Date | string | NullableDateTimeFilter | null
-  deleted?: boolean | NullableBooleanFilter | null
-  Rental?: RentalFilter | null
-  AND?: Enumerable<CustomerWhereInput> | null
-  OR?: Enumerable<CustomerWhereInput> | null
-  NOT?: Enumerable<CustomerWhereInput> | null
-}
-
-export type RentalWhereInput = {
-  id?: number | IntFilter | null
-  bookingId?: number | NullableIntFilter | null
-  carId?: number | NullableIntFilter | null
-  customerId?: number | NullableIntFilter | null
-  second_driverId?: number | NullableIntFilter | null
-  date_begin?: Date | string | NullableDateTimeFilter | null
-  date_end?: Date | string | NullableDateTimeFilter | null
-  comment?: string | NullableStringFilter | null
-  createdAt?: Date | string | NullableDateTimeFilter | null
-  updatedAt?: Date | string | NullableDateTimeFilter | null
-  deleted?: boolean | NullableBooleanFilter | null
-  AND?: Enumerable<RentalWhereInput> | null
-  OR?: Enumerable<RentalWhereInput> | null
-  NOT?: Enumerable<RentalWhereInput> | null
-  car?: CarWhereInput | null
-  customer?: CustomerWhereInput | null
-}
-
 export type CarWhereInput = {
   id?: number | IntFilter | null
   brandId?: number | NullableIntFilter | null
@@ -8386,17 +8219,12 @@ export type CarWhereInput = {
   deleted?: boolean | NullableBooleanFilter | null
   createdAt?: Date | string | NullableDateTimeFilter | null
   updatedAt?: Date | string | NullableDateTimeFilter | null
-  Rental?: RentalFilter | null
   AND?: Enumerable<CarWhereInput> | null
   OR?: Enumerable<CarWhereInput> | null
   NOT?: Enumerable<CarWhereInput> | null
 }
 
 export type CarWhereUniqueInput = {
-  id?: number | null
-}
-
-export type RentalWhereUniqueInput = {
   id?: number | null
 }
 
@@ -8475,6 +8303,28 @@ export type Contract_typeWhereUniqueInput = {
   id?: number | null
 }
 
+export type CustomerWhereInput = {
+  id?: number | IntFilter | null
+  firstname?: string | StringFilter | null
+  lastname?: string | NullableStringFilter | null
+  birthday?: Date | string | NullableDateTimeFilter | null
+  gender?: string | NullableStringFilter | null
+  cni?: string | NullableStringFilter | null
+  type?: number | NullableIntFilter | null
+  driver_license?: string | NullableStringFilter | null
+  city?: string | NullableStringFilter | null
+  address?: string | NullableStringFilter | null
+  email?: string | StringFilter | null
+  phone?: string | NullableStringFilter | null
+  company_name?: string | NullableStringFilter | null
+  createdAt?: Date | string | NullableDateTimeFilter | null
+  updatedAt?: Date | string | NullableDateTimeFilter | null
+  deleted?: boolean | NullableBooleanFilter | null
+  AND?: Enumerable<CustomerWhereInput> | null
+  OR?: Enumerable<CustomerWhereInput> | null
+  NOT?: Enumerable<CustomerWhereInput> | null
+}
+
 export type CustomerWhereUniqueInput = {
   id?: number | null
 }
@@ -8505,6 +8355,27 @@ export type InsuranceWhereInput = {
 }
 
 export type InsuranceWhereUniqueInput = {
+  id?: number | null
+}
+
+export type RentalWhereInput = {
+  id?: number | IntFilter | null
+  bookingId?: number | NullableIntFilter | null
+  carId?: number | NullableIntFilter | null
+  customerId?: number | NullableIntFilter | null
+  second_driverId?: number | NullableIntFilter | null
+  date_begin?: Date | string | NullableDateTimeFilter | null
+  date_end?: Date | string | NullableDateTimeFilter | null
+  comment?: string | NullableStringFilter | null
+  createdAt?: Date | string | NullableDateTimeFilter | null
+  updatedAt?: Date | string | NullableDateTimeFilter | null
+  deleted?: boolean | NullableBooleanFilter | null
+  AND?: Enumerable<RentalWhereInput> | null
+  OR?: Enumerable<RentalWhereInput> | null
+  NOT?: Enumerable<RentalWhereInput> | null
+}
+
+export type RentalWhereUniqueInput = {
   id?: number | null
 }
 
@@ -8748,46 +8619,6 @@ export type BrandUpdateManyMutationInput = {
   deleted?: boolean | null
 }
 
-export type CustomerCreateWithoutRentalInput = {
-  firstname: string
-  lastname?: string | null
-  birthday?: Date | string | null
-  gender?: string | null
-  cni?: string | null
-  type?: number | null
-  driver_license?: string | null
-  city?: string | null
-  address?: string | null
-  email: string
-  phone?: string | null
-  company_name?: string | null
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
-  deleted?: boolean | null
-}
-
-export type CustomerCreateOneWithoutRentalInput = {
-  create?: CustomerCreateWithoutRentalInput | null
-  connect?: CustomerWhereUniqueInput | null
-}
-
-export type RentalCreateWithoutCarInput = {
-  bookingId?: number | null
-  second_driverId?: number | null
-  date_begin?: Date | string | null
-  date_end?: Date | string | null
-  comment?: string | null
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
-  deleted?: boolean | null
-  customer?: CustomerCreateOneWithoutRentalInput | null
-}
-
-export type RentalCreateManyWithoutCarInput = {
-  create?: Enumerable<RentalCreateWithoutCarInput> | null
-  connect?: Enumerable<RentalWhereUniqueInput> | null
-}
-
 export type CarCreateInput = {
   brandId?: number | null
   model?: string | null
@@ -8802,110 +8633,6 @@ export type CarCreateInput = {
   deleted?: boolean | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
-  Rental?: RentalCreateManyWithoutCarInput | null
-}
-
-export type CustomerUpdateWithoutRentalDataInput = {
-  id?: number | null
-  firstname?: string | null
-  lastname?: string | null
-  birthday?: Date | string | null
-  gender?: string | null
-  cni?: string | null
-  type?: number | null
-  driver_license?: string | null
-  city?: string | null
-  address?: string | null
-  email?: string | null
-  phone?: string | null
-  company_name?: string | null
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
-  deleted?: boolean | null
-}
-
-export type CustomerUpsertWithoutRentalInput = {
-  update: CustomerUpdateWithoutRentalDataInput
-  create: CustomerCreateWithoutRentalInput
-}
-
-export type CustomerUpdateOneWithoutRentalInput = {
-  create?: CustomerCreateWithoutRentalInput | null
-  connect?: CustomerWhereUniqueInput | null
-  disconnect?: boolean | null
-  delete?: boolean | null
-  update?: CustomerUpdateWithoutRentalDataInput | null
-  upsert?: CustomerUpsertWithoutRentalInput | null
-}
-
-export type RentalUpdateWithoutCarDataInput = {
-  id?: number | null
-  bookingId?: number | null
-  second_driverId?: number | null
-  date_begin?: Date | string | null
-  date_end?: Date | string | null
-  comment?: string | null
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
-  deleted?: boolean | null
-  customer?: CustomerUpdateOneWithoutRentalInput | null
-}
-
-export type RentalUpdateWithWhereUniqueWithoutCarInput = {
-  where: RentalWhereUniqueInput
-  data: RentalUpdateWithoutCarDataInput
-}
-
-export type RentalScalarWhereInput = {
-  id?: number | IntFilter | null
-  bookingId?: number | NullableIntFilter | null
-  carId?: number | NullableIntFilter | null
-  customerId?: number | NullableIntFilter | null
-  second_driverId?: number | NullableIntFilter | null
-  date_begin?: Date | string | NullableDateTimeFilter | null
-  date_end?: Date | string | NullableDateTimeFilter | null
-  comment?: string | NullableStringFilter | null
-  createdAt?: Date | string | NullableDateTimeFilter | null
-  updatedAt?: Date | string | NullableDateTimeFilter | null
-  deleted?: boolean | NullableBooleanFilter | null
-  AND?: Enumerable<RentalScalarWhereInput> | null
-  OR?: Enumerable<RentalScalarWhereInput> | null
-  NOT?: Enumerable<RentalScalarWhereInput> | null
-}
-
-export type RentalUpdateManyDataInput = {
-  id?: number | null
-  bookingId?: number | null
-  second_driverId?: number | null
-  date_begin?: Date | string | null
-  date_end?: Date | string | null
-  comment?: string | null
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
-  deleted?: boolean | null
-}
-
-export type RentalUpdateManyWithWhereNestedInput = {
-  where: RentalScalarWhereInput
-  data: RentalUpdateManyDataInput
-}
-
-export type RentalUpsertWithWhereUniqueWithoutCarInput = {
-  where: RentalWhereUniqueInput
-  update: RentalUpdateWithoutCarDataInput
-  create: RentalCreateWithoutCarInput
-}
-
-export type RentalUpdateManyWithoutCarInput = {
-  create?: Enumerable<RentalCreateWithoutCarInput> | null
-  connect?: Enumerable<RentalWhereUniqueInput> | null
-  set?: Enumerable<RentalWhereUniqueInput> | null
-  disconnect?: Enumerable<RentalWhereUniqueInput> | null
-  delete?: Enumerable<RentalWhereUniqueInput> | null
-  update?: Enumerable<RentalUpdateWithWhereUniqueWithoutCarInput> | null
-  updateMany?: Enumerable<RentalUpdateManyWithWhereNestedInput> | null
-  deleteMany?: Enumerable<RentalScalarWhereInput> | null
-  upsert?: Enumerable<RentalUpsertWithWhereUniqueWithoutCarInput> | null
 }
 
 export type CarUpdateInput = {
@@ -8923,7 +8650,6 @@ export type CarUpdateInput = {
   deleted?: boolean | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
-  Rental?: RentalUpdateManyWithoutCarInput | null
 }
 
 export type CarUpdateManyMutationInput = {
@@ -9058,44 +8784,6 @@ export type Contract_typeUpdateManyMutationInput = {
   deleted?: boolean | null
 }
 
-export type CarCreateWithoutRentalInput = {
-  brandId?: number | null
-  model?: string | null
-  model_date?: number | null
-  categoryId?: number | null
-  price?: number | null
-  colorId?: number | null
-  plate_number: string
-  picture?: string | null
-  chassis_number?: string | null
-  statusId?: number | null
-  deleted?: boolean | null
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
-}
-
-export type CarCreateOneWithoutRentalInput = {
-  create?: CarCreateWithoutRentalInput | null
-  connect?: CarWhereUniqueInput | null
-}
-
-export type RentalCreateWithoutCustomerInput = {
-  bookingId?: number | null
-  second_driverId?: number | null
-  date_begin?: Date | string | null
-  date_end?: Date | string | null
-  comment?: string | null
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
-  deleted?: boolean | null
-  car?: CarCreateOneWithoutRentalInput | null
-}
-
-export type RentalCreateManyWithoutCustomerInput = {
-  create?: Enumerable<RentalCreateWithoutCustomerInput> | null
-  connect?: Enumerable<RentalWhereUniqueInput> | null
-}
-
 export type CustomerCreateInput = {
   firstname: string
   lastname?: string | null
@@ -9112,74 +8800,6 @@ export type CustomerCreateInput = {
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
-  Rental?: RentalCreateManyWithoutCustomerInput | null
-}
-
-export type CarUpdateWithoutRentalDataInput = {
-  id?: number | null
-  brandId?: number | null
-  model?: string | null
-  model_date?: number | null
-  categoryId?: number | null
-  price?: number | null
-  colorId?: number | null
-  plate_number?: string | null
-  picture?: string | null
-  chassis_number?: string | null
-  statusId?: number | null
-  deleted?: boolean | null
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
-}
-
-export type CarUpsertWithoutRentalInput = {
-  update: CarUpdateWithoutRentalDataInput
-  create: CarCreateWithoutRentalInput
-}
-
-export type CarUpdateOneWithoutRentalInput = {
-  create?: CarCreateWithoutRentalInput | null
-  connect?: CarWhereUniqueInput | null
-  disconnect?: boolean | null
-  delete?: boolean | null
-  update?: CarUpdateWithoutRentalDataInput | null
-  upsert?: CarUpsertWithoutRentalInput | null
-}
-
-export type RentalUpdateWithoutCustomerDataInput = {
-  id?: number | null
-  bookingId?: number | null
-  second_driverId?: number | null
-  date_begin?: Date | string | null
-  date_end?: Date | string | null
-  comment?: string | null
-  createdAt?: Date | string | null
-  updatedAt?: Date | string | null
-  deleted?: boolean | null
-  car?: CarUpdateOneWithoutRentalInput | null
-}
-
-export type RentalUpdateWithWhereUniqueWithoutCustomerInput = {
-  where: RentalWhereUniqueInput
-  data: RentalUpdateWithoutCustomerDataInput
-}
-
-export type RentalUpsertWithWhereUniqueWithoutCustomerInput = {
-  where: RentalWhereUniqueInput
-  update: RentalUpdateWithoutCustomerDataInput
-  create: RentalCreateWithoutCustomerInput
-}
-
-export type RentalUpdateManyWithoutCustomerInput = {
-  create?: Enumerable<RentalCreateWithoutCustomerInput> | null
-  connect?: Enumerable<RentalWhereUniqueInput> | null
-  set?: Enumerable<RentalWhereUniqueInput> | null
-  disconnect?: Enumerable<RentalWhereUniqueInput> | null
-  delete?: Enumerable<RentalWhereUniqueInput> | null
-  update?: Enumerable<RentalUpdateWithWhereUniqueWithoutCustomerInput> | null
-  updateMany?: Enumerable<RentalUpdateManyWithWhereNestedInput> | null
-  deleteMany?: Enumerable<RentalScalarWhereInput> | null
-  upsert?: Enumerable<RentalUpsertWithWhereUniqueWithoutCustomerInput> | null
 }
 
 export type CustomerUpdateInput = {
@@ -9199,7 +8819,6 @@ export type CustomerUpdateInput = {
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
-  Rental?: RentalUpdateManyWithoutCustomerInput | null
 }
 
 export type CustomerUpdateManyMutationInput = {
@@ -9266,6 +8885,8 @@ export type InsuranceUpdateManyMutationInput = {
 
 export type RentalCreateInput = {
   bookingId?: number | null
+  carId?: number | null
+  customerId?: number | null
   second_driverId?: number | null
   date_begin?: Date | string | null
   date_end?: Date | string | null
@@ -9273,13 +8894,13 @@ export type RentalCreateInput = {
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
-  car?: CarCreateOneWithoutRentalInput | null
-  customer?: CustomerCreateOneWithoutRentalInput | null
 }
 
 export type RentalUpdateInput = {
   id?: number | null
   bookingId?: number | null
+  carId?: number | null
+  customerId?: number | null
   second_driverId?: number | null
   date_begin?: Date | string | null
   date_end?: Date | string | null
@@ -9287,13 +8908,13 @@ export type RentalUpdateInput = {
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
-  car?: CarUpdateOneWithoutRentalInput | null
-  customer?: CustomerUpdateOneWithoutRentalInput | null
 }
 
 export type RentalUpdateManyMutationInput = {
   id?: number | null
   bookingId?: number | null
+  carId?: number | null
+  customerId?: number | null
   second_driverId?: number | null
   date_begin?: Date | string | null
   date_end?: Date | string | null
@@ -9479,12 +9100,6 @@ export type StringFilter = {
   endsWith?: string | null
 }
 
-export type RentalFilter = {
-  every?: RentalWhereInput | null
-  some?: RentalWhereInput | null
-  none?: RentalWhereInput | null
-}
-
 export type After_rentalOrderByInput = {
   id?: OrderByArg | null
   rentalId?: OrderByArg | null
@@ -9562,20 +9177,6 @@ export type CarOrderByInput = {
   updatedAt?: OrderByArg | null
 }
 
-export type RentalOrderByInput = {
-  id?: OrderByArg | null
-  bookingId?: OrderByArg | null
-  carId?: OrderByArg | null
-  customerId?: OrderByArg | null
-  second_driverId?: OrderByArg | null
-  date_begin?: OrderByArg | null
-  date_end?: OrderByArg | null
-  comment?: OrderByArg | null
-  createdAt?: OrderByArg | null
-  updatedAt?: OrderByArg | null
-  deleted?: OrderByArg | null
-}
-
 export type CategoryOrderByInput = {
   id?: OrderByArg | null
   title?: OrderByArg | null
@@ -9647,6 +9248,20 @@ export type ImageOrderByInput = {
 export type InsuranceOrderByInput = {
   id?: OrderByArg | null
   name?: OrderByArg | null
+  deleted?: OrderByArg | null
+}
+
+export type RentalOrderByInput = {
+  id?: OrderByArg | null
+  bookingId?: OrderByArg | null
+  carId?: OrderByArg | null
+  customerId?: OrderByArg | null
+  second_driverId?: OrderByArg | null
+  date_begin?: OrderByArg | null
+  date_end?: OrderByArg | null
+  comment?: OrderByArg | null
+  createdAt?: OrderByArg | null
+  updatedAt?: OrderByArg | null
   deleted?: OrderByArg | null
 }
 

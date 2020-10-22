@@ -186,9 +186,7 @@ model Rental {
   comment          String?
   createdAt        DateTime? @default(now())
   updatedAt        DateTime?  @updatedAt
-  deleted Boolean?
-  car   Car?      @relation(fields: [carId], references: [id])
-  customer   Customer?      @relation(fields: [customerId], references: [id])
+  deleted Boolean? 
   @@map("rentals")
 }
 

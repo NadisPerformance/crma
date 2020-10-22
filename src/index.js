@@ -98,14 +98,12 @@ server.express.get("/contracts/download", async function(req, res) {
     return res.send("Rental id not given")
     let rentalId = req.query.rentalId
     prisma.rental.findOne({
-  		 where:{id: parseInt(rentalId) },
-       include: {
-          car: true,
-          customer: true
-        },
+  		 where:{id: parseInt(rentalId) }
      }).then(async (rental)=>{
       if(!rental)
         return res.send("rental not found")
+      rental.car = await prisma.car.findOne({where:{id:rental.carId}})
+      rental.customer = await prisma.customer.findOne({where:{id:rental.customerId}})
       if(rental.car)
         rental.car.brand = await prisma.brand.findOne({where:{id:rental.car.brandId}})
       console.log(rental)
