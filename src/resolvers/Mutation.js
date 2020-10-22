@@ -390,6 +390,25 @@ async function deleteTechnicalControl(parent, {id}, context, info) {
    return {statut_code:1, message:"Technical Control deleted"}
 }
 
+async function createCarInsurance(parent, {data}, context, info) {
+  return context.prisma.car_insurance.create({data:data})
+}
+async function updateCarInsurance(parent, {data,id}, context, info) {
+
+  return context.prisma.car_insurance.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+async function deleteCarInsurance(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.car_insurance.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"car Insurance deleted"}
+}
+
 module.exports = {
   login,
   signup,
@@ -442,5 +461,8 @@ module.exports = {
   deleteInsurance,
   createTechnicalControl,
   updateTechnicalControl,
-  deleteTechnicalControl
+  deleteTechnicalControl,
+  createCarInsurance,
+  updateCarInsurance,
+  deleteCarInsurance
 }

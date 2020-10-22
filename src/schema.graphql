@@ -55,6 +55,9 @@ type Query {
   technical_control(id:ID!): Technical_control
   technical_controls(where: Technical_controlWhereInput, orderBy: Technical_controlOrderByInput, page: Int, limit: Int): Technical_controlConnection!
 
+  car_insurance(id:ID!): Car_insurance
+  car_insurances(where: Car_insuranceWhereInput, orderBy: Car_insuranceOrderByInput, page: Int, limit: Int): Car_insuranceConnection!
+
 }
 
 
@@ -112,6 +115,9 @@ type Mutation {
   createTechnicalControl(data:Technical_controlInput!): Technical_control!
   updateTechnicalControl(data:Technical_controlInput!, id:ID!): Technical_control!
   deleteTechnicalControl(id:ID!): Response
+  createCarInsurance(data:Car_insuranceInput!): Car_insurance!
+  updateCarInsurance(data:Car_insuranceInput!, id:ID!): Car_insurance!
+  deleteCarInsurance(id:ID!): Response
 }
 type Response{
   statut_code: Int
