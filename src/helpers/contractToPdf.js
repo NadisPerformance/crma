@@ -1,8 +1,5 @@
-var wkhtmltopdf = require('wkhtmltopdf');
 var fs = require('fs');
-//var res1 = fs.createWriteStream('out.pdf');
 var haml = require('hamljs');
-//wkhtmltopdf.command = 'xvfb-run -a -s "-screen 0 640x480x16" wkhtmltopdf'
 var pdf = require('html-pdf');
 
 async function generateContract(res,rental){
