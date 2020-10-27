@@ -414,6 +414,8 @@ type Car {
   plate_number: String!
   picture: String
   picture_url: String
+  scanned_grey_card: String
+  scanned_grey_card_url: String
   brandId: Int
   model: String
   model_date: Int
@@ -443,6 +445,7 @@ input CarInput{
   chassis_number: String
   statusId: Int
   picture_file: Upload
+  grey_card_file: Upload
 }
 input CarWhereInput{
   id: Int
@@ -552,6 +555,8 @@ type Car_insurance {
   date_begin: DateTime
   date_end: DateTime
   insurance: Insurance
+  scanned_car_insurance: String
+  scanned_car_insurance_url: String
 }
 
 input Car_insuranceInput{
@@ -559,6 +564,7 @@ input Car_insuranceInput{
   insuranceId: Int
   date_begin: DateTime
   date_end: DateTime
+  car_insurance_file: Upload
 }
 input Car_insuranceWhereInput{
   id: Int
@@ -681,6 +687,8 @@ type Customer {
   cni: String
   type: Int
   driver_license: String
+  scanned_driver_license_url: String
+  scanned_driver_license: String
   city: String
   address: String
   email: String
@@ -701,6 +709,7 @@ input CustomerInput{
   cni: String
   type: Int
   driver_license: String
+  driver_license_file: Upload
   city: String
   address: String
   email: String
@@ -832,6 +841,8 @@ type Rental {
   createdAt: DateTime
   updatedAt: DateTime
   booking: Booking
+  scanned_contract_url: String
+  scanned_contract: String
   car: Car
   customer: Customer
   before_rental: Before_rental
@@ -845,6 +856,7 @@ input RentalInput{
   second_driverId: Int
   date_begin: DateTime
   date_end: DateTime
+  contract_file: String
   comment: String
 }
 
@@ -958,6 +970,8 @@ type Technical_control {
   date_end: DateTime
   createdAt: DateTime
   updatedAt: DateTime
+  scanned_technical_control: String
+  scanned_technical_control_url: String
   car:  [Car!]
 }
 
@@ -965,6 +979,7 @@ input Technical_controlInput{
   carId: Int!
   date_begin: DateTime
   date_end: DateTime
+  technical_control_file: Upload
 }
 input Technical_controlWhereInput{
   id: Int

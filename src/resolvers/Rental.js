@@ -27,6 +27,15 @@ async function after_rental(parent, args, ctx, info){
   if(rentals )
     return rentals[0]
 }
+
+function contract_url(parent, args, ctx, info){
+  if(!parent.scanned_contract)
+    return null
+  if(gc_storage)
+      return "https://storage.googleapis.com/crma/"+rentalsDir+'/'+parent.scanned_contract
+  return  website_url+"static"+rentalsDir+'/'+parent.scanned_contract
+}
+
 module.exports = {
   customer: customer,
   car: car,

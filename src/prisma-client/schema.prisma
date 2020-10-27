@@ -88,6 +88,7 @@ model Car {
   chassis_number String?
   statusId      Int?
   deleted Boolean?
+  scanned_grey_card String?
   createdAt        DateTime? @default(now())
   updatedAt        DateTime?  @updatedAt
   @@map("cars")
@@ -113,6 +114,7 @@ model Car_insurance {
   insuranceId       Int?
   date_begin            DateTime?
   date_end              DateTime?
+  scanned_car_insurance String?
   createdAt        DateTime? @default(now())
   updatedAt        DateTime?  @updatedAt
   deleted Boolean?
@@ -147,6 +149,7 @@ model Customer {
   cni              String?
   type             Int?
   driver_license   String?
+  scanned_driver_license String?
   city String?
   address          String?
   email            String
@@ -184,9 +187,10 @@ model Rental {
   date_begin         DateTime?
   date_end           DateTime?
   comment          String?
+  scanned_contract String?
   createdAt        DateTime? @default(now())
   updatedAt        DateTime?  @updatedAt
-  deleted Boolean? 
+  deleted Boolean?
   @@map("rentals")
 }
 
@@ -209,6 +213,7 @@ model Technical_control {
   carId              Int
   date_begin DateTime?
   date_end DateTime?
+  scanned_technical_control String?
   createdAt        DateTime? @default(now())
   updatedAt        DateTime?  @updatedAt
   deleted Boolean?

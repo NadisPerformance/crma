@@ -42,6 +42,14 @@ function picture_url(parent, args, ctx, info){
       return "https://storage.googleapis.com/crma/"+carsDir+'/'+parent.picture
   return  website_url+"static"+carsDir+'/'+parent.picture
 }
+
+function scanned_grey_card_url(parent, args, ctx, info){
+  if(!parent.scanned_grey_card)
+    return null
+  if(gc_storage)
+      return "https://storage.googleapis.com/crma/"+carsDir+'/'+parent.scanned_grey_card
+  return  website_url+"static"+carsDir+'/'+parent.scanned_grey_card
+}
 module.exports = {
   brand: brand,
   category: category,
@@ -49,5 +57,6 @@ module.exports = {
   status:status,
   technical_controls:technical_controls,
   car_insurances: car_insurances,
-  picture_url: picture_url
+  picture_url: picture_url,
+  scanned_grey_card_url: scanned_grey_card_url
 }
