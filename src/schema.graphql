@@ -445,7 +445,7 @@ input CarInput{
   chassis_number: String
   statusId: Int
   picture_file: Upload
-  grey_card_file: Upload
+  scanned_grey_card_file: Upload
 }
 input CarWhereInput{
   id: Int
@@ -564,7 +564,7 @@ input Car_insuranceInput{
   insuranceId: Int
   date_begin: DateTime
   date_end: DateTime
-  car_insurance_file: Upload
+  scanned_car_insurance_file: Upload
 }
 input Car_insuranceWhereInput{
   id: Int
@@ -709,7 +709,7 @@ input CustomerInput{
   cni: String
   type: Int
   driver_license: String
-  driver_license_file: Upload
+  scanned_driver_license_file: Upload
   city: String
   address: String
   email: String
@@ -856,7 +856,7 @@ input RentalInput{
   second_driverId: Int
   date_begin: DateTime
   date_end: DateTime
-  contract_file: String
+  scanned_contract_file: String
   comment: String
 }
 
@@ -979,7 +979,7 @@ input Technical_controlInput{
   carId: Int!
   date_begin: DateTime
   date_end: DateTime
-  technical_control_file: Upload
+  scanned_technical_control_file: Upload
 }
 input Technical_controlWhereInput{
   id: Int

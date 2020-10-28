@@ -1,6 +1,6 @@
 const {encryptPassword, getToken, comparePassword, storeUpload, storeToGoogleStorage} = require('../utils')
 const mkdirp = require('mkdirp')
-const {imagesDir, carsDir} = require('../config')
+const {imagesDir, carsDir, customersDir, rentalsDir, technicalControlsDir, carInsurancesDir} = require('../config')
 mkdirp.sync('public/'+imagesDir)
 async function signup(parent, args, context, info) {
   // 1
@@ -94,16 +94,16 @@ async function deleteUser(parent, {id}, context, info) {
    return {statut_code:1, message:"User deleted"}
 }
 async function createCustomer(parent, {data}, context, info) {
-  if(data.driver_license_file) {
-    data.driver_license_url = await storeUpload(data.driver_license_file, customersDir)
-    delete data.driver_license_file
+  if(data.scanned_driver_license_file) {
+    data.scanned_driver_license = await storeUpload(data.scanned_driver_license_file, customersDir)
+    delete data.scanned_driver_license_file
   }
   return context.prisma.customer.create({data:data})
 }
 async function updateCustomer(parent, {data,id}, context, info) {
-  if(data.driver_license_file) {
-    data.driver_license_url = await storeUpload(data.driver_license_file, customersDir)
-    delete data.driver_license_file
+  if(data.scanned_driver_license_file) {
+    data.scanned_driver_license = await storeUpload(data.scanned_driver_license_file, customersDir)
+    delete data.scanned_driver_license_file
   }
   return context.prisma.customer.update({data:data,
               where: {
@@ -225,9 +225,9 @@ async function createCar(parent, {data}, context, info) {
     data.picture = await storeUpload(data.picture_file, carsDir)
     delete data.picture_file
   }
-  if(data.grey_card_file) {
-    data.grey_card_url = await storeUpload(data.grey_card_file, carsDir)
-    delete data.grey_card_file
+  if(data.scanned_grey_card_file) {
+    data.scanned_grey_card = await storeUpload(data.scanned_grey_card_file, carsDir)
+    delete data.scanned_grey_card_file
   }
   return context.prisma.car.create({data:data})
 }
@@ -236,9 +236,9 @@ async function updateCar(parent, {data,id}, context, info) {
     data.picture = await storeUpload(data.picture_file, carsDir)
     delete data.picture_file
   }
-  if(data.grey_card_file) {
-    data.grey_card_url = await storeUpload(data.grey_card_file, carsDir)
-    delete data.grey_card_file
+  if(data.scanned_grey_card_file) {
+    data.scanned_grey_card = await storeUpload(data.scanned_grey_card_file, carsDir)
+    delete data.scanned_grey_card_file
   }
   return context.prisma.car.update({data:data,
               where: {
@@ -329,16 +329,16 @@ async function deleteAlbum(parent, {id}, context, info) {
 }
 
 async function createRental(parent, {data}, context, info) {
-  if(data.contract_file) {
-    data.contract_url = await storeUpload(data.contract_file, rentalsDir)
-    delete data.contract_file
+  if(data.scanned_contract_file) {
+    data.scanned_contract = await storeUpload(data.scanned_contract_file, rentalsDir)
+    delete data.scanned_contract_file
   }
   return context.prisma.rental.create({data:data})
 }
 async function updateRental(parent, {data,id}, context, info) {
-  if(data.contract_file) {
-    data.contract_url = await storeUpload(data.contract_file, rentalsDir)
-    delete data.contract_file
+  if(data.scanned_contract_file) {
+    data.scanned_contract = await storeUpload(data.scanned_contract_file, rentalsDir)
+    delete data.scanned_contract_file
   }
   return context.prisma.rental.update({data:data,
               where: {
@@ -394,16 +394,16 @@ async function deleteAfterRental(parent, {id}, context, info) {
 }
 
 async function createTechnicalControl(parent, {data}, context, info) {
-  if(data.technical_control_file) {
-    data.scanned_technical_control = await storeUpload(data.technical_control_file, carsDir)
-    delete data.technical_control_file
+  if(data.scanned_technical_control_file) {
+    data.scanned_technical_control = await storeUpload(data.scanned_technical_control_file, technicalControlsDir)
+    delete data.scanned_technical_control_file
   }
   return context.prisma.technical_control.create({data:data})
 }
 async function updateTechnicalControl(parent, {data,id}, context, info) {
-  if(data.technical_control_file) {
-    data.scanned_technical_control = await storeUpload(data.technical_control_file, carsDir)
-    delete data.technical_control_file
+  if(data.scanned_technical_control_file) {
+    data.scanned_technical_control = await storeUpload(data.scanned_technical_control_file, technicalControlsDir)
+    delete data.scanned_technical_control_file
   }
   return context.prisma.technical_control.update({data:data,
               where: {
@@ -420,16 +420,16 @@ async function deleteTechnicalControl(parent, {id}, context, info) {
 }
 
 async function createCarInsurance(parent, {data}, context, info) {
-  if(data.car_insurance_file) {
-    data.scanned_car_insurance = await storeUpload(data.car_insurance_file, customersDir)
-    delete data.car_insurance_file
+  if(data.scanned_car_insurance_file) {
+    data.scanned_car_insurance = await storeUpload(data.scanned_car_insurance_file, carInsurancesDir)
+    delete data.scanned_car_insurance_file
   }
   return context.prisma.car_insurance.create({data:data})
 }
 async function updateCarInsurance(parent, {data,id}, context, info) {
-  if(data.car_insurance_file) {
-    data.scanned_car_insurance = await storeUpload(data.car_insurance_file, customersDir)
-    delete data.car_insurance_file
+  if(data.scanned_car_insurance_file) {
+    data.scanned_car_insurance = await storeUpload(data.scanned_car_insurance_file, carInsurancesDir)
+    delete data.scanned_car_insurance_file
   }
   return context.prisma.car_insurance.update({data:data,
               where: {
