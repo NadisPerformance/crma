@@ -1,4 +1,4 @@
-const {website_url, carsDir, gc_storage} = require('../config')
+const {website_url, carsDir, gc_storage, gc_bucket} = require('../config')
 function brand(parent, args, ctx, info){
   return ctx.prisma.brand.findOne({
 		 where:{id: parseInt(parent.brandId)}
