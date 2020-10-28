@@ -49,7 +49,24 @@
           %span.lbl_value
             =customer.email
         %td
-
+    %h5= "Conditions de prêt"
+    %table
+      %tr
+        %td
+          %span.lbl
+            Date de début:
+          %span.lbl_value
+            =date_begin
+          %td
+            %span.lbl
+              Date de retour:
+            %span.lbl_value
+              =date_end
+          %td
+            %span.lbl
+              Prix total:
+            %span.lbl_value
+              ........... DHs
     %h5= "Véhicule de prêt"
     %table
       %tr

@@ -66,7 +66,7 @@ async function cars(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.car.count()
+	let count = await ctx.prisma.car.count({where:where})
 	console.log("hello")
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }

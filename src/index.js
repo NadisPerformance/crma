@@ -91,6 +91,7 @@ const server = new GraphQLServer({
   },
   //middlewares: [authenticate]
 })
+const moment = require('moment') ;
 server.express.get("/contracts/download", async function(req, res) {
   //res.send("OKoo") ;
   // end and display the document in the iframe to the right
@@ -102,6 +103,8 @@ server.express.get("/contracts/download", async function(req, res) {
      }).then(async (rental)=>{
       if(!rental)
         return res.send("rental not found")
+      rental.date_begin = moment(rental.date_begin).format("DD/MM/YYYY")
+      rental.date_end = moment(rental.date_end).format("DD/MM/YYYY")
       rental.car = await prisma.car.findOne({where:{id:rental.carId}})
       rental.customer = await prisma.customer.findOne({where:{id:rental.customerId}})
       if(rental.car)
