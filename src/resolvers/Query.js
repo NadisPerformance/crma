@@ -17,7 +17,7 @@ async function users(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.user.count()
+	let count = await ctx.prisma.user.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 function me(parent, args, ctx, info){
@@ -45,7 +45,7 @@ async function albums(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.album.count()
+	let count = await ctx.prisma.album.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
@@ -88,7 +88,7 @@ async function customers(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.customer.count()
+	let count = await ctx.prisma.customer.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
@@ -109,7 +109,7 @@ async function bookings(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.booking.count()
+	let count = await ctx.prisma.booking.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
@@ -129,7 +129,7 @@ async function brands(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.brand.count()
+	let count = await ctx.prisma.brand.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
@@ -149,7 +149,7 @@ async function roles(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.role.count()
+	let count = await ctx.prisma.role.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
@@ -169,7 +169,7 @@ async function images(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.image.count()
+	let count = await ctx.prisma.image.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
@@ -189,7 +189,7 @@ async function insurances(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.insurance.count()
+	let count = await ctx.prisma.insurance.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
@@ -212,7 +212,7 @@ async function colors(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.color.count()
+	let count = await ctx.prisma.color.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 function category(parent, {id}, ctx, info){
@@ -231,7 +231,7 @@ async function categories(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.category.count()
+	let count = await ctx.prisma.category.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 function status(parent, {id}, ctx, info){
@@ -250,7 +250,7 @@ async function statuss(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.status.count()
+	let count = await ctx.prisma.status.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 function rental(parent, {id}, ctx, info){
@@ -270,7 +270,7 @@ async function rentals(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.rental.count()
+	let count = await ctx.prisma.rental.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
@@ -290,7 +290,7 @@ async function after_rentals(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.after_rental.count()
+	let count = await ctx.prisma.after_rental.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
@@ -310,7 +310,7 @@ async function before_rentals(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.before_rental.count()
+	let count = await ctx.prisma.before_rental.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
@@ -331,7 +331,7 @@ async function technical_controls(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.technical_control.count()
+	let count = await ctx.prisma.technical_control.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 
@@ -352,7 +352,7 @@ async function car_insurances(parent, args, ctx, info){
 	    orderBy: args.orderBy,
 	  })
 	let edges = results.map(result=>({node:result}))
-	let count = await ctx.prisma.car_insurance.count()
+	let count = await ctx.prisma.car_insurance.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
 module.exports = {
