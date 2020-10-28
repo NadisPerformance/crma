@@ -856,7 +856,7 @@ input RentalInput{
   second_driverId: Int
   date_begin: DateTime
   date_end: DateTime
-  scanned_contract_file: String
+  scanned_contract_file: Upload
   comment: String
 }
 
