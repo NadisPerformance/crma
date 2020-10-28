@@ -6,5 +6,10 @@ module.exports = {
     gc_key_file: "crma-292718-f6f492608857.json",
     gc_bucket: "crma",
     imagesDir:"uploads/images",
-    carsDir:"uploads/cars"
+    carsDir:"uploads/cars",
+    customersDir:"uploads/customers",
+    rentalsDir:"uploads/rentals",
+    technicalControlsDir:"uploads/technical_controls",
+    carInsurancesDir:"uploads/car_insurances"
+    
 }
