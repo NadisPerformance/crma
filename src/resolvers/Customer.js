@@ -1,3 +1,5 @@
+const {website_url, carsDir, gc_storage, gc_bucket} = require('../config')
+
 function rentals(parent, args, ctx, info){
   return ctx.prisma.rental.findMany({
 		 where:{customerId: parseInt(parent.id)}
@@ -18,7 +20,7 @@ function driver_license_url(parent, args, ctx, info){
   if(!parent.driver_license)
     return null
   if(gc_storage)
-      return "https://storage.googleapis.com/crma/"+carsDir+'/'+parent.driver_license
+      return "https://storage.googleapis.com/"+gc_bucket+"/"+carsDir+'/'+parent.driver_license
   return  website_url+"static"+carsDir+'/'+parent.driver_license
 }
 

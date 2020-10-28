@@ -39,7 +39,7 @@ function picture_url(parent, args, ctx, info){
   if(!parent.picture)
     return null
   if(gc_storage)
-      return "https://storage.googleapis.com/crma/"+carsDir+'/'+parent.picture
+      return "https://storage.googleapis.com/"+gc_bucket+"/"+carsDir+'/'+parent.picture
   return  website_url+"static"+carsDir+'/'+parent.picture
 }
 
@@ -47,7 +47,7 @@ function scanned_grey_card_url(parent, args, ctx, info){
   if(!parent.scanned_grey_card)
     return null
   if(gc_storage)
-      return "https://storage.googleapis.com/crma/"+carsDir+'/'+parent.scanned_grey_card
+      return "https://storage.googleapis.com/"+gc_bucket+"/"+carsDir+'/'+parent.scanned_grey_card
   return  website_url+"static"+carsDir+'/'+parent.scanned_grey_card
 }
 module.exports = {
