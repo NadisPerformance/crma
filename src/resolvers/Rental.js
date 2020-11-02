@@ -1,3 +1,5 @@
+const {website_url, rentalsDir, gc_storage, gc_bucket} = require('../config')
+
 function car(parent, args, ctx, info){
     return ctx.prisma.car.findOne({
            where:{id: parseInt(parent.carId)}
@@ -28,11 +30,11 @@ async function after_rental(parent, args, ctx, info){
     return rentals[0]
 }
 
-function contract_url(parent, args, ctx, info){
+function scanned_contract_url(parent, args, ctx, info){
   if(!parent.scanned_contract)
     return null
   if(gc_storage)
-      return "https://storage.googleapis.com/crma/"+rentalsDir+'/'+parent.scanned_contract
+      return "https://storage.googleapis.com/"+gc_bucket+"/"+rentalsDir+'/'+parent.scanned_contract
   return  website_url+"static"+rentalsDir+'/'+parent.scanned_contract
 }
 
@@ -41,5 +43,6 @@ module.exports = {
   car: car,
   booking: booking,
   before_rental: before_rental,
-  after_rental: after_rental
+  after_rental: after_rental,
+  scanned_contract_url:scanned_contract_url
 }
