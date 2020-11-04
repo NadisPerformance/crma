@@ -1036,6 +1036,11 @@ input UserInput{
   roleId: Int
   password: String
 }
+
+input UserPasswordInput{
+  password: String
+}
+
 input UserWhereInput{
   id: Int
   id_not: Int

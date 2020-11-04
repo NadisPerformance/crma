@@ -75,6 +75,14 @@ async function createUser(parent, {data}, context, info) {
   return context.prisma.user.create({data:{ ...data, password: hashedPassword }})
 }
 async function updateUser(parent, {data,id}, context, info) {
+  
+  return context.prisma.user.update({data:user,
+              where: {
+                id: id *1
+              }})
+}
+
+async function updateUserPassword(parent, {data,id}, context, info) {
   let user = data
   if(data.password){
     const hashedPassword = await encryptPassword(data.password)
@@ -85,6 +93,7 @@ async function updateUser(parent, {data,id}, context, info) {
                 id: id *1
               }})
 }
+
 async function deleteUser(parent, {id}, context, info) {
    var data={deleted:true}
    await context.prisma.user.update({data:data,
