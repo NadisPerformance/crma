@@ -119,6 +119,22 @@ type Mutation {
   updateCarInsurance(data:Car_insuranceInput!, id:ID!): Car_insurance!
   deleteCarInsurance(id:ID!): Response
 }
+
+input NumberFilter{
+  equals: Int
+  not: Int
+  in: [Int!]
+  notIn: [Int!]
+}
+
+input StringFilter{
+  equals: String
+  not: String
+  contains: String
+  startsWith: String
+  endsWith: String
+}
+
 type Response{
   statut_code: Int
   message: String
@@ -448,14 +464,10 @@ input CarInput{
   scanned_grey_card_file: Upload
 }
 input CarWhereInput{
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
+  id: NumberFilter
+  plate_number: StringFilter
+  brandId: NumberFilter
+  statusId: NumberFilter
   AND: [CarWhereInput!]
   OR: [CarWhereInput!]
   NOT: [CarWhereInput!]
@@ -861,14 +873,7 @@ input RentalInput{
 }
 
 input RentalWhereInput{
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
+  id: NumberFilter
   AND: [RentalWhereInput!]
   OR: [RentalWhereInput!]
   NOT: [RentalWhereInput!]
