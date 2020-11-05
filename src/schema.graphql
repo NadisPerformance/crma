@@ -352,14 +352,9 @@ input BookingInput{
 }
 
 input BookingWhereInput{
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
+  id: NumberFilter
+  carId: NumberFilter
+  customerId: NumberFilter
   AND: [BookingWhereInput!]
   OR: [BookingWhereInput!]
   NOT: [BookingWhereInput!]
@@ -390,14 +385,7 @@ input BrandInput{
 }
 
 input BrandWhereInput{
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
+  name: StringFilter
   AND: [BrandWhereInput!]
   OR: [BrandWhereInput!]
   NOT: [BrandWhereInput!]
@@ -499,14 +487,7 @@ input CategoryInput{
   title: String!
 }
 input CategoryWhereInput{
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
+  title: StringFilter
   AND: [CategoryWhereInput!]
   OR: [CategoryWhereInput!]
   NOT: [CategoryWhereInput!]
@@ -535,14 +516,7 @@ input ColorInput{
   name: String!
 }
 input ColorWhereInput{
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
+  name: StringFilter
   AND: [ColorWhereInput!]
   OR: [ColorWhereInput!]
   NOT: [ColorWhereInput!]
@@ -732,14 +706,13 @@ input CustomerInput{
 }
 
 input CustomerWhereInput{
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
+  id: NumberFilter
+  firstname: StringFilter
+  lastname: StringFilter
+  cni: StringFilter
+  driver_license: StringFilter
+  phone: StringFilter
+  email: StringFilter
   AND: [CustomerWhereInput!]
   OR: [CustomerWhereInput!]
   NOT: [CustomerWhereInput!]
@@ -815,14 +788,7 @@ input InsuranceInput{
 }
 
 input InsuranceWhereInput{
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
+  name: StringFilter
   AND: [InsuranceWhereInput!]
   OR: [InsuranceWhereInput!]
   NOT: [InsuranceWhereInput!]
@@ -876,6 +842,8 @@ input RentalInput{
 
 input RentalWhereInput{
   id: NumberFilter
+  carId: NumberFilter
+  customerId: NumberFilter
   AND: [RentalWhereInput!]
   OR: [RentalWhereInput!]
   NOT: [RentalWhereInput!]
@@ -1049,14 +1017,13 @@ input UserPasswordInput{
 }
 
 input UserWhereInput{
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
+  id: NumberFilter
+  firstname: StringFilter
+  lastname: StringFilter
+  cni: StringFilter
+  roleId: NumberFilter
+  phone: StringFilter
+  email: StringFilter
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
