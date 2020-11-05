@@ -34,7 +34,22 @@ function car_insurances(parent, args, ctx, info){
       }
 		})
 }
+function rentals(parent, args, ctx, info){
+  return ctx.prisma.rental.findMany({
+		 where:{carId: parseInt(parent.id),
+      deleted:false
+     }
 
+		})
+}
+function bookings(parent, args, ctx, info){
+  return ctx.prisma.booking.findMany({
+		 where:{carId: parseInt(parent.id),
+      deleted:false
+     }
+
+		})
+}
 function picture_url(parent, args, ctx, info){
   if(!parent.picture)
     return null
@@ -57,6 +72,8 @@ module.exports = {
   status:status,
   technical_controls:technical_controls,
   car_insurances: car_insurances,
+  rentals: rentals,
+  bookings: bookings,
   picture_url: picture_url,
   scanned_grey_card_url: scanned_grey_card_url
 }

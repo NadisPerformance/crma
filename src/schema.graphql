@@ -448,6 +448,8 @@ type Car {
   status: Status
   car_insurances: [Car_insurance!]
   technical_controls: [Technical_control!]
+  rentals: [Rental!]
+  bookings: [Booking!]
 }
 
 input CarInput{
