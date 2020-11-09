@@ -25,6 +25,9 @@ type Query {
   customer(id:ID!): Customer
   customers(where: CustomerWhereInput, orderBy:CustomerOrderByInput, page: Int, limit: Int): CustomerConnection!
 
+  bill(id:ID!): Bill
+  bills(where: BillWhereInput, orderBy:BillOrderByInput, page: Int, limit: Int): BillConnection!
+
   booking(id:ID!): Booking
   bookings(where: BookingWhereInput, orderBy:BookingOrderByInput, page: Int, limit: Int): BookingConnection!
 
@@ -73,6 +76,9 @@ type Mutation {
   createCustomer(data:CustomerInput!): Customer!
   updateCustomer(data:CustomerInput!, id:ID!): Customer!
   deleteCustomer(id:ID!): Response
+  createBill(data:BillInput!): Bill!
+  updateBill(data:BillInput!, id:ID!): Bill!
+  deleteBill(id:ID!): Response
   createBooking(data:BookingInput!): Booking!
   updateBooking(data:BookingInput!, id:ID!): Booking!
   deleteBooking(id:ID!): Response
@@ -284,18 +290,20 @@ type Before_rentalEdge{
 type Bill {
   id: ID!
   rentalId: Int
-  albumId: Int
+  bill_number:     String
+  bill_date:       DateTime
   kilometrage: Int
   niveau_carburant: Int
-  createdAt: String
+  createdAt: DateTime
   updatedAt: DateTime
   comment: String
-
 }
 
 input BillInput{
   rentalId: Int
   albumId: Int
+  bill_number:     String
+  bill_date:       DateTime
   kilometrage: Int
   niveau_carburant: Int
   comment: String

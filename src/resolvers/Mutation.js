@@ -1,6 +1,6 @@
 const {encryptPassword, getToken, comparePassword, storeUpload, storeToGoogleStorage} = require('../utils')
 const mkdirp = require('mkdirp')
-const {imagesDir, carsDir, customersDir, rentalsDir, technicalControlsDir, carInsurancesDir} = require('../config')
+const {imagesDir, carsDir, customersDir, rentalsDir, technicalControlsDir, carInsurancesDir, billDir} = require('../config')
 mkdirp.sync('public/'+imagesDir)
 async function signup(parent, args, context, info) {
   // 1
@@ -75,7 +75,7 @@ async function createUser(parent, {data}, context, info) {
   return context.prisma.user.create({data:{ ...data, password: hashedPassword }})
 }
 async function updateUser(parent, {data,id}, context, info) {
-  
+
   return context.prisma.user.update({data:user,
               where: {
                 id: id *1
@@ -126,6 +126,26 @@ async function deleteCustomer(parent, {id}, context, info) {
                 id: id *1
               }})
    return {statut_code:1, message:"Customer deleted"}
+}
+
+async function createBill(parent, {data}, context, info) {
+  return context.prisma.bill.create({data:data})
+}
+async function updateBill(parent, {data,id}, context, info) {
+
+  return context.prisma.bill.update({data:data,
+              where: {
+                id: id *1
+              }})
+}
+
+async function deleteBill(parent, {id}, context, info) {
+   var data={deleted:true}
+   await context.prisma.bill.update({data:data,
+              where: {
+                id: id *1
+              }})
+   return {statut_code:1, message:"bill deleted"}
 }
 
 async function createBooking(parent, {data}, context, info) {
@@ -465,6 +485,9 @@ module.exports = {
   createCustomer,
   updateCustomer,
   deleteCustomer,
+  createBill,
+  updateBill,
+  deleteBill,
   createBooking,
   updateBooking,
   deleteBooking,

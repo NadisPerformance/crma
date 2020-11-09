@@ -10,6 +10,6 @@ module.exports = {
     customersDir:"uploads/customers",
     rentalsDir:"uploads/rentals",
     technicalControlsDir:"uploads/technical_controls",
-    carInsurancesDir:"uploads/car_insurances"
-    
+    carInsurancesDir:"uploads/car_insurances",
+    billDir:"uploads/bills"
 }

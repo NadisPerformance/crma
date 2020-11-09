@@ -46,8 +46,23 @@ model Before_rental{
 
 model Bill {
   id              Int       @default(autoincrement()) @id
+  rentalId Int?
+  customerId Int?
   bill_number     String?
   bill_date       DateTime?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime?  @updatedAt
+  deleted Boolean?
+  @@map("bills")
+}
+
+model BillRow {
+  id              Int       @default(autoincrement()) @id
+  carId           Int?
+  libelle         String?
+  price_ht        Int?
+  price_ttc       Int?
+  day_nbr         Int?
   createdAt        DateTime? @default(now())
   updatedAt        DateTime?  @updatedAt
   deleted Boolean?
