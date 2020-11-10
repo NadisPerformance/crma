@@ -45,6 +45,7 @@ const resolvers = {
   CarConnection,
   Booking,
   Bill,
+  BillConnection,
   Rental,
   Image,
   Album,
@@ -116,6 +117,26 @@ server.express.get("/contracts/download", async function(req, res) {
       console.log(rental)
       generateContract(res,rental) ;
     })
+
+});
+
+
+server.express.get("/bills/download", async function(req, res) {
+if(!req.query.billId)
+  return res.send("bill id not given")
+  let billId = req.query.rentalId
+  prisma.rental.findOne({
+     where:{id: parseInt(billId) }
+   }).then(async (bill)=>{
+    if(!bill)
+      return res.send("bill not found")
+    bill.date_begin = moment(bill.date_begin).format("DD/MM/YYYY")
+    bill.date_end = moment(bill.date_end).format("DD/MM/YYYY")
+    bill.rental = await prisma.rental.findOne({where:{id:bill.rentalId}})
+    bill.customer = await prisma.customer.findOne({where:{id:bill.customerId}})
+    console.log(bill)
+    generateBill(res,bill) ;
+  })
 
 });
 server.express.use( '/static',express.static('public'))
