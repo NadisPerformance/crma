@@ -12,6 +12,7 @@ const Mutation = require('./resolvers/Mutation')
 const User = require('./resolvers/User')
 const Car = require('./resolvers/Car')
 const Booking = require('./resolvers/Booking')
+const Bill = require('./resolvers/Bill')
 const Rental = require('./resolvers/Rental')
 const Image = require('./resolvers/Image')
 const Album = require('./resolvers/Album')
@@ -24,6 +25,7 @@ const After_rentalConnection = require('./resolvers/After_rentalConnection')
 const Before_rentalConnection = require('./resolvers/Before_rentalConnection')
 const CarConnection = require('./resolvers/CarConnection')
 const AlbumConnection = require('./resolvers/AlbumConnection')
+const BillConnection = require('./resolvers/BillConnection')
 const BookingConnection = require('./resolvers/BookingConnection')
 const RentalConnection = require('./resolvers/RentalConnection')
 const ImageConnection = require('./resolvers/ImageConnection')
@@ -42,6 +44,7 @@ const resolvers = {
   Car,
   CarConnection,
   Booking,
+  Bill,
   Rental,
   Image,
   Album,
@@ -52,6 +55,7 @@ const resolvers = {
   AlbumConnection,
   ImageConnection,
   BookingConnection,
+  BillConnection,
   RentalConnection,
   After_rentalConnection,
   Before_rentalConnection
