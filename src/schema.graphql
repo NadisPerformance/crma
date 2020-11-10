@@ -290,6 +290,7 @@ type Before_rentalEdge{
 type Bill {
   id: ID!
   rentalId: Int
+  customerId: Int
   bill_number:     String
   bill_date:       DateTime
   kilometrage: Int
@@ -297,16 +298,17 @@ type Bill {
   createdAt: DateTime
   updatedAt: DateTime
   comment: String
+  rental: Rental
+  customer: Customer
 }
 
 input BillInput{
   rentalId: Int
-  albumId: Int
+  customerId: Int
   bill_number:     String
   bill_date:       DateTime
   kilometrage: Int
   niveau_carburant: Int
-  comment: String
 }
 
 input BillWhereInput{

@@ -59,6 +59,7 @@ model Bill {
 model BillRow {
   id              Int       @default(autoincrement()) @id
   carId           Int?
+  billId          Int?
   libelle         String?
   price_ht        Int?
   price_ttc       Int?
@@ -66,7 +67,7 @@ model BillRow {
   createdAt        DateTime? @default(now())
   updatedAt        DateTime?  @updatedAt
   deleted Boolean?
-  @@map("bills")
+  @@map("bill_rows")
 }
 
 model Booking {
