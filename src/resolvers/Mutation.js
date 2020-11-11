@@ -1,5 +1,6 @@
 const {encryptPassword, getToken, comparePassword, storeUpload, storeToGoogleStorage} = require('../utils')
 const mkdirp = require('mkdirp')
+const moment = require('moment')
 const {imagesDir, carsDir, customersDir, rentalsDir, technicalControlsDir, carInsurancesDir, billDir} = require('../config')
 mkdirp.sync('public/'+imagesDir)
 async function signup(parent, args, context, info) {
@@ -127,12 +128,39 @@ async function deleteCustomer(parent, {id}, context, info) {
               }})
    return {statut_code:1, message:"Customer deleted"}
 }
-
+function getDiffDays(begin, end){
+  begin = moment(begin)
+  end = moment(end)
+  var duration = moment.duration(end.diff(begin));
+  var days = duration.asDays();
+  return days
+}
 async function createBill(parent, {data}, context, info) {
-  return context.prisma.bill.create({data:data})
+  var bill = await context.prisma.bill.create({data:data})
+  await context.prisma.rental.update({data:{billId:bill.id*1},
+              where: {
+                id: bill.rentalId *1
+              }})
+  var rental = await context.prisma.rental.findOne({
+         where:{id: parseInt(bill.rentalId)}
+        })
+  var car = await context.prisma.car.findOne({
+         where:{id: parseInt(rental.carId)}
+        })
+  var billRow = {
+    carId: rental.carId,
+    billId: bill.id,
+    libelle: "Location véhicule "+ car.plate_number,
+    price_ht: car.price* 0.8 ,
+    price_ttc: car.price,
+    day_nbr: getDiffDays(rental.date_begin, rental.date_end)
+
+  }
+  await context.prisma.billRow.create({data:billRow})
+  console.log(bill.id)
+  return bill
 }
 async function updateBill(parent, {data,id}, context, info) {
-
   return context.prisma.bill.update({data:data,
               where: {
                 id: id *1

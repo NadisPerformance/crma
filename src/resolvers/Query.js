@@ -376,6 +376,29 @@ async function car_insurances(parent, args, ctx, info){
 	let count = await ctx.prisma.car_insurance.count({where:where})
 	return {edges:edges, pageInfo:{count:count, currentPage:page}}
 }
+
+function payment_method(parent, {id}, ctx, info){
+	return ctx.prisma.payment_method.findOne({
+		 where:{id: parseInt(id) }
+		})
+}
+async function payment_methods(parent, args, ctx, info){
+	const page = args.page || 1 ;
+	const limit = args.limit || 10 ;
+	const where = args.where ? args.where: {}
+	where.deleted = false
+	let results =  await ctx.prisma.payment_method.findMany({
+	    where,
+	    skip: (page - 1) * limit ,
+	   	first: limit,
+	    orderBy: args.orderBy,
+	  })
+	let edges = results.map(result=>({node:result}))
+	let count = await ctx.prisma.payment_method.count({where:where})
+	console.log("hello")
+	return {edges:edges, pageInfo:{count:count, currentPage:page}}
+}
+
 module.exports = {
   users,
   user,
@@ -414,5 +437,7 @@ module.exports = {
 	technical_control,
 	technical_controls,
 	car_insurance,
-	car_insurances
+	car_insurances,
+	payment_method,
+	payment_methods
 }

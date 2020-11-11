@@ -38,11 +38,19 @@ function scanned_contract_url(parent, args, ctx, info){
   return  website_url+"static"+rentalsDir+'/'+parent.scanned_contract
 }
 
+function bill(parent, args, ctx, info){
+  if(! parent.billId)
+    return null
+  return ctx.prisma.bill.findOne({
+		 where:{id: parseInt(parent.billId)}
+		})
+}
 module.exports = {
   customer: customer,
   car: car,
   booking: booking,
   before_rental: before_rental,
   after_rental: after_rental,
+  bill: bill,
   scanned_contract_url:scanned_contract_url
 }

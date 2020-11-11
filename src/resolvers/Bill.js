@@ -9,7 +9,13 @@ function customer(parent, args, ctx, info){
            where:{id: parseInt(parent.customerId)}
           })
   }
-  module.exports = {
+function payment_method(parent, args, ctx, info){
+   return ctx.prisma.payment_method.findOne({
+             where:{id: parseInt(parent.paymentMethodId)}
+            })
+}
+module.exports = {
     rental: rental,
-    customer: customer
-  }
+    customer: customer,
+    payment_method: payment_method
+}

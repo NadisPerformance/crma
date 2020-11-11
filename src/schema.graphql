@@ -61,6 +61,9 @@ type Query {
   car_insurance(id:ID!): Car_insurance
   car_insurances(where: Car_insuranceWhereInput, orderBy: Car_insuranceOrderByInput, page: Int, limit: Int): Car_insuranceConnection!
 
+  payment_method(id:ID!): PaymentMethod
+  payment_methods(where: PaymentMethodWhereInput, orderBy: PaymentMethodOrderByInput, page: Int, limit: Int): PaymentMethodConnection!
+
 }
 
 
@@ -291,24 +294,23 @@ type Bill {
   id: ID!
   rentalId: Int
   customerId: Int
-  bill_number:     String
-  bill_date:       DateTime
-  kilometrage: Int
-  niveau_carburant: Int
+  paymentMethodId: Int
+  total_ht: Float
+  total_ttc: Float
   createdAt: DateTime
   updatedAt: DateTime
   comment: String
   rental: Rental
   customer: Customer
+  payment_method: PaymentMethod
 }
 
 input BillInput{
   rentalId: Int
   customerId: Int
-  bill_number:     String
-  bill_date:       DateTime
-  kilometrage: Int
-  niveau_carburant: Int
+  paymentMethodId: Int
+  total_ht: Float
+  total_ttc: Float
 }
 
 input BillWhereInput{
@@ -828,6 +830,7 @@ type Rental {
   date_begin: DateTime
   date_end: DateTime
   comment: String
+  montant_avance: Int
   createdAt: DateTime
   updatedAt: DateTime
   booking: Booking
@@ -837,6 +840,7 @@ type Rental {
   customer: Customer
   before_rental: Before_rental
   after_rental: After_rental
+  bill:   Bill
 }
 
 input RentalInput{
@@ -846,6 +850,7 @@ input RentalInput{
   second_driverId: Int
   date_begin: DateTime
   date_end: DateTime
+  montant_avance: Int
   scanned_contract_file: Upload
   comment: String
 }
@@ -911,6 +916,46 @@ type RoleEdge{
   node: Role!
   cursor: String!
 }
+
+
+type PaymentMethod {
+  id: ID!
+  title: String
+}
+
+input PaymentMethodInput{
+  title: String
+}
+
+input PaymentMethodWhereInput{
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  AND: [PaymentMethodWhereInput!]
+  OR: [PaymentMethodWhereInput!]
+  NOT: [PaymentMethodWhereInput!]
+}
+
+enum PaymentMethodOrderByInput{
+  id_ASC
+  id_DESC
+}
+
+type PaymentMethodConnection{
+  edges: [PaymentMethodEdge!]
+  pageInfo: PageInfo!
+}
+
+type PaymentMethodEdge{
+  node: PaymentMethod!
+  cursor: String!
+}
+
 type Status {
   id: ID!
   title: String!

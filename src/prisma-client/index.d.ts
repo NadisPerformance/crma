@@ -293,6 +293,16 @@ export declare class PrismaClient<T extends PrismaClientOptions = {}, U = keyof 
   get bill(): BillDelegate;
 
   /**
+   * `prisma.billRow`: Exposes CRUD operations for the **BillRow** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BillRows
+    * const billRows = await prisma.billRow.findMany()
+    * ```
+    */
+  get billRow(): BillRowDelegate;
+
+  /**
    * `prisma.booking`: Exposes CRUD operations for the **Booking** model.
     * Example usage:
     * ```ts
@@ -401,6 +411,16 @@ export declare class PrismaClient<T extends PrismaClientOptions = {}, U = keyof 
     * ```
     */
   get insurance(): InsuranceDelegate;
+
+  /**
+   * `prisma.payment_method`: Exposes CRUD operations for the **Payment_method** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Payment_methods
+    * const payment_methods = await prisma.payment_method.findMany()
+    * ```
+    */
+  get payment_method(): Payment_methodDelegate;
 
   /**
    * `prisma.rental`: Exposes CRUD operations for the **Rental** model.
@@ -1624,8 +1644,11 @@ export type Before_rentalArgs = {
 
 export type Bill = {
   id: number
-  bill_number: string | null
-  bill_date: Date | null
+  rentalId: number | null
+  customerId: number | null
+  paymentMethodId: number | null
+  total_ht: number | null
+  total_ttc: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deleted: boolean | null
@@ -1633,8 +1656,11 @@ export type Bill = {
 
 export type BillSelect = {
   id?: boolean
-  bill_number?: boolean
-  bill_date?: boolean
+  rentalId?: boolean
+  customerId?: boolean
+  paymentMethodId?: boolean
+  total_ht?: boolean
+  total_ttc?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deleted?: boolean
@@ -1993,6 +2019,393 @@ export type BillArgs = {
    * Select specific fields to fetch from the Bill
   **/
   select?: BillSelect | null
+}
+
+
+
+/**
+ * Model BillRow
+ */
+
+export type BillRow = {
+  id: number
+  carId: number | null
+  billId: number | null
+  libelle: string | null
+  price_ht: number | null
+  price_ttc: number | null
+  day_nbr: number | null
+  createdAt: Date | null
+  updatedAt: Date | null
+  deleted: boolean | null
+}
+
+export type BillRowSelect = {
+  id?: boolean
+  carId?: boolean
+  billId?: boolean
+  libelle?: boolean
+  price_ht?: boolean
+  price_ttc?: boolean
+  day_nbr?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deleted?: boolean
+}
+
+export type BillRowGetPayload<
+  S extends boolean | null | undefined | BillRowArgs,
+  U = keyof S
+> = S extends true
+  ? BillRow
+  : S extends undefined
+  ? never
+  : S extends BillRowArgs | FindManyBillRowArgs
+  ? 'include' extends U
+    ? BillRow 
+  : 'select' extends U
+    ? {
+      [P in TrueKeys<S['select']>]:P extends keyof BillRow ? BillRow[P]
+: 
+ never
+    }
+  : BillRow
+: BillRow
+
+
+export interface BillRowDelegate {
+  /**
+   * Find zero or one BillRow.
+   * @param {FindOneBillRowArgs} args - Arguments to find a BillRow
+   * @example
+   * // Get one BillRow
+   * const billRow = await prisma.billRow.findOne({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+  **/
+  findOne<T extends FindOneBillRowArgs>(
+    args: Subset<T, FindOneBillRowArgs>
+  ): CheckSelect<T, BillRowClient<BillRow | null>, BillRowClient<BillRowGetPayload<T> | null>>
+  /**
+   * Find zero or more BillRows.
+   * @param {FindManyBillRowArgs=} args - Arguments to filter and select certain fields only.
+   * @example
+   * // Get all BillRows
+   * const billRows = await prisma.billRow.findMany()
+   * 
+   * // Get first 10 BillRows
+   * const billRows = await prisma.billRow.findMany({ first: 10 })
+   * 
+   * // Only select the `id`
+   * const billRowWithIdOnly = await prisma.billRow.findMany({ select: { id: true } })
+   * 
+  **/
+  findMany<T extends FindManyBillRowArgs>(
+    args?: Subset<T, FindManyBillRowArgs>
+  ): CheckSelect<T, Promise<Array<BillRow>>, Promise<Array<BillRowGetPayload<T>>>>
+  /**
+   * Create a BillRow.
+   * @param {BillRowCreateArgs} args - Arguments to create a BillRow.
+   * @example
+   * // Create one BillRow
+   * const user = await prisma.billRow.create({
+   *   data: {
+   *     // ... data to create a BillRow
+   *   }
+   * })
+   * 
+  **/
+  create<T extends BillRowCreateArgs>(
+    args: Subset<T, BillRowCreateArgs>
+  ): CheckSelect<T, BillRowClient<BillRow>, BillRowClient<BillRowGetPayload<T>>>
+  /**
+   * Delete a BillRow.
+   * @param {BillRowDeleteArgs} args - Arguments to delete one BillRow.
+   * @example
+   * // Delete one BillRow
+   * const user = await prisma.billRow.delete({
+   *   where: {
+   *     // ... filter to delete one BillRow
+   *   }
+   * })
+   * 
+  **/
+  delete<T extends BillRowDeleteArgs>(
+    args: Subset<T, BillRowDeleteArgs>
+  ): CheckSelect<T, BillRowClient<BillRow>, BillRowClient<BillRowGetPayload<T>>>
+  /**
+   * Update one BillRow.
+   * @param {BillRowUpdateArgs} args - Arguments to update one BillRow.
+   * @example
+   * // Update one BillRow
+   * const billRow = await prisma.billRow.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   * 
+  **/
+  update<T extends BillRowUpdateArgs>(
+    args: Subset<T, BillRowUpdateArgs>
+  ): CheckSelect<T, BillRowClient<BillRow>, BillRowClient<BillRowGetPayload<T>>>
+  /**
+   * Delete zero or more BillRows.
+   * @param {BillRowDeleteManyArgs} args - Arguments to filter BillRows to delete.
+   * @example
+   * // Delete a few BillRows
+   * const { count } = await prisma.billRow.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   * 
+  **/
+  deleteMany<T extends BillRowDeleteManyArgs>(
+    args: Subset<T, BillRowDeleteManyArgs>
+  ): Promise<BatchPayload>
+  /**
+   * Update zero or more BillRows.
+   * @param {BillRowUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many BillRows
+   * const billRow = await prisma.billRow.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   * 
+  **/
+  updateMany<T extends BillRowUpdateManyArgs>(
+    args: Subset<T, BillRowUpdateManyArgs>
+  ): Promise<BatchPayload>
+  /**
+   * Create or update one BillRow.
+   * @param {BillRowUpsertArgs} args - Arguments to update or create a BillRow.
+   * @example
+   * // Update or create a BillRow
+   * const billRow = await prisma.billRow.upsert({
+   *   create: {
+   *     // ... data to create a BillRow
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the BillRow we want to update
+   *   }
+   * })
+  **/
+  upsert<T extends BillRowUpsertArgs>(
+    args: Subset<T, BillRowUpsertArgs>
+  ): CheckSelect<T, BillRowClient<BillRow>, BillRowClient<BillRowGetPayload<T>>>
+  /**
+   * 
+   */
+  count(args?: Omit<FindManyBillRowArgs, 'select' | 'include'>): Promise<number>
+}
+
+export declare class BillRowClient<T> implements Promise<T> {
+  private readonly _dmmf;
+  private readonly _fetcher;
+  private readonly _queryType;
+  private readonly _rootField;
+  private readonly _clientMethod;
+  private readonly _args;
+  private readonly _dataPath;
+  private readonly _errorFormat;
+  private readonly _measurePerformance?;
+  private _isList;
+  private _callsite;
+  private _requestPromise?;
+  private _collectTimestamps?;
+  constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+  readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+
+  private get _document();
+  /**
+   * Attaches callbacks for the resolution and/or rejection of the Promise.
+   * @param onfulfilled The callback to execute when the Promise is resolved.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of which ever callback is executed.
+   */
+  then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | Promise<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | Promise<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(onrejected?: ((reason: any) => TResult | Promise<TResult>) | undefined | null): Promise<T | TResult>;
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+}
+
+// Custom InputTypes
+
+/**
+ * BillRow findOne
+ */
+export type FindOneBillRowArgs = {
+  /**
+   * Select specific fields to fetch from the BillRow
+  **/
+  select?: BillRowSelect | null
+  /**
+   * Filter, which BillRow to fetch.
+  **/
+  where: BillRowWhereUniqueInput
+}
+
+
+/**
+ * BillRow findMany
+ */
+export type FindManyBillRowArgs = {
+  /**
+   * Select specific fields to fetch from the BillRow
+  **/
+  select?: BillRowSelect | null
+  /**
+   * Filter, which BillRows to fetch.
+  **/
+  where?: BillRowWhereInput | null
+  /**
+   * Determine the order of the BillRows to fetch.
+  **/
+  orderBy?: BillRowOrderByInput | null
+  /**
+   * Skip the first `n` BillRows.
+  **/
+  skip?: number | null
+  /**
+   * Get all BillRows that come after the BillRow you provide with the current order.
+  **/
+  after?: BillRowWhereUniqueInput | null
+  /**
+   * Get all BillRows that come before the BillRow you provide with the current order.
+  **/
+  before?: BillRowWhereUniqueInput | null
+  /**
+   * Get the first `n` BillRows.
+  **/
+  first?: number | null
+  /**
+   * Get the last `n` BillRows.
+  **/
+  last?: number | null
+}
+
+
+/**
+ * BillRow create
+ */
+export type BillRowCreateArgs = {
+  /**
+   * Select specific fields to fetch from the BillRow
+  **/
+  select?: BillRowSelect | null
+  /**
+   * The data needed to create a BillRow.
+  **/
+  data: BillRowCreateInput
+}
+
+
+/**
+ * BillRow update
+ */
+export type BillRowUpdateArgs = {
+  /**
+   * Select specific fields to fetch from the BillRow
+  **/
+  select?: BillRowSelect | null
+  /**
+   * The data needed to update a BillRow.
+  **/
+  data: BillRowUpdateInput
+  /**
+   * Choose, which BillRow to update.
+  **/
+  where: BillRowWhereUniqueInput
+}
+
+
+/**
+ * BillRow updateMany
+ */
+export type BillRowUpdateManyArgs = {
+  data: BillRowUpdateManyMutationInput
+  where?: BillRowWhereInput | null
+}
+
+
+/**
+ * BillRow upsert
+ */
+export type BillRowUpsertArgs = {
+  /**
+   * Select specific fields to fetch from the BillRow
+  **/
+  select?: BillRowSelect | null
+  /**
+   * The filter to search for the BillRow to update in case it exists.
+  **/
+  where: BillRowWhereUniqueInput
+  /**
+   * In case the BillRow found by the `where` argument doesn't exist, create a new BillRow with this data.
+  **/
+  create: BillRowCreateInput
+  /**
+   * In case the BillRow was found with the provided `where` argument, update it with this data.
+  **/
+  update: BillRowUpdateInput
+}
+
+
+/**
+ * BillRow delete
+ */
+export type BillRowDeleteArgs = {
+  /**
+   * Select specific fields to fetch from the BillRow
+  **/
+  select?: BillRowSelect | null
+  /**
+   * Filter which BillRow to delete.
+  **/
+  where: BillRowWhereUniqueInput
+}
+
+
+/**
+ * BillRow deleteMany
+ */
+export type BillRowDeleteManyArgs = {
+  where?: BillRowWhereInput | null
+}
+
+
+/**
+ * BillRow without action
+ */
+export type BillRowArgs = {
+  /**
+   * Select specific fields to fetch from the BillRow
+  **/
+  select?: BillRowSelect | null
 }
 
 
@@ -2774,6 +3187,7 @@ export type Car = {
   chassis_number: string | null
   statusId: number | null
   deleted: boolean | null
+  scanned_grey_card: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -2791,6 +3205,7 @@ export type CarSelect = {
   chassis_number?: boolean
   statusId?: boolean
   deleted?: boolean
+  scanned_grey_card?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
@@ -3908,6 +4323,7 @@ export type Car_insurance = {
   insuranceId: number | null
   date_begin: Date | null
   date_end: Date | null
+  scanned_car_insurance: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deleted: boolean | null
@@ -3919,6 +4335,7 @@ export type Car_insuranceSelect = {
   insuranceId?: boolean
   date_begin?: boolean
   date_end?: boolean
+  scanned_car_insurance?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deleted?: boolean
@@ -5050,6 +5467,7 @@ export type Customer = {
   cni: string | null
   type: number | null
   driver_license: string | null
+  scanned_driver_license: string | null
   city: string | null
   address: string | null
   email: string
@@ -5069,6 +5487,7 @@ export type CustomerSelect = {
   cni?: boolean
   type?: boolean
   driver_license?: boolean
+  scanned_driver_license?: boolean
   city?: boolean
   address?: boolean
   email?: boolean
@@ -6189,6 +6608,379 @@ export type InsuranceArgs = {
 
 
 /**
+ * Model Payment_method
+ */
+
+export type Payment_method = {
+  id: number
+  title: string | null
+  deleted: boolean | null
+}
+
+export type Payment_methodSelect = {
+  id?: boolean
+  title?: boolean
+  deleted?: boolean
+}
+
+export type Payment_methodGetPayload<
+  S extends boolean | null | undefined | Payment_methodArgs,
+  U = keyof S
+> = S extends true
+  ? Payment_method
+  : S extends undefined
+  ? never
+  : S extends Payment_methodArgs | FindManyPayment_methodArgs
+  ? 'include' extends U
+    ? Payment_method 
+  : 'select' extends U
+    ? {
+      [P in TrueKeys<S['select']>]:P extends keyof Payment_method ? Payment_method[P]
+: 
+ never
+    }
+  : Payment_method
+: Payment_method
+
+
+export interface Payment_methodDelegate {
+  /**
+   * Find zero or one Payment_method.
+   * @param {FindOnePayment_methodArgs} args - Arguments to find a Payment_method
+   * @example
+   * // Get one Payment_method
+   * const payment_method = await prisma.payment_method.findOne({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+  **/
+  findOne<T extends FindOnePayment_methodArgs>(
+    args: Subset<T, FindOnePayment_methodArgs>
+  ): CheckSelect<T, Payment_methodClient<Payment_method | null>, Payment_methodClient<Payment_methodGetPayload<T> | null>>
+  /**
+   * Find zero or more Payment_methods.
+   * @param {FindManyPayment_methodArgs=} args - Arguments to filter and select certain fields only.
+   * @example
+   * // Get all Payment_methods
+   * const payment_methods = await prisma.payment_method.findMany()
+   * 
+   * // Get first 10 Payment_methods
+   * const payment_methods = await prisma.payment_method.findMany({ first: 10 })
+   * 
+   * // Only select the `id`
+   * const payment_methodWithIdOnly = await prisma.payment_method.findMany({ select: { id: true } })
+   * 
+  **/
+  findMany<T extends FindManyPayment_methodArgs>(
+    args?: Subset<T, FindManyPayment_methodArgs>
+  ): CheckSelect<T, Promise<Array<Payment_method>>, Promise<Array<Payment_methodGetPayload<T>>>>
+  /**
+   * Create a Payment_method.
+   * @param {Payment_methodCreateArgs} args - Arguments to create a Payment_method.
+   * @example
+   * // Create one Payment_method
+   * const user = await prisma.payment_method.create({
+   *   data: {
+   *     // ... data to create a Payment_method
+   *   }
+   * })
+   * 
+  **/
+  create<T extends Payment_methodCreateArgs>(
+    args: Subset<T, Payment_methodCreateArgs>
+  ): CheckSelect<T, Payment_methodClient<Payment_method>, Payment_methodClient<Payment_methodGetPayload<T>>>
+  /**
+   * Delete a Payment_method.
+   * @param {Payment_methodDeleteArgs} args - Arguments to delete one Payment_method.
+   * @example
+   * // Delete one Payment_method
+   * const user = await prisma.payment_method.delete({
+   *   where: {
+   *     // ... filter to delete one Payment_method
+   *   }
+   * })
+   * 
+  **/
+  delete<T extends Payment_methodDeleteArgs>(
+    args: Subset<T, Payment_methodDeleteArgs>
+  ): CheckSelect<T, Payment_methodClient<Payment_method>, Payment_methodClient<Payment_methodGetPayload<T>>>
+  /**
+   * Update one Payment_method.
+   * @param {Payment_methodUpdateArgs} args - Arguments to update one Payment_method.
+   * @example
+   * // Update one Payment_method
+   * const payment_method = await prisma.payment_method.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   * 
+  **/
+  update<T extends Payment_methodUpdateArgs>(
+    args: Subset<T, Payment_methodUpdateArgs>
+  ): CheckSelect<T, Payment_methodClient<Payment_method>, Payment_methodClient<Payment_methodGetPayload<T>>>
+  /**
+   * Delete zero or more Payment_methods.
+   * @param {Payment_methodDeleteManyArgs} args - Arguments to filter Payment_methods to delete.
+   * @example
+   * // Delete a few Payment_methods
+   * const { count } = await prisma.payment_method.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   * 
+  **/
+  deleteMany<T extends Payment_methodDeleteManyArgs>(
+    args: Subset<T, Payment_methodDeleteManyArgs>
+  ): Promise<BatchPayload>
+  /**
+   * Update zero or more Payment_methods.
+   * @param {Payment_methodUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many Payment_methods
+   * const payment_method = await prisma.payment_method.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provide data here
+   *   }
+   * })
+   * 
+  **/
+  updateMany<T extends Payment_methodUpdateManyArgs>(
+    args: Subset<T, Payment_methodUpdateManyArgs>
+  ): Promise<BatchPayload>
+  /**
+   * Create or update one Payment_method.
+   * @param {Payment_methodUpsertArgs} args - Arguments to update or create a Payment_method.
+   * @example
+   * // Update or create a Payment_method
+   * const payment_method = await prisma.payment_method.upsert({
+   *   create: {
+   *     // ... data to create a Payment_method
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the Payment_method we want to update
+   *   }
+   * })
+  **/
+  upsert<T extends Payment_methodUpsertArgs>(
+    args: Subset<T, Payment_methodUpsertArgs>
+  ): CheckSelect<T, Payment_methodClient<Payment_method>, Payment_methodClient<Payment_methodGetPayload<T>>>
+  /**
+   * 
+   */
+  count(args?: Omit<FindManyPayment_methodArgs, 'select' | 'include'>): Promise<number>
+}
+
+export declare class Payment_methodClient<T> implements Promise<T> {
+  private readonly _dmmf;
+  private readonly _fetcher;
+  private readonly _queryType;
+  private readonly _rootField;
+  private readonly _clientMethod;
+  private readonly _args;
+  private readonly _dataPath;
+  private readonly _errorFormat;
+  private readonly _measurePerformance?;
+  private _isList;
+  private _callsite;
+  private _requestPromise?;
+  private _collectTimestamps?;
+  constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+  readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+
+  private get _document();
+  /**
+   * Attaches callbacks for the resolution and/or rejection of the Promise.
+   * @param onfulfilled The callback to execute when the Promise is resolved.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of which ever callback is executed.
+   */
+  then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | Promise<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | Promise<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(onrejected?: ((reason: any) => TResult | Promise<TResult>) | undefined | null): Promise<T | TResult>;
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+}
+
+// Custom InputTypes
+
+/**
+ * Payment_method findOne
+ */
+export type FindOnePayment_methodArgs = {
+  /**
+   * Select specific fields to fetch from the Payment_method
+  **/
+  select?: Payment_methodSelect | null
+  /**
+   * Filter, which Payment_method to fetch.
+  **/
+  where: Payment_methodWhereUniqueInput
+}
+
+
+/**
+ * Payment_method findMany
+ */
+export type FindManyPayment_methodArgs = {
+  /**
+   * Select specific fields to fetch from the Payment_method
+  **/
+  select?: Payment_methodSelect | null
+  /**
+   * Filter, which Payment_methods to fetch.
+  **/
+  where?: Payment_methodWhereInput | null
+  /**
+   * Determine the order of the Payment_methods to fetch.
+  **/
+  orderBy?: Payment_methodOrderByInput | null
+  /**
+   * Skip the first `n` Payment_methods.
+  **/
+  skip?: number | null
+  /**
+   * Get all Payment_methods that come after the Payment_method you provide with the current order.
+  **/
+  after?: Payment_methodWhereUniqueInput | null
+  /**
+   * Get all Payment_methods that come before the Payment_method you provide with the current order.
+  **/
+  before?: Payment_methodWhereUniqueInput | null
+  /**
+   * Get the first `n` Payment_methods.
+  **/
+  first?: number | null
+  /**
+   * Get the last `n` Payment_methods.
+  **/
+  last?: number | null
+}
+
+
+/**
+ * Payment_method create
+ */
+export type Payment_methodCreateArgs = {
+  /**
+   * Select specific fields to fetch from the Payment_method
+  **/
+  select?: Payment_methodSelect | null
+  /**
+   * The data needed to create a Payment_method.
+  **/
+  data: Payment_methodCreateInput
+}
+
+
+/**
+ * Payment_method update
+ */
+export type Payment_methodUpdateArgs = {
+  /**
+   * Select specific fields to fetch from the Payment_method
+  **/
+  select?: Payment_methodSelect | null
+  /**
+   * The data needed to update a Payment_method.
+  **/
+  data: Payment_methodUpdateInput
+  /**
+   * Choose, which Payment_method to update.
+  **/
+  where: Payment_methodWhereUniqueInput
+}
+
+
+/**
+ * Payment_method updateMany
+ */
+export type Payment_methodUpdateManyArgs = {
+  data: Payment_methodUpdateManyMutationInput
+  where?: Payment_methodWhereInput | null
+}
+
+
+/**
+ * Payment_method upsert
+ */
+export type Payment_methodUpsertArgs = {
+  /**
+   * Select specific fields to fetch from the Payment_method
+  **/
+  select?: Payment_methodSelect | null
+  /**
+   * The filter to search for the Payment_method to update in case it exists.
+  **/
+  where: Payment_methodWhereUniqueInput
+  /**
+   * In case the Payment_method found by the `where` argument doesn't exist, create a new Payment_method with this data.
+  **/
+  create: Payment_methodCreateInput
+  /**
+   * In case the Payment_method was found with the provided `where` argument, update it with this data.
+  **/
+  update: Payment_methodUpdateInput
+}
+
+
+/**
+ * Payment_method delete
+ */
+export type Payment_methodDeleteArgs = {
+  /**
+   * Select specific fields to fetch from the Payment_method
+  **/
+  select?: Payment_methodSelect | null
+  /**
+   * Filter which Payment_method to delete.
+  **/
+  where: Payment_methodWhereUniqueInput
+}
+
+
+/**
+ * Payment_method deleteMany
+ */
+export type Payment_methodDeleteManyArgs = {
+  where?: Payment_methodWhereInput | null
+}
+
+
+/**
+ * Payment_method without action
+ */
+export type Payment_methodArgs = {
+  /**
+   * Select specific fields to fetch from the Payment_method
+  **/
+  select?: Payment_methodSelect | null
+}
+
+
+
+/**
  * Model Rental
  */
 
@@ -6198,9 +6990,12 @@ export type Rental = {
   carId: number | null
   customerId: number | null
   second_driverId: number | null
+  billId: number | null
   date_begin: Date | null
   date_end: Date | null
   comment: string | null
+  montant_avance: number | null
+  scanned_contract: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deleted: boolean | null
@@ -6212,9 +7007,12 @@ export type RentalSelect = {
   carId?: boolean
   customerId?: boolean
   second_driverId?: boolean
+  billId?: boolean
   date_begin?: boolean
   date_end?: boolean
   comment?: boolean
+  montant_avance?: boolean
+  scanned_contract?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deleted?: boolean
@@ -7332,6 +8130,7 @@ export type Technical_control = {
   carId: number
   date_begin: Date | null
   date_end: Date | null
+  scanned_technical_control: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deleted: boolean | null
@@ -7342,6 +8141,7 @@ export type Technical_controlSelect = {
   carId?: boolean
   date_begin?: boolean
   date_end?: boolean
+  scanned_technical_control?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deleted?: boolean
@@ -8157,8 +8957,11 @@ export type Before_rentalWhereUniqueInput = {
 
 export type BillWhereInput = {
   id?: number | IntFilter | null
-  bill_number?: string | NullableStringFilter | null
-  bill_date?: Date | string | NullableDateTimeFilter | null
+  rentalId?: number | NullableIntFilter | null
+  customerId?: number | NullableIntFilter | null
+  paymentMethodId?: number | NullableIntFilter | null
+  total_ht?: number | NullableFloatFilter | null
+  total_ttc?: number | NullableFloatFilter | null
   createdAt?: Date | string | NullableDateTimeFilter | null
   updatedAt?: Date | string | NullableDateTimeFilter | null
   deleted?: boolean | NullableBooleanFilter | null
@@ -8168,6 +8971,26 @@ export type BillWhereInput = {
 }
 
 export type BillWhereUniqueInput = {
+  id?: number | null
+}
+
+export type BillRowWhereInput = {
+  id?: number | IntFilter | null
+  carId?: number | NullableIntFilter | null
+  billId?: number | NullableIntFilter | null
+  libelle?: string | NullableStringFilter | null
+  price_ht?: number | NullableFloatFilter | null
+  price_ttc?: number | NullableFloatFilter | null
+  day_nbr?: number | NullableIntFilter | null
+  createdAt?: Date | string | NullableDateTimeFilter | null
+  updatedAt?: Date | string | NullableDateTimeFilter | null
+  deleted?: boolean | NullableBooleanFilter | null
+  AND?: Enumerable<BillRowWhereInput> | null
+  OR?: Enumerable<BillRowWhereInput> | null
+  NOT?: Enumerable<BillRowWhereInput> | null
+}
+
+export type BillRowWhereUniqueInput = {
   id?: number | null
 }
 
@@ -8217,6 +9040,7 @@ export type CarWhereInput = {
   chassis_number?: string | NullableStringFilter | null
   statusId?: number | NullableIntFilter | null
   deleted?: boolean | NullableBooleanFilter | null
+  scanned_grey_card?: string | NullableStringFilter | null
   createdAt?: Date | string | NullableDateTimeFilter | null
   updatedAt?: Date | string | NullableDateTimeFilter | null
   AND?: Enumerable<CarWhereInput> | null
@@ -8260,6 +9084,7 @@ export type Car_insuranceWhereInput = {
   insuranceId?: number | NullableIntFilter | null
   date_begin?: Date | string | NullableDateTimeFilter | null
   date_end?: Date | string | NullableDateTimeFilter | null
+  scanned_car_insurance?: string | NullableStringFilter | null
   createdAt?: Date | string | NullableDateTimeFilter | null
   updatedAt?: Date | string | NullableDateTimeFilter | null
   deleted?: boolean | NullableBooleanFilter | null
@@ -8312,6 +9137,7 @@ export type CustomerWhereInput = {
   cni?: string | NullableStringFilter | null
   type?: number | NullableIntFilter | null
   driver_license?: string | NullableStringFilter | null
+  scanned_driver_license?: string | NullableStringFilter | null
   city?: string | NullableStringFilter | null
   address?: string | NullableStringFilter | null
   email?: string | StringFilter | null
@@ -8358,15 +9184,31 @@ export type InsuranceWhereUniqueInput = {
   id?: number | null
 }
 
+export type Payment_methodWhereInput = {
+  id?: number | IntFilter | null
+  title?: string | NullableStringFilter | null
+  deleted?: boolean | NullableBooleanFilter | null
+  AND?: Enumerable<Payment_methodWhereInput> | null
+  OR?: Enumerable<Payment_methodWhereInput> | null
+  NOT?: Enumerable<Payment_methodWhereInput> | null
+}
+
+export type Payment_methodWhereUniqueInput = {
+  id?: number | null
+}
+
 export type RentalWhereInput = {
   id?: number | IntFilter | null
   bookingId?: number | NullableIntFilter | null
   carId?: number | NullableIntFilter | null
   customerId?: number | NullableIntFilter | null
   second_driverId?: number | NullableIntFilter | null
+  billId?: number | NullableIntFilter | null
   date_begin?: Date | string | NullableDateTimeFilter | null
   date_end?: Date | string | NullableDateTimeFilter | null
   comment?: string | NullableStringFilter | null
+  montant_avance?: number | NullableIntFilter | null
+  scanned_contract?: string | NullableStringFilter | null
   createdAt?: Date | string | NullableDateTimeFilter | null
   updatedAt?: Date | string | NullableDateTimeFilter | null
   deleted?: boolean | NullableBooleanFilter | null
@@ -8410,6 +9252,7 @@ export type Technical_controlWhereInput = {
   carId?: number | IntFilter | null
   date_begin?: Date | string | NullableDateTimeFilter | null
   date_end?: Date | string | NullableDateTimeFilter | null
+  scanned_technical_control?: string | NullableStringFilter | null
   createdAt?: Date | string | NullableDateTimeFilter | null
   updatedAt?: Date | string | NullableDateTimeFilter | null
   deleted?: boolean | NullableBooleanFilter | null
@@ -8539,8 +9382,11 @@ export type Before_rentalUpdateManyMutationInput = {
 }
 
 export type BillCreateInput = {
-  bill_number?: string | null
-  bill_date?: Date | string | null
+  rentalId?: number | null
+  customerId?: number | null
+  paymentMethodId?: number | null
+  total_ht?: number | null
+  total_ttc?: number | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
@@ -8548,8 +9394,11 @@ export type BillCreateInput = {
 
 export type BillUpdateInput = {
   id?: number | null
-  bill_number?: string | null
-  bill_date?: Date | string | null
+  rentalId?: number | null
+  customerId?: number | null
+  paymentMethodId?: number | null
+  total_ht?: number | null
+  total_ttc?: number | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
@@ -8557,8 +9406,49 @@ export type BillUpdateInput = {
 
 export type BillUpdateManyMutationInput = {
   id?: number | null
-  bill_number?: string | null
-  bill_date?: Date | string | null
+  rentalId?: number | null
+  customerId?: number | null
+  paymentMethodId?: number | null
+  total_ht?: number | null
+  total_ttc?: number | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deleted?: boolean | null
+}
+
+export type BillRowCreateInput = {
+  carId?: number | null
+  billId?: number | null
+  libelle?: string | null
+  price_ht?: number | null
+  price_ttc?: number | null
+  day_nbr?: number | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deleted?: boolean | null
+}
+
+export type BillRowUpdateInput = {
+  id?: number | null
+  carId?: number | null
+  billId?: number | null
+  libelle?: string | null
+  price_ht?: number | null
+  price_ttc?: number | null
+  day_nbr?: number | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deleted?: boolean | null
+}
+
+export type BillRowUpdateManyMutationInput = {
+  id?: number | null
+  carId?: number | null
+  billId?: number | null
+  libelle?: string | null
+  price_ht?: number | null
+  price_ttc?: number | null
+  day_nbr?: number | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
@@ -8631,6 +9521,7 @@ export type CarCreateInput = {
   chassis_number?: string | null
   statusId?: number | null
   deleted?: boolean | null
+  scanned_grey_card?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
 }
@@ -8648,6 +9539,7 @@ export type CarUpdateInput = {
   chassis_number?: string | null
   statusId?: number | null
   deleted?: boolean | null
+  scanned_grey_card?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
 }
@@ -8665,6 +9557,7 @@ export type CarUpdateManyMutationInput = {
   chassis_number?: string | null
   statusId?: number | null
   deleted?: boolean | null
+  scanned_grey_card?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
 }
@@ -8708,6 +9601,7 @@ export type Car_insuranceCreateInput = {
   insuranceId?: number | null
   date_begin?: Date | string | null
   date_end?: Date | string | null
+  scanned_car_insurance?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
@@ -8719,6 +9613,7 @@ export type Car_insuranceUpdateInput = {
   insuranceId?: number | null
   date_begin?: Date | string | null
   date_end?: Date | string | null
+  scanned_car_insurance?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
@@ -8730,6 +9625,7 @@ export type Car_insuranceUpdateManyMutationInput = {
   insuranceId?: number | null
   date_begin?: Date | string | null
   date_end?: Date | string | null
+  scanned_car_insurance?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
@@ -8792,6 +9688,7 @@ export type CustomerCreateInput = {
   cni?: string | null
   type?: number | null
   driver_license?: string | null
+  scanned_driver_license?: string | null
   city?: string | null
   address?: string | null
   email: string
@@ -8811,6 +9708,7 @@ export type CustomerUpdateInput = {
   cni?: string | null
   type?: number | null
   driver_license?: string | null
+  scanned_driver_license?: string | null
   city?: string | null
   address?: string | null
   email?: string | null
@@ -8830,6 +9728,7 @@ export type CustomerUpdateManyMutationInput = {
   cni?: string | null
   type?: number | null
   driver_license?: string | null
+  scanned_driver_license?: string | null
   city?: string | null
   address?: string | null
   email?: string | null
@@ -8883,14 +9782,34 @@ export type InsuranceUpdateManyMutationInput = {
   deleted?: boolean | null
 }
 
+export type Payment_methodCreateInput = {
+  title?: string | null
+  deleted?: boolean | null
+}
+
+export type Payment_methodUpdateInput = {
+  id?: number | null
+  title?: string | null
+  deleted?: boolean | null
+}
+
+export type Payment_methodUpdateManyMutationInput = {
+  id?: number | null
+  title?: string | null
+  deleted?: boolean | null
+}
+
 export type RentalCreateInput = {
   bookingId?: number | null
   carId?: number | null
   customerId?: number | null
   second_driverId?: number | null
+  billId?: number | null
   date_begin?: Date | string | null
   date_end?: Date | string | null
   comment?: string | null
+  montant_avance?: number | null
+  scanned_contract?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
@@ -8902,9 +9821,12 @@ export type RentalUpdateInput = {
   carId?: number | null
   customerId?: number | null
   second_driverId?: number | null
+  billId?: number | null
   date_begin?: Date | string | null
   date_end?: Date | string | null
   comment?: string | null
+  montant_avance?: number | null
+  scanned_contract?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
@@ -8916,9 +9838,12 @@ export type RentalUpdateManyMutationInput = {
   carId?: number | null
   customerId?: number | null
   second_driverId?: number | null
+  billId?: number | null
   date_begin?: Date | string | null
   date_end?: Date | string | null
   comment?: string | null
+  montant_avance?: number | null
+  scanned_contract?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
@@ -8962,6 +9887,7 @@ export type Technical_controlCreateInput = {
   carId: number
   date_begin?: Date | string | null
   date_end?: Date | string | null
+  scanned_technical_control?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
@@ -8972,6 +9898,7 @@ export type Technical_controlUpdateInput = {
   carId?: number | null
   date_begin?: Date | string | null
   date_end?: Date | string | null
+  scanned_technical_control?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
@@ -8982,6 +9909,7 @@ export type Technical_controlUpdateManyMutationInput = {
   carId?: number | null
   date_begin?: Date | string | null
   date_end?: Date | string | null
+  scanned_technical_control?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deleted?: boolean | null
@@ -9086,6 +10014,17 @@ export type NullableBooleanFilter = {
   not?: boolean | null | NullableBooleanFilter
 }
 
+export type NullableFloatFilter = {
+  equals?: number | null
+  not?: number | null | NullableFloatFilter
+  in?: Enumerable<number> | null
+  notIn?: Enumerable<number> | null
+  lt?: number | null
+  lte?: number | null
+  gt?: number | null
+  gte?: number | null
+}
+
 export type StringFilter = {
   equals?: string | null
   not?: string | StringFilter | null
@@ -9134,8 +10073,24 @@ export type Before_rentalOrderByInput = {
 
 export type BillOrderByInput = {
   id?: OrderByArg | null
-  bill_number?: OrderByArg | null
-  bill_date?: OrderByArg | null
+  rentalId?: OrderByArg | null
+  customerId?: OrderByArg | null
+  paymentMethodId?: OrderByArg | null
+  total_ht?: OrderByArg | null
+  total_ttc?: OrderByArg | null
+  createdAt?: OrderByArg | null
+  updatedAt?: OrderByArg | null
+  deleted?: OrderByArg | null
+}
+
+export type BillRowOrderByInput = {
+  id?: OrderByArg | null
+  carId?: OrderByArg | null
+  billId?: OrderByArg | null
+  libelle?: OrderByArg | null
+  price_ht?: OrderByArg | null
+  price_ttc?: OrderByArg | null
+  day_nbr?: OrderByArg | null
   createdAt?: OrderByArg | null
   updatedAt?: OrderByArg | null
   deleted?: OrderByArg | null
@@ -9173,6 +10128,7 @@ export type CarOrderByInput = {
   chassis_number?: OrderByArg | null
   statusId?: OrderByArg | null
   deleted?: OrderByArg | null
+  scanned_grey_card?: OrderByArg | null
   createdAt?: OrderByArg | null
   updatedAt?: OrderByArg | null
 }
@@ -9195,6 +10151,7 @@ export type Car_insuranceOrderByInput = {
   insuranceId?: OrderByArg | null
   date_begin?: OrderByArg | null
   date_end?: OrderByArg | null
+  scanned_car_insurance?: OrderByArg | null
   createdAt?: OrderByArg | null
   updatedAt?: OrderByArg | null
   deleted?: OrderByArg | null
@@ -9226,6 +10183,7 @@ export type CustomerOrderByInput = {
   cni?: OrderByArg | null
   type?: OrderByArg | null
   driver_license?: OrderByArg | null
+  scanned_driver_license?: OrderByArg | null
   city?: OrderByArg | null
   address?: OrderByArg | null
   email?: OrderByArg | null
@@ -9251,15 +10209,24 @@ export type InsuranceOrderByInput = {
   deleted?: OrderByArg | null
 }
 
+export type Payment_methodOrderByInput = {
+  id?: OrderByArg | null
+  title?: OrderByArg | null
+  deleted?: OrderByArg | null
+}
+
 export type RentalOrderByInput = {
   id?: OrderByArg | null
   bookingId?: OrderByArg | null
   carId?: OrderByArg | null
   customerId?: OrderByArg | null
   second_driverId?: OrderByArg | null
+  billId?: OrderByArg | null
   date_begin?: OrderByArg | null
   date_end?: OrderByArg | null
   comment?: OrderByArg | null
+  montant_avance?: OrderByArg | null
+  scanned_contract?: OrderByArg | null
   createdAt?: OrderByArg | null
   updatedAt?: OrderByArg | null
   deleted?: OrderByArg | null
@@ -9282,6 +10249,7 @@ export type Technical_controlOrderByInput = {
   carId?: OrderByArg | null
   date_begin?: OrderByArg | null
   date_end?: OrderByArg | null
+  scanned_technical_control?: OrderByArg | null
   createdAt?: OrderByArg | null
   updatedAt?: OrderByArg | null
   deleted?: OrderByArg | null

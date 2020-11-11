@@ -48,8 +48,9 @@ model Bill {
   id              Int       @default(autoincrement()) @id
   rentalId Int?
   customerId Int?
-  bill_number     String?
-  bill_date       DateTime?
+  paymentMethodId Int?
+  total_ht  Float?
+  total_ttc Float?
   createdAt        DateTime? @default(now())
   updatedAt        DateTime?  @updatedAt
   deleted Boolean?
@@ -61,8 +62,8 @@ model BillRow {
   carId           Int?
   billId          Int?
   libelle         String?
-  price_ht        Int?
-  price_ttc       Int?
+  price_ht        Float?
+  price_ttc       Float?
   day_nbr         Int?
   createdAt        DateTime? @default(now())
   updatedAt        DateTime?  @updatedAt
@@ -194,15 +195,24 @@ model Insurance {
   @@map("insurances")
 }
 
+model Payment_method{
+  id    Int       @default(autoincrement()) @id
+  title String?
+  deleted Boolean?
+  @@map("payment_methods")
+}
+
 model Rental {
   id                 Int       @default(autoincrement()) @id
   bookingId          Int?
   carId              Int?
   customerId         Int?
   second_driverId    Int?
+  billId             Int?
   date_begin         DateTime?
   date_end           DateTime?
   comment          String?
+  montant_avance  Int?
   scanned_contract String?
   createdAt        DateTime? @default(now())
   updatedAt        DateTime?  @updatedAt
