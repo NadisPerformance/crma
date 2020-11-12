@@ -120,6 +120,7 @@ type Mutation {
   deleteBeforeRental(id:ID!): Response
   createRental(data:RentalInput!): Rental!
   updateRental(data:RentalInput!, id:ID!): Rental!
+  convertBookingToRental(id:ID!): Rental!
   deleteRental(id:ID!): Response
   createTechnicalControl(data:Technical_controlInput!): Technical_control!
   updateTechnicalControl(data:Technical_controlInput!, id:ID!): Technical_control!

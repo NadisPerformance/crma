@@ -3,7 +3,7 @@ var haml = require('hamljs');
 var pdf = require('html-pdf');
 
 async function generateBill(res,bill){
-  var hamlView = fs.readFileSync(__dirname+ '/contract.js', 'utf8');
+  var hamlView = fs.readFileSync(__dirname+ '/bill.js', 'utf8');
   //res.setHeader('content-type', 'application/pdf');
   //res.setHeader('Content-Disposition', 'attachment; filename=contract_'+bill.id+'.pdf');
 

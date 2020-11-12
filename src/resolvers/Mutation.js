@@ -392,6 +392,21 @@ async function createRental(parent, {data}, context, info) {
   }
   return context.prisma.rental.create({data:data})
 }
+async function convertBookingToRental(parent, {id}, context, info) {
+  const booking = await context.prisma.booking.findOne({
+         where:{id: parseInt(id)}
+        })
+  var rental = {
+    bookingId: booking.id,
+    date_begin: booking.date_begin,
+    date_end: booking.date_end,
+    customerId: booking.customerId,
+    carId: booking.carId,
+    montant_avance: booking.montant_avance,
+    comment: booking.comment
+  }
+  return context.prisma.rental.create({data:rental})
+}
 async function updateRental(parent, {data,id}, context, info) {
   if(data.scanned_contract_file) {
     data.scanned_contract = await storeUpload(data.scanned_contract_file, rentalsDir)
@@ -402,6 +417,7 @@ async function updateRental(parent, {data,id}, context, info) {
                 id: id *1
               }})
 }
+
 async function deleteRental(parent, {id}, context, info) {
    var data={deleted:true}
    await context.prisma.rental.update({data:data,
@@ -545,6 +561,7 @@ module.exports = {
   deleteAlbum,
   createRental,
   updateRental,
+  convertBookingToRental,
   deleteRental,
   createBeforeRental,
   updateBeforeRental,

@@ -3,6 +3,7 @@ const { AuthenticationError } = require("apollo-server");
 const path = require('path');
 const express= require('express')
 const { generateContract } = require('./helpers/contractToPdf')
+const { generateBill} = require('./helpers/billToPdf')
 //const { prisma } = require('./generated/prisma-client')
 const { PrismaClient }= require('./prisma-client') ;
 const prisma = new PrismaClient()
@@ -124,16 +125,16 @@ server.express.get("/contracts/download", async function(req, res) {
 server.express.get("/bills/download", async function(req, res) {
 if(!req.query.billId)
   return res.send("bill id not given")
-  let billId = req.query.rentalId
-  prisma.rental.findOne({
+  let billId = req.query.billId
+  prisma.bill.findOne({
      where:{id: parseInt(billId) }
    }).then(async (bill)=>{
     if(!bill)
       return res.send("bill not found")
-    bill.date_begin = moment(bill.date_begin).format("DD/MM/YYYY")
-    bill.date_end = moment(bill.date_end).format("DD/MM/YYYY")
+    bill.createdAt = moment(bill.createdAt).format("DD/MM/YYYY")
     bill.rental = await prisma.rental.findOne({where:{id:bill.rentalId}})
     bill.customer = await prisma.customer.findOne({where:{id:bill.customerId}})
+    bill.rows = await prisma.billRow.findMany({where:{billId:bill.id}})
     console.log(bill)
     generateBill(res,bill) ;
   })
