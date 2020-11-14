@@ -1,8 +1,7 @@
-directive @isAdmin on FIELD_DEFINITION
+directive @hasRole(roles: [String!]) on FIELD_DEFINITION
 
 scalar DateTime
 scalar Upload
-
 type Query {
   hello: String
   me: User
@@ -12,8 +11,8 @@ type Query {
   album(id:ID!): Album
   albums(where: AlbumWhereInput, orderBy: AlbumOrderByInput, page: Int, limit: Int): AlbumConnection!
 
-  car(id:ID!): Car
-  cars(where: CarWhereInput, orderBy:CarOrderByInput, page: Int, limit: Int): CarConnection!
+  car(id:ID!): Car @hasRole(roles:"ADMIN")
+  cars(where: CarWhereInput, orderBy:CarOrderByInput, page: Int, limit: Int): CarConnection! @hasRole(roles:["ADMIN"])
 
   category(id:ID!): Category
   categories(where: CategoryWhereInput, orderBy:CategoryOrderByInput, page: Int, limit: Int): CategoryConnection!
@@ -75,6 +74,9 @@ type Mutation {
   recoverPassword(id: ID!, recover_code:String!, new_password:String!): Response!
   createUser(data:UserInput!): User!
   updateUser(data:UserInput!, id:ID!): User!
+  updateUserPassword(data:UserPasswordInput!, id:ID!): User!
+  updateMyProfile(data:MyProfileInput!): User!
+  updateMyPassword(data:UserPasswordInput!): User!
   deleteUser(id:ID!): Response
   createCustomer(data:CustomerInput!): Customer!
   updateCustomer(data:CustomerInput!, id:ID!): Customer!
@@ -1067,6 +1069,16 @@ input UserInput{
   roleId: Int
   password: String
 }
+
+input MyProfileInput{
+  firstname: String!
+  lastname: String
+  gender: String
+  cni: String
+  address: String
+  phone: String
+}
+
 
 input UserPasswordInput{
   password: String

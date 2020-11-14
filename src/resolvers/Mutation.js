@@ -77,12 +77,19 @@ async function createUser(parent, {data}, context, info) {
 }
 async function updateUser(parent, {data,id}, context, info) {
 
-  return context.prisma.user.update({data:user,
+  return context.prisma.user.update({data:data,
               where: {
                 id: id *1
               }})
 }
 
+async function updateMyProfile(parent, {data}, context, info) {
+  console.log(context.user)
+  return context.prisma.user.update({data:data,
+              where: {
+                id: context.user.id *1
+              }})
+}
 async function updateUserPassword(parent, {data,id}, context, info) {
   let user = data
   if(data.password){
@@ -94,7 +101,17 @@ async function updateUserPassword(parent, {data,id}, context, info) {
                 id: id *1
               }})
 }
-
+async function updateMyPassword(parent, {data}, context, info) {
+  let user = data
+  if(data.password){
+    const hashedPassword = await encryptPassword(data.password)
+    user = { ...data, password: hashedPassword }
+  }
+  return context.prisma.user.update({data:user,
+              where: {
+                id: context.user.id *1
+              }})
+}
 async function deleteUser(parent, {id}, context, info) {
    var data={deleted:true}
    await context.prisma.user.update({data:data,
@@ -525,6 +542,9 @@ module.exports = {
   recoverPassword,
   createUser,
   updateUser,
+  updateUserPassword,
+  updateMyProfile,
+  updateMyPassword,
   deleteUser,
   createCustomer,
   updateCustomer,

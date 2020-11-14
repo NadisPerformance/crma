@@ -7,7 +7,7 @@ class IsAdminDirective extends SchemaDirectiveVisitor {
 
         field.resolve = async function (...args) {
           // extract user from context
-          //console.log(args)
+          console.log(args)
           const { user } = args[2]
           //console.log(user)
           if (!user) {

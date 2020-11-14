@@ -31,7 +31,7 @@ const BookingConnection = require('./resolvers/BookingConnection')
 const RentalConnection = require('./resolvers/RentalConnection')
 const ImageConnection = require('./resolvers/ImageConnection')
 const UserConnection = require('./resolvers/UserConnection')
-const IsAdminDirective = require("./directives/isAdminDirective");
+const hasRoleDirective = require("./directives/hasRoleDirective");
 const LoginResponse = require('./resolvers/LoginResponse')
 const {getPayload} = require('./utils')
 
@@ -93,7 +93,7 @@ const server = new GraphQLServer({
     return { prisma, user, loggedIn };
   },
   schemaDirectives: {
-    isAdmin: IsAdminDirective
+    hasRole: hasRoleDirective
   },
   //middlewares: [authenticate]
 })
